@@ -1,3 +1,9 @@
 Capital gains
 Get rid of SavingsAccountYear initializers
-Clean up _SavingAccountYearTest
+Clean up 
+
+Fix primitive obsession
+Make sure nextYear() is setting all variables properly -- need to carry forward capital gains, for example
+Calculate endingCapitalGains()
+
+Consider what to do about withdrawing more than the starting balance -- assert that this is impossible?

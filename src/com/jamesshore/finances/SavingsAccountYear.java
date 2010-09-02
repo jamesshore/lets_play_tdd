@@ -3,22 +3,13 @@ package com.jamesshore.finances;
 public class SavingsAccountYear {
 
 	private int startingBalance = 0;
-	private int capitalGainsAmount = 0;
 	private int interestRate = 0;
 	private int totalWithdrawn = 0;
 	private int startingPrincipal;
 	
-	public SavingsAccountYear() {}
-	
-	public SavingsAccountYear(int startingBalance, int interestRate) {
-		this.startingBalance = startingBalance;
-		this.interestRate = interestRate;
-	}
-	
 	public SavingsAccountYear(int startingBalance, int startingPrincipal, int interestRate) {
 		this.startingBalance = startingBalance;
 		this.startingPrincipal = startingPrincipal;
-		this.capitalGainsAmount = startingBalance - startingPrincipal;
 		this.interestRate = interestRate;
 	}
 
@@ -27,7 +18,11 @@ public class SavingsAccountYear {
 	}
 
 	public int startingPrincipal() {
-		return startingBalance - capitalGainsAmount;
+		return startingPrincipal;
+	}
+
+	public int startingCapitalGains() {
+		return startingBalance - startingPrincipal;
 	}
 
 	public int interestRate() {
@@ -49,7 +44,7 @@ public class SavingsAccountYear {
 	}
 
 	public SavingsAccountYear nextYear(int capitalGainsTaxRate) {
-		return new SavingsAccountYear(this.endingBalance(capitalGainsTaxRate), interestRate);
+		return new SavingsAccountYear(this.endingBalance(capitalGainsTaxRate), 0, interestRate);
 	}
 
 	public void withdraw(int amount) {
@@ -62,7 +57,10 @@ public class SavingsAccountYear {
 	}
 
 	public int capitalGainsTaxIncurred(int taxRate) {
-		return capitalGainsWithdrawn() * taxRate / 100;
+		double dblTaxRate = taxRate / 100.0;
+		double dblCapGains = capitalGainsWithdrawn();
+		
+		return (int)((dblCapGains / (1 - dblTaxRate)) - dblCapGains);
 	}
 
 }
