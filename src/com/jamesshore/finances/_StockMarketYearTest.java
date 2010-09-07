@@ -6,7 +6,7 @@ import org.junit.*;
 
 public class _StockMarketYearTest {
 
-	private static final int INTEREST_RATE = 10;
+	private static final InterestRate INTEREST_RATE = new InterestRate(10);
 	private static final int STARTING_PRINCIPAL = 3000;
 	private static final int STARTING_BALANCE = 10000;
 	private static final TaxRate CAPITAL_GAINS_TAX_RATE = new TaxRate(25);
@@ -17,7 +17,7 @@ public class _StockMarketYearTest {
 		assertEquals("starting balance", STARTING_BALANCE, year.startingBalance());
 		assertEquals("starting principal", STARTING_PRINCIPAL, year.startingPrincipal());
 		assertEquals("interest rate", INTEREST_RATE, year.interestRate());
-		assertEquals("capital gains tax rate", CAPITAL_GAINS_TAX_RATE.rate(), year.capitalGainsTaxRate());
+		assertEquals("capital gains tax rate", CAPITAL_GAINS_TAX_RATE, year.capitalGainsTaxRate());
 		assertEquals("total withdrawn default", 0, year.totalWithdrawn());
 	}
 	
@@ -71,7 +71,7 @@ public class _StockMarketYearTest {
 	}
 
 	private StockMarketYear newYear() {
-		return new StockMarketYear(STARTING_BALANCE, STARTING_PRINCIPAL, INTEREST_RATE, CAPITAL_GAINS_TAX_RATE.rate());
+		return new StockMarketYear(STARTING_BALANCE, STARTING_PRINCIPAL, INTEREST_RATE, CAPITAL_GAINS_TAX_RATE);
 	}
 
 }

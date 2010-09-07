@@ -1,19 +1,15 @@
 package com.jamesshore.finances;
 
-public class TaxRate {
+public class InterestRate {
 
 	private double rate;
 	
-	public TaxRate(double rateAsPercentage) {
-		this.rate = rateAsPercentage / 100.0;
-	}
-	
-	public int simpleTaxFor(int amount) {
-		return (int)(rate * amount);
+	public InterestRate(double rateAsPercentage) {
+		rate = rateAsPercentage / 100.0;
 	}
 
-	public int compoundTaxFor(int amount) {
-		return (int)((amount / (1 - rate)) - amount);
+	public int interestOn(int amount) {
+		return (int)(amount * rate);
 	}
 	
 	@Override
@@ -36,7 +32,7 @@ public class TaxRate {
 		if (this == obj) return true;
 		if (obj == null) return false;
 		if (getClass() != obj.getClass()) return false;
-		TaxRate other = (TaxRate) obj;
+		InterestRate other = (InterestRate) obj;
 		if (Double.doubleToLongBits(rate) != Double.doubleToLongBits(other.rate)) return false;
 		return true;
 	}
