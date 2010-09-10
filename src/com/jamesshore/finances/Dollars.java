@@ -8,8 +8,8 @@ public class Dollars {
 		this.amount = amount;
 	}
 
-	public int amount() {
-		return amount;  // TODO: delete me
+	public int toInt() {
+		return amount;
 	}
 	
 	public Dollars add(Dollars dollars) {

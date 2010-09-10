@@ -9,20 +9,20 @@ public class _TaxRateTest {
 	@Test
 	public void nothing() {
 		TaxRate taxRate = new TaxRate(0);
-		assertEquals(0, taxRate.simpleTaxFor(1000));
-		assertEquals(0, taxRate.compoundTaxFor(1000));
+		assertEquals(new Dollars(0), taxRate.simpleTaxFor(new Dollars(1000)));
+		assertEquals(new Dollars(0), taxRate.compoundTaxFor(new Dollars(1000)));
 	}
 	
 	@Test
 	public void simpleTaxJustAppliesTaxRateToAmount() {
 		TaxRate taxRate = new TaxRate(25);
-		assertEquals(250, taxRate.simpleTaxFor(1000));
+		assertEquals(new Dollars(250), taxRate.simpleTaxFor(new Dollars(1000)));
 	}
 	
 	@Test
 	public void compoundTaxIsTheAmountOfTaxThatIsIncurredIfYouAlsoPayTaxOnTheTax() {
 		TaxRate taxRate = new TaxRate(25);
-		assertEquals(333, taxRate.compoundTaxFor(1000));
+		assertEquals(new Dollars(333), taxRate.compoundTaxFor(new Dollars(1000)));
 	}
 	
 	@Test

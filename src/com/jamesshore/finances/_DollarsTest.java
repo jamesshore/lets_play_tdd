@@ -24,6 +24,11 @@ public class _DollarsTest {
 	}
 
 	@Test
+	public void toInt() {
+		assertEquals(20, new Dollars(20).toInt());
+	}
+	
+	@Test
 	public void valueObject() {
 		Dollars dollars1a = new Dollars(10);
 		Dollars dollars1b = new Dollars(10);
