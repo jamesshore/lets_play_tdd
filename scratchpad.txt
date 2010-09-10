@@ -5,3 +5,5 @@ Consider what to do about withdrawing more than the starting balance -- assert t
 Desk check - spreadsheet results compared to StockMarketYear results
 
 Assert on TaxRate--need to enforce legal values
+
+Take .value() out of nextYear() test
