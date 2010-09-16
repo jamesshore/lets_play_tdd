@@ -1,9 +1,18 @@
-Fix primitive obsession
-
-Consider what to do about withdrawing more than the starting balance -- assert that this is impossible?
+Assert on TaxRate--need to enforce legal values
 
 Desk check - spreadsheet results compared to StockMarketYear results
 
-Assert on TaxRate--need to enforce legal values
 
-Take .value() out of nextYear() test
+
+---
+UI thingies to investigate further:
+
+Desktop
+- Swing (MigLayout? JGoodies FormLayout?)
+- SWT (JFace?) java -XstartOnFirstThread -classpath src/com/jamesshore/spikes/swt/swt.jar:bin com.jamesshore.spikes.swt.SwtSpike
+- SwiXml (layer on top of Swing)
+
+HTML
+- Cobra (Java HTML parser/renderer)
+- Wicket (Apache group)
+- Spring MVC
