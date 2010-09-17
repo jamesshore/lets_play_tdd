@@ -8,7 +8,7 @@ Desk check - spreadsheet results compared to StockMarketYear results
 UI thingies to investigate further:
 
 Desktop
-- Swing (MigLayout? JGoodies FormLayout?)
+- Swing (MigLayout? JGoodies FormLayout? Macify?)
 - SWT (JFace?) java -XstartOnFirstThread -classpath src/com/jamesshore/spikes/swt/swt.jar:bin com.jamesshore.spikes.swt.SwtSpike
 - SwiXml (layer on top of Swing)
 
