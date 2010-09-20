@@ -2,12 +2,8 @@ package com.jamesshore.spikes.swing;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.*;
 import javax.swing.*;
 import javax.swing.table.*;
-import javax.swing.table.TableColumn;
-import org.eclipse.swt.*;
-import org.eclipse.swt.widgets.*;
 
 public class SwingSpike extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -52,7 +48,6 @@ public class SwingSpike extends JFrame {
 		content.add("Center", table());
 	}
 
-	@SuppressWarnings("unchecked")
 	private Component button() {
 		final JButton button = new JButton("Foo!");
 		button.addActionListener(new ActionListener() {
@@ -70,6 +65,7 @@ public class SwingSpike extends JFrame {
 		return panel;
 	}
 	
+	@SuppressWarnings("serial")
 	private Component table() {
 		String[] titles = {"Year", "Starting Balance", "Starting Principal", "Withdrawals", "Appreciation", "Deposits", "Ending Balance"};
 		tableModel = new DefaultTableModel(titles, 0);
