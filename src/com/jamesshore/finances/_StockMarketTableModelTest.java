@@ -40,8 +40,8 @@ public class _StockMarketTableModelTest {
 		assertEquals(41, model.getRowCount());
 		assertEquals(STARTING_YEAR, model.getValueAt(0, 0));
 		assertEquals(STARTING_BALANCE, model.getValueAt(0, 1));
-		assertEquals(ENDING_YEAR, model.getValueAt(40, 0));
 		assertEquals(new Dollars(11000), model.getValueAt(1, 1));
+		assertEquals(ENDING_YEAR, model.getValueAt(40, 0));
 	}
 	
 }

@@ -8,12 +8,20 @@ public class StockMarketTableModel extends AbstractTableModel {
 
 	private int startingYear;
 	private int endingYear;
-	private StockMarketYear marketYear;
+	private StockMarketYear[] years;
 
 	public StockMarketTableModel(int startingYear, int endingYear, Dollars startingBalance, Dollars startingPrincipal, InterestRate interestRate, TaxRate capitalGainsTaxRate) {
 		this.startingYear = startingYear;
 		this.endingYear = endingYear;
-		this.marketYear = new StockMarketYear(startingBalance, startingPrincipal, interestRate, capitalGainsTaxRate);
+		populateYears(startingBalance, startingPrincipal, interestRate, capitalGainsTaxRate);
+	}
+
+	private void populateYears(Dollars startingBalance, Dollars startingPrincipal, InterestRate interestRate, TaxRate capitalGainsTaxRate) {
+		this.years = new StockMarketYear[getRowCount()];
+		years[0] = new StockMarketYear(startingBalance, startingPrincipal, interestRate, capitalGainsTaxRate);
+		for (int i = 1; i < getRowCount(); i++) {
+			years[i] = years[i - 1].nextYear(); 
+		}
 	}
 
 	@Override
@@ -33,15 +41,15 @@ public class StockMarketTableModel extends AbstractTableModel {
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
+		StockMarketYear currentYear = years[rowIndex];
 		switch (columnIndex) {
 			case 0: return startingYear + rowIndex;
-			case 1: return marketYear.startingBalance();
-			case 2: return marketYear.startingPrincipal();
-			case 3: return marketYear.totalWithdrawn();
-			case 4: return marketYear.appreciation();
-			case 5: return marketYear.endingBalance();
+			case 1: return currentYear.startingBalance();
+			case 2: return currentYear.startingPrincipal();
+			case 3: return currentYear.totalWithdrawn();
+			case 4: return currentYear.appreciation();
+			case 5: return currentYear.endingBalance();
 			default: return "";
 		}
 	}
-
 }
