@@ -2,7 +2,6 @@ package com.jamesshore.finances;
 
 import java.awt.*;
 import javax.swing.*;
-import javax.swing.table.*;
 
 public class Application extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -16,17 +15,13 @@ public class Application extends JFrame {
 	}
 
 	private JScrollPane table() {
-		String[] titles = {"Year", "Starting Balance", "Starting Principal", "Withdrawals", "Appreciation", "Deposits", "Ending Balance"};
-		DefaultTableModel model = new DefaultTableModel(titles, 0);
-		model.addRow(new Integer[] {1, 2, 3, 4, 5, 6, 7});
-
+		StockMarketTableModel model = new StockMarketTableModel(2010, 2050, new Dollars(10000), new Dollars(7000), new InterestRate(10), new TaxRate(25));
 		JTable table = new JTable(model);
 		return new JScrollPane(table);
 	}
 	
 	public static void main(String[] args) {
 		new Application().setVisible(true);
-		System.out.println("Hello, world!");
 	}
 	
 }
