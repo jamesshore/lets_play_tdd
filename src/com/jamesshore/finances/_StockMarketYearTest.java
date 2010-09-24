@@ -6,6 +6,7 @@ import org.junit.*;
 
 public class _StockMarketYearTest {
 
+	private static final int YEAR = 2010;
 	private static final InterestRate INTEREST_RATE = new InterestRate(10);
 	private static final Dollars STARTING_BALANCE = new Dollars(10000);
 	private static final Dollars STARTING_PRINCIPAL = new Dollars(3000);
@@ -14,6 +15,7 @@ public class _StockMarketYearTest {
 	@Test
 	public void startingValues() {
 		StockMarketYear year = newYear();
+		assertEquals("year", YEAR, year.year());
 		assertEquals("starting balance", STARTING_BALANCE, year.startingBalance());
 		assertEquals("starting principal", STARTING_PRINCIPAL, year.startingPrincipal());
 		assertEquals("interest rate", INTEREST_RATE, year.interestRate());
@@ -64,6 +66,7 @@ public class _StockMarketYearTest {
 	public void nextYearStartingValuesMatchesThisYearEndingValues() {
 		StockMarketYear thisYear = newYear();
 		StockMarketYear nextYear = thisYear.nextYear();
+		assertEquals("year", 2011, nextYear.year());
 		assertEquals("starting balance", thisYear.endingBalance(), nextYear.startingBalance());
 		assertEquals("starting principal", thisYear.endingPrincipal(), nextYear.startingPrincipal());
 		assertEquals("interest", thisYear.interestRate(), nextYear.interestRate());
@@ -71,7 +74,7 @@ public class _StockMarketYearTest {
 	}
 
 	private StockMarketYear newYear() {
-		return new StockMarketYear(STARTING_BALANCE, STARTING_PRINCIPAL, INTEREST_RATE, CAPITAL_GAINS_TAX_RATE);
+		return new StockMarketYear(YEAR, STARTING_BALANCE, STARTING_PRINCIPAL, INTEREST_RATE, CAPITAL_GAINS_TAX_RATE);
 	}
 
 }

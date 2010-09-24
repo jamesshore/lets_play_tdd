@@ -15,7 +15,8 @@ public class Application extends JFrame {
 	}
 
 	private JScrollPane table() {
-		StockMarketTableModel model = new StockMarketTableModel(2010, 2050, new Dollars(10000), new Dollars(7000), new InterestRate(10), new TaxRate(25));
+		StockMarket market = new StockMarket(2010, 2050, new Dollars(10000), new Dollars(7000), new InterestRate(10), new TaxRate(25));
+		StockMarketTableModel model = new StockMarketTableModel(2010, 2050, market);
 		JTable table = new JTable(model);
 		return new JScrollPane(table);
 	}

@@ -14,7 +14,8 @@ public class _StockMarketTableModelTest {
 	
 	@Before
 	public void setup() {
-		model = new StockMarketTableModel(STARTING_YEAR, ENDING_YEAR, STARTING_BALANCE, STARTING_PRINCIPAL, new InterestRate(10), new TaxRate(25));
+		StockMarket market = new StockMarket(STARTING_YEAR, ENDING_YEAR, STARTING_BALANCE, STARTING_PRINCIPAL, new InterestRate(10), new TaxRate(25));
+		model = new StockMarketTableModel(STARTING_YEAR, ENDING_YEAR, market);
 	}
 	
 	@Test
