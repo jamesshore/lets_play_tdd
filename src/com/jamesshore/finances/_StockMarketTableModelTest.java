@@ -27,12 +27,12 @@ public class _StockMarketTableModelTest {
 
 	@Test
 	public void oneRow() {
-		assertEquals(STARTING_YEAR, model.getValueAt(0, 0));
-		assertEquals(STARTING_BALANCE, model.getValueAt(0, 1));
-		assertEquals(STARTING_PRINCIPAL, model.getValueAt(0, 2));
-		assertEquals(new Dollars(0), model.getValueAt(0, 3));
-		assertEquals(new Dollars(1000), model.getValueAt(0, 4));
-		assertEquals(new Dollars(11000), model.getValueAt(0, 5));
+		assertEquals("year", STARTING_YEAR, model.getValueAt(0, 0));
+		assertEquals("starting balance", STARTING_BALANCE, model.getValueAt(0, 1));
+		assertEquals("starting principal", STARTING_PRINCIPAL, model.getValueAt(0, 2));
+		assertEquals("withdrawals", new Dollars(0), model.getValueAt(0, 3));
+		assertEquals("appreciation", new Dollars(1000), model.getValueAt(0, 4));
+		assertEquals("ending balance", new Dollars(11000), model.getValueAt(0, 5));
 	}
 	
 	@Test

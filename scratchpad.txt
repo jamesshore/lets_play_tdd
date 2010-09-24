@@ -1,6 +1,8 @@
 'year' concept should be object?
 fail fast in StockMarketTableModel.getValueAt() default case
 Polish UI look & feel
+Pull out StockMarketAccount from StockMarketTableModel?
+Create packages
 
 ---
 
