@@ -12,6 +12,10 @@ public class Year {
 		return new Year(year + 1);
 	}
 
+	public int numberOfYearsInclusive(Year endingYear) {
+		return endingYear.year - this.year + 1;
+	}
+
 	public String toString() {
 		return "" + year;
 	}

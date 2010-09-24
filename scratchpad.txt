@@ -1,13 +1,11 @@
-'year' concept should be object?
 fail fast in StockMarketTableModel.getValueAt() default case
-Polish UI look & feel
 fail fast in StockMarket.getYear() when request year is out of range
+Assert on TaxRate--need to enforce legal values
+
+Desk check - spreadsheet results compared to StockMarketYear results
 cumulative error due to truncating doubles into integers--fix it, it's too large 
 
----
-
-Assert on TaxRate--need to enforce legal values
-Desk check - spreadsheet results compared to StockMarketYear results
+Polish UI look & feel
 
 ---
 UI thingies to investigate further:

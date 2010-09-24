@@ -7,8 +7,8 @@ import com.jamesshore.finances.domain.*;
 
 public class _StockMarketTableModelTest {
 
-	private static final int STARTING_YEAR = 2010;
-	private static final int ENDING_YEAR = 2050;
+	private static final Year STARTING_YEAR = new Year(2010);
+	private static final Year ENDING_YEAR = new Year(2050);
 	private static final Dollars STARTING_BALANCE = new Dollars(10000);
 	private static final Dollars STARTING_PRINCIPAL = new Dollars(7000);
 	private StockMarketTableModel model;
@@ -29,7 +29,7 @@ public class _StockMarketTableModelTest {
 
 	@Test
 	public void oneRow() {
-		assertEquals("year", new Year(STARTING_YEAR), model.getValueAt(0, 0));
+		assertEquals("year", STARTING_YEAR, model.getValueAt(0, 0));
 		assertEquals("starting balance", STARTING_BALANCE, model.getValueAt(0, 1));
 		assertEquals("starting principal", STARTING_PRINCIPAL, model.getValueAt(0, 2));
 		assertEquals("withdrawals", new Dollars(0), model.getValueAt(0, 3));
@@ -40,10 +40,10 @@ public class _StockMarketTableModelTest {
 	@Test
 	public void multipleRows() {
 		assertEquals(41, model.getRowCount());
-		assertEquals(new Year(STARTING_YEAR), model.getValueAt(0, 0));
+		assertEquals(STARTING_YEAR, model.getValueAt(0, 0));
 		assertEquals(STARTING_BALANCE, model.getValueAt(0, 1));
 		assertEquals(new Dollars(11000), model.getValueAt(1, 1));
-		assertEquals(new Year(ENDING_YEAR), model.getValueAt(40, 0));
+		assertEquals(ENDING_YEAR, model.getValueAt(40, 0));
 	}
 	
 }

@@ -5,8 +5,8 @@ import org.junit.*;
 
 public class _StockMarketTest {
 
-	private static final int STARTING_YEAR = 2010;
-	private static final int ENDING_YEAR = 2050;
+	private static final Year STARTING_YEAR = new Year(2010);
+	private static final Year ENDING_YEAR = new Year(2050);
 	private static final Dollars STARTING_BALANCE = new Dollars(10000);
 	private static final Dollars STARTING_PRINCIPAL = new Dollars(7000);
 	private static final InterestRate INTEREST_RATE = new InterestRate(10);
