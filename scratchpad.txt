@@ -1,8 +1,3 @@
-fail fast in StockMarketTableModel.getValueAt() default case
-fail fast in StockMarket.getYear() when request year is out of range
-Assert on TaxRate--need to enforce legal values
-
-Desk check - spreadsheet results compared to StockMarketYear results
 cumulative error due to truncating doubles into integers--fix it, it's too large 
 
 Polish UI look & feel

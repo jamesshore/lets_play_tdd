@@ -18,8 +18,3 @@ public class _RequireTest {
 	}
 
 }
-
-class RequireException extends RuntimeException {
-	private static final long serialVersionUID = 1L;
-	
-}

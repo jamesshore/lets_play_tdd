@@ -1,5 +1,7 @@
 package com.jamesshore.finances.domain;
 
+import com.jamesshore.finances.util.*;
+
 public class StockMarket {
 
 	private final Year startingYear;
@@ -25,6 +27,7 @@ public class StockMarket {
 	}
 	
 	public StockMarketYear getYearOffset(int offset) {
+		Require.that(offset >= 0 && offset < numberOfYears(), "Offset needs to be between 0 and " + (numberOfYears() - 1) + "; was " + offset);
 		return years[offset];
 	}
 

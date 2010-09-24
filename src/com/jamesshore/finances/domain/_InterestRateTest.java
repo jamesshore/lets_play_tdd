@@ -7,12 +7,6 @@ import org.junit.*;
 public class _InterestRateTest {
 
 	@Test
-	public void nothing() {
-		InterestRate rate = new InterestRate(0);
-		assertEquals(new Dollars(0), rate.interestOn(new Dollars(1000)));
-	}
-	
-	@Test
 	public void interest() {
 		InterestRate rate = new InterestRate(10);
 		assertEquals(new Dollars(100), rate.interestOn(new Dollars(1000)));

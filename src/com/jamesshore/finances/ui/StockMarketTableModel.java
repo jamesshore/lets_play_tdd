@@ -2,6 +2,7 @@ package com.jamesshore.finances.ui;
 
 import javax.swing.table.*;
 import com.jamesshore.finances.domain.*;
+import com.jamesshore.finances.util.*;
 
 public class StockMarketTableModel extends AbstractTableModel {
 	private static final long serialVersionUID = 1L;
@@ -38,7 +39,7 @@ public class StockMarketTableModel extends AbstractTableModel {
 			case 3: return currentYear.totalWithdrawn();
 			case 4: return currentYear.appreciation();
 			case 5: return currentYear.endingBalance();
-			default: return "";
+			default: throw new UnreachableCodeException();
 		}
 	}
 }

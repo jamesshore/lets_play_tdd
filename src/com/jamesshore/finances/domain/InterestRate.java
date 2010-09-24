@@ -1,10 +1,13 @@
 package com.jamesshore.finances.domain;
 
+import com.jamesshore.finances.util.*;
+
 public class InterestRate {
 
 	private double rate;
 	
 	public InterestRate(double rateAsPercentage) {
+		Require.that(rateAsPercentage > 0, "tax rate must be positive (and not zero); was " + rateAsPercentage);
 		rate = rateAsPercentage / 100.0;
 	}
 
