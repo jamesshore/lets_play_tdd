@@ -1,7 +1,8 @@
-package com.jamesshore.finances;
+package com.jamesshore.finances.ui;
 
 import static org.junit.Assert.*;
 import org.junit.*;
+import com.jamesshore.finances.domain.*;
 
 
 public class _StockMarketTableModelTest {
@@ -15,7 +16,7 @@ public class _StockMarketTableModelTest {
 	@Before
 	public void setup() {
 		StockMarket market = new StockMarket(STARTING_YEAR, ENDING_YEAR, STARTING_BALANCE, STARTING_PRINCIPAL, new InterestRate(10), new TaxRate(25));
-		model = new StockMarketTableModel(STARTING_YEAR, ENDING_YEAR, market);
+		model = new StockMarketTableModel(market);
 	}
 	
 	@Test
@@ -28,7 +29,7 @@ public class _StockMarketTableModelTest {
 
 	@Test
 	public void oneRow() {
-		assertEquals("year", STARTING_YEAR, model.getValueAt(0, 0));
+		assertEquals("year", new Year(STARTING_YEAR), model.getValueAt(0, 0));
 		assertEquals("starting balance", STARTING_BALANCE, model.getValueAt(0, 1));
 		assertEquals("starting principal", STARTING_PRINCIPAL, model.getValueAt(0, 2));
 		assertEquals("withdrawals", new Dollars(0), model.getValueAt(0, 3));
@@ -39,10 +40,10 @@ public class _StockMarketTableModelTest {
 	@Test
 	public void multipleRows() {
 		assertEquals(41, model.getRowCount());
-		assertEquals(STARTING_YEAR, model.getValueAt(0, 0));
+		assertEquals(new Year(STARTING_YEAR), model.getValueAt(0, 0));
 		assertEquals(STARTING_BALANCE, model.getValueAt(0, 1));
 		assertEquals(new Dollars(11000), model.getValueAt(1, 1));
-		assertEquals(ENDING_YEAR, model.getValueAt(40, 0));
+		assertEquals(new Year(ENDING_YEAR), model.getValueAt(40, 0));
 	}
 	
 }

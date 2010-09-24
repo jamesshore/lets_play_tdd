@@ -1,4 +1,4 @@
-package com.jamesshore.finances;
+package com.jamesshore.finances.domain;
 
 public class Dollars {
 

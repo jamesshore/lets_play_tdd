@@ -1,4 +1,4 @@
-package com.jamesshore.finances;
+package com.jamesshore.finances.domain;
 
 import static org.junit.Assert.*;
 import org.junit.*;

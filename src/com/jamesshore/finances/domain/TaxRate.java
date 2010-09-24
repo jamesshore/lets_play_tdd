@@ -1,15 +1,20 @@
-package com.jamesshore.finances;
+package com.jamesshore.finances.domain;
 
-public class InterestRate {
+public class TaxRate {
 
 	private double rate;
 	
-	public InterestRate(double rateAsPercentage) {
-		rate = rateAsPercentage / 100.0;
+	public TaxRate(double rateAsPercentage) {
+		this.rate = rateAsPercentage / 100.0;
+	}
+	
+	public Dollars simpleTaxFor(Dollars amount) {
+		return new Dollars((int)(rate * amount.toInt()));
 	}
 
-	public Dollars interestOn(Dollars amount) {
-		return new Dollars((int)(amount.toInt() * rate));
+	public Dollars compoundTaxFor(Dollars amount) {
+		int amountAsInt = amount.toInt();
+		return new Dollars((int)((amountAsInt / (1 - rate)) - amountAsInt));
 	}
 	
 	@Override
@@ -32,7 +37,7 @@ public class InterestRate {
 		if (this == obj) return true;
 		if (obj == null) return false;
 		if (getClass() != obj.getClass()) return false;
-		InterestRate other = (InterestRate) obj;
+		TaxRate other = (TaxRate) obj;
 		if (Double.doubleToLongBits(rate) != Double.doubleToLongBits(other.rate)) return false;
 		return true;
 	}

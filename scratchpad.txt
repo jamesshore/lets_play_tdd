@@ -1,16 +1,12 @@
 'year' concept should be object?
 fail fast in StockMarketTableModel.getValueAt() default case
 Polish UI look & feel
-Pull out StockMarketAccount from StockMarketTableModel?
-Create packages
-How does StockMarket know which year is which?
 fail fast in StockMarket.getYear() when request year is out of range
-StockMarketTabelModel shouldn't know about startingYear and endingYear--just the StockMarket should
+cumulative error due to truncating doubles into integers--fix it, it's too large 
 
 ---
 
 Assert on TaxRate--need to enforce legal values
-
 Desk check - spreadsheet results compared to StockMarketYear results
 
 ---
