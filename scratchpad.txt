@@ -1,4 +1,5 @@
-cumulative error due to truncating doubles into integers--fix it, it's too large 
+We have an issue with the way capital gains tax is working now.
+We assume that first "withdrawal" is from principal, but in fact every sale has some capital gains associated and also tax as well.
 
 Polish UI look & feel
 

@@ -4,25 +4,25 @@ import com.jamesshore.finances.util.*;
 
 public class TaxRate {
 
-	private double rate;
+	private double rateAsPercentage;
 	
 	public TaxRate(double rateAsPercentage) {
 		Require.that(rateAsPercentage > 0, "tax rate must be positive (and not zero); was " + rateAsPercentage);
-		this.rate = rateAsPercentage / 100.0;
+		this.rateAsPercentage = rateAsPercentage;
 	}
 	
 	public Dollars simpleTaxFor(Dollars amount) {
-		return new Dollars((int)(rate * amount.toInt()));
+		return amount.percentage(rateAsPercentage);
 	}
 
 	public Dollars compoundTaxFor(Dollars amount) {
-		int amountAsInt = amount.toInt();
-		return new Dollars((int)((amountAsInt / (1 - rate)) - amountAsInt));
+		double compoundRate = (100.0 / (100.0 - rateAsPercentage)) - 1;
+		return amount.percentage(compoundRate * 100);
 	}
 	
 	@Override
 	public String toString() {
-		return (rate * 100) + "%";
+		return (rateAsPercentage) + "%";
 	}
 
 	@Override
@@ -30,7 +30,7 @@ public class TaxRate {
 		final int prime = 31;
 		int result = 1;
 		long temp;
-		temp = Double.doubleToLongBits(rate);
+		temp = Double.doubleToLongBits(rateAsPercentage);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
@@ -41,7 +41,7 @@ public class TaxRate {
 		if (obj == null) return false;
 		if (getClass() != obj.getClass()) return false;
 		TaxRate other = (TaxRate) obj;
-		if (Double.doubleToLongBits(rate) != Double.doubleToLongBits(other.rate)) return false;
+		if (Double.doubleToLongBits(rateAsPercentage) != Double.doubleToLongBits(other.rateAsPercentage)) return false;
 		return true;
 	}
 
