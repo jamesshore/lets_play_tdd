@@ -32,6 +32,20 @@ public class _StockMarketYearTest {
 	}
 	
 	@Test
+	public void capitalGainsTaxIsPaidFirst() {
+		StockMarketYear year = newYear();
+		
+		Dollars capitalGains = STARTING_BALANCE.minus(STARTING_PRINCIPAL);
+
+		year.withdraw(new Dollars(500));
+		assertEquals("pay tax on all withdrawals until all capital gains withdrawn", new Dollars(167), year.capitalGainsTaxIncurred());
+		year.withdraw(capitalGains);
+		assertEquals("pay tax on all withdrawals until all capital gains withdrawn", new Dollars(2333), year.capitalGainsTaxIncurred());
+		year.withdraw(new Dollars(1000));
+		assertEquals("pay no more tax once all capital gains withdrawn", new Dollars(2333), year.capitalGainsTaxIncurred());
+	}
+	
+	@Test
 	public void interestEarned() {
 		StockMarketYear year = newYear();
 		assertEquals("basic interest earned", new Dollars(1000), year.appreciation());

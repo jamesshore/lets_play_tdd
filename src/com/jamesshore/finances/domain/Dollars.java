@@ -12,11 +12,11 @@ public class Dollars {
 		this.amount = amount;
 	}
 	
-	public Dollars add(Dollars dollars) {
+	public Dollars plus(Dollars dollars) {
 		return new Dollars(this.amount + dollars.amount);
 	}
 
-	public Dollars subtract(Dollars dollars) {
+	public Dollars minus(Dollars dollars) {
 		return new Dollars(this.amount - dollars.amount);
 	}
 
@@ -27,6 +27,10 @@ public class Dollars {
 
 	public Dollars percentage(double percent) {
 		return new Dollars(amount * percent / 100.0);
+	}
+
+	public Dollars maxOfTwoValues(Dollars value2) {
+		return new Dollars(Math.max(this.amount, value2.amount));
 	}
 
 	private long roundOffPennies() {
@@ -40,12 +44,7 @@ public class Dollars {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		long temp;
-		temp = Double.doubleToLongBits(amount);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
-		return result;
+		return (int)roundOffPennies();
 	}
 
 	@Override

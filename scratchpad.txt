@@ -1,5 +1,7 @@
-We have an issue with the way capital gains tax is working now.
-We assume that first "withdrawal" is from principal, but in fact every sale has some capital gains associated and also tax as well.
+Fix capital gains tax to work like spreadsheet
+Change language of StockMarketYear to reflect domain better ('buy' and 'sell' rather than 'deposit' and 'withdraw') 
+
+Make a method to encapsulate StockMarketYear.totalWithdrawals instance variable (like 'requested withdrawn'?)
 
 Polish UI look & feel
 
@@ -9,3 +11,9 @@ UI thingies to investigate further:
 Desktop
 - Swing (MigLayout? JGoodies FormLayout? Macify?)
 - SwiXml (layer on top of Swing)
+
+
+---
+Long term:
+
+- More realistic abstraction for capital gains tax (in StockMarketYear)
