@@ -29,11 +29,11 @@ public class _DollarsTest {
 	}
 	
 	@Test
-	public void maxOfTwoValues() {
+	public void minOfTwoValues() {
 		Dollars value1 = new Dollars(20);
 		Dollars value2 = new Dollars(30);
-		assertEquals("value 1", new Dollars(30), value1.maxOfTwoValues(value2));
-		assertEquals("value 2", new Dollars(30), value2.maxOfTwoValues(value1));
+		assertEquals("value 1", new Dollars(20), value1.minOfTwoValues(value2));
+		assertEquals("value 2", new Dollars(20), value2.minOfTwoValues(value1));
 	}
 	
 	@Test

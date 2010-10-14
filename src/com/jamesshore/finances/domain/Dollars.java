@@ -29,8 +29,8 @@ public class Dollars {
 		return new Dollars(amount * percent / 100.0);
 	}
 
-	public Dollars maxOfTwoValues(Dollars value2) {
-		return new Dollars(Math.max(this.amount, value2.amount));
+	public Dollars minOfTwoValues(Dollars value2) {
+		return new Dollars(Math.min(this.amount, value2.amount));
 	}
 
 	private long roundOffPennies() {
