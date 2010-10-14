@@ -64,7 +64,8 @@ public class StockMarketYear {
 	}
 
 	public Dollars endingPrincipal() {
-		return startingPrincipal.subtractToZero(totalWithdrawals);
+		return startingPrincipal;
+//		return startingPrincipal.subtractToZero(totalWithdrawals);
 	}
 
 	public StockMarketYear nextYear() {

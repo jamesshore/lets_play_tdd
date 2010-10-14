@@ -52,6 +52,14 @@ public class _StockMarketYearTest {
 		year.withdraw(new Dollars(2000));
 		assertEquals("withdrawals (which pay capital gains tax) don't earn interest", new Dollars(733), year.appreciation());
 	}
+	
+	@Test
+	public void withdrawalsReducePrincipalAfterAllCapitalGainsAreWithdrawn() {
+		StockMarketYear year = newYear();
+		Dollars capitalGains = STARTING_BALANCE.minus(STARTING_PRINCIPAL);
+		year.withdraw(new Dollars(4000));
+		assertEquals(STARTING_PRINCIPAL, year.endingPrincipal());
+	}
 
 	@Test
 	public void endingPrincipal() {
