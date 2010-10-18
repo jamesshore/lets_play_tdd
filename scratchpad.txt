@@ -1,5 +1,3 @@
-Desk check that we've fixed capital gains tax to work like spreadsheet
-
 Polish UI look & feel
 
 ---

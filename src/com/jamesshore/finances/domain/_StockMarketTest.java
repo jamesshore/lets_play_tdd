@@ -9,7 +9,7 @@ public class _StockMarketTest {
 	private static final Year ENDING_YEAR = new Year(2050);
 	private static final Dollars STARTING_BALANCE = new Dollars(10000);
 	private static final Dollars STARTING_PRINCIPAL = new Dollars(7000);
-	private static final InterestRate INTEREST_RATE = new InterestRate(10);
+	private static final GrowthRate INTEREST_RATE = new GrowthRate(10);
 	private static final TaxRate CAPITAL_GAINS_TAX_RATE = new TaxRate(25);
 
 	@Test
@@ -25,9 +25,9 @@ public class _StockMarketTest {
 	@Test
 	public void stockMarketWithdrawsAStandardAmountEveryYear() {
 		StockMarket account = new StockMarket(STARTING_YEAR, ENDING_YEAR, STARTING_BALANCE, STARTING_PRINCIPAL, INTEREST_RATE, CAPITAL_GAINS_TAX_RATE, new Dollars(10));
-		assertEquals("year 0", new Dollars(10), account.getYearOffset(0).totalSold());
-		assertEquals("year 1", new Dollars(10), account.getYearOffset(1).totalSold());
-		assertEquals("year 40", new Dollars(10), account.getYearOffset(40).totalSold());
+		assertEquals("year 0", new Dollars(10), account.getYearOffset(0).totalSellOrders());
+		assertEquals("year 1", new Dollars(10), account.getYearOffset(1).totalSellOrders());
+		assertEquals("year 40", new Dollars(10), account.getYearOffset(40).totalSellOrders());
 	}
 		
 	@Test
@@ -38,8 +38,8 @@ public class _StockMarketTest {
 	
 	@Test
 	public void capitalGainsTaxCalculationWorksTheSameWayAsSpreadsheet() {
-		StockMarket account = new StockMarket(STARTING_YEAR, ENDING_YEAR, STARTING_BALANCE, STARTING_PRINCIPAL, INTEREST_RATE, CAPITAL_GAINS_TAX_RATE, new Dollars(715));
-		assertEquals(new Dollars(560), account.getYearOffset(40).endingBalance());
+		StockMarket account = new StockMarket(STARTING_YEAR, ENDING_YEAR, STARTING_BALANCE, STARTING_PRINCIPAL, INTEREST_RATE, CAPITAL_GAINS_TAX_RATE, new Dollars(695));
+		assertEquals(new Dollars(2067), account.getYearOffset(40).endingBalance());
 	}
 	
 }

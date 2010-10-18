@@ -27,9 +27,9 @@ public class Application extends JFrame {
 		Year endingYear = new Year(2050);
 		Dollars startingBalance = new Dollars(10000);
 		Dollars startingPrincipal = new Dollars(7000);
-		InterestRate interestRate = new InterestRate(10);
+		GrowthRate interestRate = new GrowthRate(10);
 		TaxRate capitalGainsTaxRate = new TaxRate(25);
-		return new StockMarket(startingYear, endingYear, startingBalance, startingPrincipal, interestRate, capitalGainsTaxRate, new Dollars(0));
+		return new StockMarket(startingYear, endingYear, startingBalance, startingPrincipal, interestRate, capitalGainsTaxRate, new Dollars(695));
 	}
 	
 	public static void main(String[] args) {

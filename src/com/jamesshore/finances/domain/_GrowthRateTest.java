@@ -4,19 +4,19 @@ import static org.junit.Assert.*;
 import org.junit.*;
 
 
-public class _InterestRateTest {
+public class _GrowthRateTest {
 
 	@Test
 	public void interest() {
-		InterestRate rate = new InterestRate(10);
-		assertEquals(new Dollars(100), rate.interestOn(new Dollars(1000)));
+		GrowthRate rate = new GrowthRate(10);
+		assertEquals(new Dollars(100), rate.growthFor(new Dollars(1000)));
 	}
 	
 	@Test
 	public void valueObject() {
-		InterestRate rate1a = new InterestRate(10);
-		InterestRate rate1b = new InterestRate(10);
-		InterestRate rate2 = new InterestRate(20);
+		GrowthRate rate1a = new GrowthRate(10);
+		GrowthRate rate1b = new GrowthRate(10);
+		GrowthRate rate2 = new GrowthRate(20);
 		
 		assertEquals("10.0%", rate1a.toString());
 		assertTrue("same rates are equal", rate1a.equals(rate1b));

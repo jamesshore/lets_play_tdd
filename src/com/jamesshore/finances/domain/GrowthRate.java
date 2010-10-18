@@ -2,16 +2,16 @@ package com.jamesshore.finances.domain;
 
 import com.jamesshore.finances.util.*;
 
-public class InterestRate {
+public class GrowthRate {
 
 	private double rateAsPercentage;
 	
-	public InterestRate(double rateAsPercentage) {
+	public GrowthRate(double rateAsPercentage) {
 		Require.that(rateAsPercentage > 0, "interest rate must be positive (and not zero); was " + rateAsPercentage);
 		this.rateAsPercentage = rateAsPercentage;
 	}
 
-	public Dollars interestOn(Dollars amount) {
+	public Dollars growthFor(Dollars amount) {
 		return amount.percentage(rateAsPercentage);
 	}
 	
@@ -35,7 +35,7 @@ public class InterestRate {
 		if (this == obj) return true;
 		if (obj == null) return false;
 		if (getClass() != obj.getClass()) return false;
-		InterestRate other = (InterestRate) obj;
+		GrowthRate other = (GrowthRate) obj;
 		if (Double.doubleToLongBits(rateAsPercentage) != Double.doubleToLongBits(other.rateAsPercentage)) return false;
 		return true;
 	}
