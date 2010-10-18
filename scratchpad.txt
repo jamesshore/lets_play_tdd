@@ -1,7 +1,4 @@
 Desk check that we've fixed capital gains tax to work like spreadsheet
-Change language of StockMarketYear to reflect domain better ('buy' and 'sell' rather than 'deposit' and 'withdraw') 
-
-Make a method to encapsulate StockMarketYear.totalWithdrawals instance variable (like 'requested withdrawn'?)
 
 Polish UI look & feel
 
