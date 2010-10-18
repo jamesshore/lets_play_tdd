@@ -30,6 +30,10 @@ public class StockMarketYear {
 		return startingPrincipal;
 	}
 
+	private Dollars startingCapitalGains() {
+		return startingBalance().minus(startingPrincipal());
+	}
+
 	public InterestRate interestRate() {
 		return interestRate;
 	}
@@ -43,8 +47,7 @@ public class StockMarketYear {
 	}
 
 	private Dollars capitalGainsWithdrawn() {
-		Dollars capitalGains = startingBalance().minus(startingPrincipal);
-		return capitalGains.minOfTwoValues(totalWithdrawals);
+		return Dollars.min(startingCapitalGains(), totalWithdrawals);
 	}
 
 	public Dollars capitalGainsTaxIncurred() {
@@ -64,8 +67,8 @@ public class StockMarketYear {
 	}
 
 	public Dollars endingPrincipal() {
-		return startingPrincipal;
-//		return startingPrincipal.subtractToZero(totalWithdrawals);
+		Dollars principalReducedBy = totalWithdrawn().subtractToZero(startingCapitalGains());
+		return startingPrincipal.minus(principalReducedBy);
 	}
 
 	public StockMarketYear nextYear() {

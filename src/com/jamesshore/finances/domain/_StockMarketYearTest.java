@@ -40,7 +40,7 @@ public class _StockMarketYearTest {
 		year.withdraw(new Dollars(500));
 		assertEquals("pay tax on all entire withdrawal", new Dollars(167), year.capitalGainsTaxIncurred());
 		year.withdraw(capitalGains);
-		assertEquals("pay tax on all withdrawals until all capital gains withdrawn", new Dollars(2333), year.capitalGainsTaxIncurred());
+		assertEquals("to match spreadsheet, we pay compounding tax on capital gains even when compounded amount is not capital gains", new Dollars(2333), year.capitalGainsTaxIncurred());
 		year.withdraw(new Dollars(1000));
 		assertEquals("pay no more tax once all capital gains withdrawn", new Dollars(2333), year.capitalGainsTaxIncurred());
 	}
@@ -54,22 +54,20 @@ public class _StockMarketYearTest {
 	}
 	
 	@Test
-	public void withdrawalsReducePrincipalAfterAllCapitalGainsAreWithdrawn() {
-		StockMarketYear year = newYear();
-		Dollars capitalGains = STARTING_BALANCE.minus(STARTING_PRINCIPAL);
-		year.withdraw(new Dollars(4000));
-		assertEquals(STARTING_PRINCIPAL, year.endingPrincipal());
-	}
-
-	@Test
 	public void endingPrincipal() {
 		StockMarketYear year = newYear();
-		year.withdraw(new Dollars(1000));
-		assertEquals("ending principal considers withdrawals", new Dollars(2000), year.endingPrincipal());
 		year.withdraw(new Dollars(500));
-		assertEquals("ending principal considers totals multiple withdrawals", new Dollars(1500), year.endingPrincipal());
-		year.withdraw(new Dollars(3000));
-		assertEquals("ending principal never goes below zero", new Dollars(0), year.endingPrincipal());
+		assertEquals("withdrawals less than capital gains do not reduce principal", STARTING_PRINCIPAL, year.endingPrincipal());
+		year.withdraw(new Dollars(6500));
+		
+		Dollars totalWithdrawn = new Dollars(9333);
+		Dollars capitalGains = new Dollars(7000);
+		Dollars principalReducedBy = totalWithdrawn.minus(capitalGains);
+		Dollars expectedPrincipal = STARTING_PRINCIPAL.minus(principalReducedBy);
+		assertEquals("principal should be reduced by difference between total withdrawals and capital gains", expectedPrincipal, year.endingPrincipal());
+		
+		year.withdraw(new Dollars(1000));
+		assertEquals("principal goes negative when we're overdrawn", new Dollars(-333), year.endingPrincipal());
 	}
 
 	@Test

@@ -29,11 +29,11 @@ public class _DollarsTest {
 	}
 	
 	@Test
-	public void minOfTwoValues() {
+	public void min() {
 		Dollars value1 = new Dollars(20);
 		Dollars value2 = new Dollars(30);
-		assertEquals("value 1", new Dollars(20), value1.minOfTwoValues(value2));
-		assertEquals("value 2", new Dollars(20), value2.minOfTwoValues(value1));
+		assertEquals("value 1", new Dollars(20), Dollars.min(value1, value2));
+		assertEquals("value 2", new Dollars(20), Dollars.min(value2, value1));
 	}
 	
 	@Test
