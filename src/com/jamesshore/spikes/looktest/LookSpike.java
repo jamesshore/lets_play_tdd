@@ -5,17 +5,18 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.table.*;
 
-public class SwingSpike extends JFrame {
+public class LookSpike extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	private DefaultTableModel tableModel;
 	 
-	public SwingSpike() {
+	public LookSpike() {
 		setTitle("Swing Spike");
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		setJMenuBar(menuBar());
 		addComponents();
 		pack();
+		setLocation(300, 200);
 	}
 	
 	private JMenuBar menuBar() {
@@ -36,7 +37,7 @@ public class SwingSpike extends JFrame {
 		result.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W, InputEvent.META_MASK));
 		result.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				SwingSpike.this.dispose();
+				LookSpike.this.dispose();
 			}
 		});
 		return result;
@@ -74,16 +75,7 @@ public class SwingSpike extends JFrame {
 		}
 		
 		// This code based on http://www.roseindia.net/java/example/java/swing/SadingRows.shtml
-		JTable table = new JTable(tableModel) {
-			public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
-				Component component = super.prepareRenderer(renderer, row, column);
-				if (isCellSelected(row, column)) return component;
-				
-				Color background = row % 2 == 0 ? new Color(223, 230, 236) : Color.white;
-				component.setBackground(background);
-				return component;
-			}
-		};		
+		JTable table = new CustomTable(tableModel);
 		
 		int preferredWidth = 0;
 		for (int i = 0; i < table.getColumnCount(); i++) {
@@ -129,7 +121,7 @@ public class SwingSpike extends JFrame {
 	}
 	
 	public static void main(String[] args) {
-   		new SwingSpike().setVisible(true);
+   		new LookSpike().setVisible(true);
 	}
 	
 }
