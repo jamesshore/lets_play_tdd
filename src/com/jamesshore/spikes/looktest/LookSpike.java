@@ -74,7 +74,6 @@ public class LookSpike extends JFrame {
 			tableModel.addRow(new Integer[] {1900 + i, 10000 + i, 8000 + i, 50 + i, 905 + i, 2000 + i, 12000 + i});
 		}
 		
-		// This code based on http://www.roseindia.net/java/example/java/swing/SadingRows.shtml
 		JTable table = new CustomTable(tableModel);
 		
 		int preferredWidth = 0;
