@@ -8,5 +8,6 @@
 			<attribute name="javadoc_location" value="http://help.eclipse.org/helios/topic/org.eclipse.platform.doc.isv/reference/api/org/eclipse/swt/widgets/Table.html"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="src/com/jamesshore/spikes/approvaltests/ApprovalTests.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

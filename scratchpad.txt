@@ -1,5 +1,14 @@
 Polish UI look & feel
 
+1- Test by inspection
+2- Test fonts & colors etc. programmatically  **SPIKE**
+3- Snapshot screen and compare to reference rendering
+ A- Approvals  (REJECT)
+ B- Do it ourselves  **SPIKE**
+
+
+Move spikes into separate project?
+
 ---
 UI thingies to investigate further:
 
