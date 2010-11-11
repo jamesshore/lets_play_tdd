@@ -9,53 +9,44 @@ import com.jamesshore.spikes.looktest.*;
 
 
 public class _AlternatingRowTableTest {
-	
-	private JFrame frame;
-
-	@Before
-	public void setup() {
-		frame = new JFrame();
-	}
-	
-	@After
-	public void teardown() {
-		frame.setVisible(false);
-	}
-
-	private JTable getNewTable(TableModel tableModel) {
-		frame.getContentPane().add(new AlternatingRowTable(tableModel));
-		frame.setVisible(true);
-		frame.pack();
-		JTable table = (AlternatingRowTable)frame.getContentPane().getComponent(0);
-		return table;
-	}
-
-	private DefaultTableModel tableModel() {
-	}
 
 	@Test
-	public void tableWithJustOneCell_CellUsesDefaultBackgroundColor() {
-		DefaultTableModel tableModel = new DefaultTableModel(0, 3);
-		tableModel.addRow(new String[] {"a", "b", "c"});
-		tableModel.addRow(new String[] {"1", "2", "3"});
-		tableModel.addRow(new String[] {"I", "II", "III"});
+	public void tableWithJustOneCell_CellUsesStandardBackgroundColor() {
+		DefaultTableModel tableModel = new DefaultTableModel(0, 1);
+		tableModel.addRow(new String[] {""});
 		
-		Object[][] testData = new Object[][] { new Object[] { "" } };
-		Object[] noColumnNames = null;
-		TableModel model = new DefaultTableModel(testData, noColumnNames);
+		JTable table = getNewTable(tableModel);
+		Color actualColor = getCellBackground(table, 0, 0);
+		
+		assertEquals(AlternatingRowTable.STANDARD_BACKGROUND_COLOR, actualColor);
+	}
+	
+	@Test
+	public void tableWithTwoRows_CellOnSecondRowUsesAltBackgroundColor() {
+		DefaultTableModel tableModel = new DefaultTableModel(0, 1);
+		tableModel.addRow(new String[] {""});
+		tableModel.addRow(new String[] {""});
+		
+		JTable table = getNewTable(tableModel);
+		Color actualColor = getCellBackground(table, 1, 0);
+		
+		assertEquals(AlternatingRowTable.ALTERNATE_BACKGROUND_COLOR, actualColor);
+	}
 
-		JTable table = getNewTable(model);
-		
-		TableCellRenderer renderer = table.getCellRenderer(0, 0);
-		Component component = table.prepareRenderer(renderer, 0, 0);
+	private Color getCellBackground(JTable table, int row, int column) {
+		TableCellRenderer renderer = table.getCellRenderer(row, column);
+		Component component = table.prepareRenderer(renderer, row, column);
 		Color actualColor = component.getBackground();
-		
-		assertEquals(Color.WHITE, actualColor);
+		return actualColor;
 	}
 	
 	//@Test
 	//public void secondRowShouldHaveAlternateBackgroundColor() {
 	
-	
+
+	private JTable getNewTable(TableModel tableModel) {
+		return new AlternatingRowTable(tableModel);
+	}
+
 	
 }
