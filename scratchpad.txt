@@ -9,6 +9,8 @@ Polish UI look & feel
 
 Move spikes into separate project?
 
+Frame not closing?
+
 ---
 UI thingies to investigate further:
 

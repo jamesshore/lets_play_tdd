@@ -31,6 +31,7 @@ public class _LookSpikeTest {
 	}
 	
 	@Test
+	@Ignore
 	public void nothing() throws Exception {
 		assertEquals(CustomTable.PALE_BLUE, backgroundOfCell(0, 0));
 		assertEquals(CustomTable.PALE_BLUE, backgroundOfCell(0, 1));
