@@ -51,12 +51,13 @@ public class _ForecastTableTest {
 	}
 	
 	@Test
-	public void tableRowShouldNotStyleRowsThatAreSelected() {
+	public void tableRowsShouldUseSelectionBackgroundColor_WhenSelected() {
 		DefaultTableModel tableModel = new DefaultTableModel(0, 1);
 		tableModel.addRow(new String[] {""});
 		JTable table = new ForecastTable(tableModel);
 
-		assertEquals("row 0 should have standard background", ForecastTable.STANDARD_BACKGROUND_COLOR, getCellBackground(table, 0, 0));
+		table.setRowSelectionInterval(0, 0);
+		assertEquals("row 0 should have selection background", ForecastTable.SELECTION_BACKGROUND_COLOR, getCellBackground(table, 0, 0));
 	}
 
 	private Color getCellBackground(JTable table, int row, int column) {
