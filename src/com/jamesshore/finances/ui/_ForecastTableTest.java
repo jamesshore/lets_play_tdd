@@ -5,7 +5,6 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.*;
 import org.junit.*;
-import com.jamesshore.spikes.looktest.*;
 
 
 public class _ForecastTableTest {

@@ -1,23 +1,14 @@
 Polish UI look & feel
 
-1- Test by inspection
-2- Test fonts & colors etc. programmatically  **SPIKE**
-3- Snapshot screen and compare to reference rendering
- A- Approvals  (REJECT)
- B- Do it ourselves  **SPIKE**
+Application should close when window is closed
 
+Make Application no longer be a frame. Eliminate entirely?
 
-Move spikes into separate project?
+Consider Macify for cross-platform Mac support
 
-Frame not closing?
+Review and clear list of tasks
 
----
-UI thingies to investigate further:
-
-Desktop
-- Swing (MigLayout? JGoodies FormLayout? Macify?)
-- SwiXml (layer on top of Swing)
-
+Check that everything works in Windows OS
 
 ---
 Long term:

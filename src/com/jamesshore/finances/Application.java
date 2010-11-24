@@ -5,7 +5,7 @@ import javax.swing.*;
 import com.jamesshore.finances.domain.*;
 import com.jamesshore.finances.ui.*;
 
-public class Application extends JFrame {
+public class Application extends ApplicationFrame {
 	private static final long serialVersionUID = 1L;
 
 	public Application() {

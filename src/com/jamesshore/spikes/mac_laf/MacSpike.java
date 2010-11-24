@@ -1,22 +1,24 @@
-package com.jamesshore.spikes.looktest;
+package com.jamesshore.spikes.mac_laf;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.table.*;
+import com.apple.eawt.*;
 
-public class LookSpike extends JFrame {
+@SuppressWarnings("unused")
+public class MacSpike extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	private DefaultTableModel tableModel;
-	 
-	public LookSpike() {
-		setTitle("Swing Spike");
+	
+	public MacSpike() {
+		setLocation(400, 300);
+		setTitle("Mac Look and Feel Spike");
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		setJMenuBar(menuBar());
 		addComponents();
 		pack();
-		setLocation(300, 200);
 	}
 	
 	private JMenuBar menuBar() {
@@ -37,7 +39,7 @@ public class LookSpike extends JFrame {
 		result.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W, InputEvent.META_MASK));
 		result.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				LookSpike.this.dispose();
+				MacSpike.this.dispose();
 			}
 		});
 		return result;
@@ -66,6 +68,7 @@ public class LookSpike extends JFrame {
 		return panel;
 	}
 	
+	@SuppressWarnings("serial")
 	private Component table() {
 		String[] titles = {"Year", "Starting Balance", "Starting Principal", "Withdrawals", "Appreciation", "Deposits", "Ending Balance"};
 		tableModel = new DefaultTableModel(titles, 0);
@@ -73,7 +76,17 @@ public class LookSpike extends JFrame {
 			tableModel.addRow(new Integer[] {1900 + i, 10000 + i, 8000 + i, 50 + i, 905 + i, 2000 + i, 12000 + i});
 		}
 		
-		JTable table = new CustomTable(tableModel);
+		// This code based on http://www.roseindia.net/java/example/java/swing/SadingRows.shtml
+		JTable table = new JTable(tableModel) {
+			public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+				Component component = super.prepareRenderer(renderer, row, column);
+				if (isCellSelected(row, column)) return component;
+				
+				Color background = row % 2 == 0 ? new Color(223, 230, 236) : Color.white;
+				component.setBackground(background);
+				return component;
+			}
+		};		
 		
 		int preferredWidth = 0;
 		for (int i = 0; i < table.getColumnCount(); i++) {
@@ -118,8 +131,21 @@ public class LookSpike extends JFrame {
 		return width;
 	}
 	
-	public static void main(String[] args) {
-   		new LookSpike().setVisible(true);
+	public static void main(String[] args) throws Exception {
+		boolean macOs = System.getProperty("os.name").toLowerCase().startsWith("mac os x");
+		
+//		if (macOs) {
+			System.setProperty("apple.laf.useScreenMenuBar", "true");
+// following lines don't seem to do anything...
+//			System.setProperty("com.apple.mrj.application.apple.menu.about.name", "WikiTeX");
+//			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			
+// following lines work, but Eclipse flags them as an error...
+//			Application app = Application.getApplication();
+//			app.removeAboutMenuItem();
+//		}
+		
+   		new MacSpike().setVisible(true);
 	}
 	
 }
