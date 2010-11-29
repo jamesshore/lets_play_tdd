@@ -13,14 +13,14 @@ public class ApplicationFrame extends JFrame {
 
 	public ApplicationFrame() {
 		super(TITLE);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocation(INITIAL_POSITION);
 		setSize(INITIAL_SIZE);
 		getContentPane().add(forecastTable());
 	}
 
 	private Component forecastTable() {
-//		return new ForecastTable(new StockMarketTableModel(stockMarket()));
-		return new JScrollPane(null);
+		return new JScrollPane(new ForecastTable(new StockMarketTableModel(stockMarket())));
 	}
 
 	private StockMarket stockMarket() {

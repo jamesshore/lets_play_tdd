@@ -1,6 +1,6 @@
-Make Application no longer be a frame. Eliminate entirely?
-Application should close when window is closed
 Add fields so that starting conditions can be set at runtime
+
+Run Swing-related stuff on event dispatching thread: http://download.oracle.com/javase/6/docs/api/javax/swing/package-summary.html#threading
 
 Error handling for exceptions within Swing components--how?
 
@@ -10,4 +10,5 @@ Tip for running Swing tests: http://blog.schauderhaft.de/2010/08/15/use-cases-fo
 Long term:
 
 - Cross-platform testing & support (Consider "Macify")
+  - Cmd-W should close window on Mac
 - More realistic abstraction for capital gains tax (in StockMarketYear)

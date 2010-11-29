@@ -6,15 +6,18 @@ import javax.swing.*;
 import javax.swing.table.*;
 import org.junit.*;
 
-
 public class _ApplicationFrameTest {
 
 	private ApplicationFrame frame;
-
 	
 	@Before
 	public void setup() {
 		frame = new ApplicationFrame();
+	}
+	
+	@Test
+	public void shouldExitApplicationWhenWindowClosed() {
+		assertEquals("should exit on close", WindowConstants.EXIT_ON_CLOSE, frame.getDefaultCloseOperation());
 	}
 	
 	@Test
@@ -32,12 +35,15 @@ public class _ApplicationFrameTest {
 	public void shouldContainAppropriateComponents() {
 		Component[] components = frame.getContentPane().getComponents();
 		assertEquals("# of components", 1, components.length);
-		assertEquals("component #0 class", JScrollPane.class, components[0].getClass());
+		assertEquals("component #0", JScrollPane.class, components[0].getClass());
+		assertEquals("component #0 should contain table", ForecastTable.class, ((JScrollPane)components[0]).getViewport().getView().getClass());
+		
 	}
 	
 	@Test
 	public void forecastTableShouldContainCorrectModel() {
-		TableModel model = ((ForecastTable)frame.getContentPane().getComponent(0)).getModel();
+		JScrollPane scrollPane = (JScrollPane)frame.getContentPane().getComponent(0);
+		TableModel model = ((ForecastTable)scrollPane.getViewport().getView()).getModel();
 		assertEquals("forecast table model class", StockMarketTableModel.class, model.getClass());
 		assertEquals("# of rows in model", 41, model.getRowCount());
 	}
