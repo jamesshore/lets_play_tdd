@@ -27,7 +27,7 @@ public class _StockMarketYearTest {
 	public void totalSold() {
 		StockMarketYear year = newYear();
 		assertEquals("no sales", new Dollars(0), year.totalSellOrders());
-		year.sell(new Dollars(3000)); // TODO: rename to 'sell'
+		year.sell(new Dollars(3000));
 		assertEquals("one sale", new Dollars(3000), year.totalSellOrders());
 		year.sell(new Dollars(750));
 		year.sell(new Dollars(1350));

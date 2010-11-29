@@ -33,7 +33,7 @@ public class Application extends ApplicationFrame {
 	}
 	
 	public static void main(String[] args) {
-		new Application().setVisible(true);
+		new ApplicationFrame().setVisible(true);
 	}
 	
 }

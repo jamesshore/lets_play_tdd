@@ -1,16 +1,12 @@
-Polish UI look & feel
-
-Application should close when window is closed
-
 Make Application no longer be a frame. Eliminate entirely?
+Application should close when window is closed
+Add fields so that starting conditions can be set at runtime
 
-Consider Macify for cross-platform Mac support
 
-Review and clear list of tasks
-
-Check that everything works in Windows OS
+Tip for running Swing tests: http://blog.schauderhaft.de/2010/08/15/use-cases-for-junit-rules/ (via Esko Luontola)
 
 ---
 Long term:
 
+- Cross-platform testing & support (Consider "Macify")
 - More realistic abstraction for capital gains tax (in StockMarketYear)
