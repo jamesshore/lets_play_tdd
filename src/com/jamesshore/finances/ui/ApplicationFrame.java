@@ -1,7 +1,6 @@
 package com.jamesshore.finances.ui;
 
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
 import com.jamesshore.finances.domain.*;
 
@@ -28,29 +27,15 @@ public class ApplicationFrame extends JFrame {
 	}
 
 	private JTextField startingBalanceField() {
-		JTextField field = new JTextField();
-		
-		field.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-		});
-		
-		return field;
-		
-//		button.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				button.setText("The world will end in " + (Math.random() * 100000) + " seconds");
-//				for (int i = 0; i < tableModel.getRowCount(); i++) {
-//					int cell = (Integer)tableModel.getValueAt(i, 1);
-//					tableModel.setValueAt((int)(cell * 1.03), i, 1);
-//				}
-//			}
-//		});
-		
+		return new JTextField();
 	}
 	
 	private Component forecastTable() {
-		forecastTable = new ForecastTable(new StockMarketTableModel(stockMarket()));
-		return new JScrollPane(forecastTable);
+		return new JScrollPane(new ForecastTable(stockMarketTableModel()));
+	}
+
+	private StockMarketTableModel stockMarketTableModel() {
+		return new StockMarketTableModel(stockMarket());
 	}
 
 	private StockMarketProjection stockMarket() {

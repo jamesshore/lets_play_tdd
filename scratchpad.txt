@@ -12,3 +12,19 @@ Long term:
 - Cross-platform testing & support (Consider "Macify")
   - Cmd-W should close window on Mac
 - More realistic abstraction for capital gains tax (in StockMarketYear)
+
+
+
+
+		
+		field.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				forecastTable.setModel(new DefaultTableModel());
+			}
+		});
+		
+		field.addFocusListener(new FocusAdapter() {
+			public void focusLost(FocusEvent e) {
+				forecastTable.setModel(new DefaultTableModel());
+			}
+		});
