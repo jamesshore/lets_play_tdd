@@ -8,9 +8,9 @@ public class StockMarketTableModel extends AbstractTableModel {
 	private static final long serialVersionUID = 1L;
 	private static final String[] COLUMN_TITLES = {"Year", "Starting Balance", "Cost Basis", "Sales", "Growth", "Ending Balance"};
 
-	private StockMarket market;
+	private StockMarketProjection market;
 
-	public StockMarketTableModel(StockMarket market) {
+	public StockMarketTableModel(StockMarketProjection market) {
 		this.market = market;
 	}
 
