@@ -10,7 +10,10 @@ public class _ApplicationModelTest {
 	public void shouldStartWithDefaultStockMarket() {
 		ApplicationModel model = new ApplicationModel();
 		StockMarketProjection projection = model.stockMarketProjection();
-		assertNotNull(projection);
+		
+		StockMarketYear startingYear = model.stockMarketProjection().getYearOffset(0); 
+//TODO: finish this test		
+		
 	}
 	
 }
