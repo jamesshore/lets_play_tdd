@@ -1,6 +1,7 @@
 package com.jamesshore.finances.ui;
 
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 import com.jamesshore.finances.domain.*;
 
@@ -10,6 +11,8 @@ public class ApplicationFrame extends JFrame {
 	public static final String TITLE = "Financial Projector";
 	public static final Point INITIAL_POSITION = new Point(400, 300);
 	public static final Dimension INITIAL_SIZE = new Dimension(900, 400);
+
+	private ApplicationModel applicationModel = new ApplicationModel();
 
 	public ApplicationFrame() {
 		super(TITLE);
@@ -27,25 +30,24 @@ public class ApplicationFrame extends JFrame {
 	}
 
 	private JTextField startingBalanceField() {
-		return new JTextField();
+		JTextField field = new JTextField();
+		
+		//SPIKE
+		field.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				StockMarketTableModel model = applicationModel.stockMarketTableModel();
+				model.setValueAt("HI!", 0, 0);
+				model.fireTableDataChanged();
+				
+//				applicationModel.setStartingBalance(field.getText());
+			}
+		});
+		
+		return field;
 	}
 	
 	private Component forecastTable() {
-		return new JScrollPane(new ForecastTable(stockMarketTableModel()));
+		return new JScrollPane(new ForecastTable(applicationModel.stockMarketTableModel()));
 	}
 
-	private StockMarketTableModel stockMarketTableModel() {
-		return new StockMarketTableModel(stockMarket());
-	}
-
-	private StockMarketProjection stockMarket() {
-		Year startingYear = new Year(2010);
-		Year endingYear = new Year(2050);
-		Dollars startingBalance = new Dollars(10000);
-		Dollars startingPrincipal = new Dollars(7000);
-		GrowthRate interestRate = new GrowthRate(10);
-		TaxRate capitalGainsTaxRate = new TaxRate(25);
-		return new StockMarketProjection(startingYear, endingYear, startingBalance, startingPrincipal, interestRate, capitalGainsTaxRate, new Dollars(695));
-	}
-	
 }

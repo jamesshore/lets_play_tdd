@@ -9,14 +9,6 @@ public class StockMarketProjection {
 	private StockMarketYear[] years;
 	private final Dollars sellEveryYear;
 
-	public StockMarketProjection(Year startingYear, Year endingYear, Dollars startingBalance, Dollars startingPrincipal, GrowthRate interestRate, TaxRate capitalGainsTaxRate, Dollars sellEveryYear) {
-		this(
-			new StockMarketYear(startingYear, startingBalance, startingPrincipal, interestRate, capitalGainsTaxRate), 
-			endingYear, 
-			sellEveryYear
-		);
-	}
-
 	public StockMarketProjection(StockMarketYear firstYear, Year endingYear, Dollars sellEveryYear) {
 		this.startingYear = firstYear.year();
 		this.endingYear = endingYear;

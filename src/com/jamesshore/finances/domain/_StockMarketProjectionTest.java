@@ -12,7 +12,12 @@ public class _StockMarketProjectionTest {
 	private static final GrowthRate GROWTH_RATE = new GrowthRate(10);
 	private static final TaxRate CAPITAL_GAINS_TAX_RATE = new TaxRate(25);
 
-	private static final StockMarketYear firstYear = new StockMarketYear(STARTING_YEAR, STARTING_BALANCE, COST_BASIS, GROWTH_RATE, CAPITAL_GAINS_TAX_RATE);
+	private StockMarketYear firstYear;
+	
+	@Before
+	public void setup() {
+		firstYear = new StockMarketYear(STARTING_YEAR, STARTING_BALANCE, COST_BASIS, GROWTH_RATE, CAPITAL_GAINS_TAX_RATE);
+	}
 	
 	@Test
 	public void stockMarketContainsMultipleYears() {
@@ -34,13 +39,13 @@ public class _StockMarketProjectionTest {
 		
 	@Test
 	public void noCumulativeRoundingErrorInInterestCalculations() {
-		StockMarketProjection account = new StockMarketProjection(STARTING_YEAR, ENDING_YEAR, STARTING_BALANCE, COST_BASIS, GROWTH_RATE, CAPITAL_GAINS_TAX_RATE, new Dollars(0));
+		StockMarketProjection account = new StockMarketProjection(firstYear, ENDING_YEAR, new Dollars(0));
 		assertEquals(new Dollars(497852), account.getYearOffset(40).endingBalance());
 	}
 	
 	@Test
 	public void capitalGainsTaxCalculationWorksTheSameWayAsSpreadsheet() {
-		StockMarketProjection account = new StockMarketProjection(STARTING_YEAR, ENDING_YEAR, STARTING_BALANCE, COST_BASIS, GROWTH_RATE, CAPITAL_GAINS_TAX_RATE, new Dollars(695));
+		StockMarketProjection account = new StockMarketProjection(firstYear, ENDING_YEAR, new Dollars(695));
 		assertEquals(new Dollars(2067), account.getYearOffset(40).endingBalance());
 	}
 	

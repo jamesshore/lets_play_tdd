@@ -1,24 +1,31 @@
 package com.jamesshore.finances.domain;
 
+import javax.swing.table.*;
+import com.jamesshore.finances.ui.*;
+
 public class ApplicationModel {
 
+	public static final Year DEFAULT_STARTING_YEAR = new Year(2010);
+	public static final Year DEFAULT_ENDING_YEAR = new Year(2050);
+	public static final Dollars DEFAULT_STARTING_BALANCE = new Dollars(10000);
+	public static final Dollars DEFAULT_STARTING_COST_BASIS = new Dollars(7000);
+	public static final GrowthRate DEFAULT_GROWTH_RATE = new GrowthRate(10);
+	public static final TaxRate DEFAULT_CAPITAL_GAINS_TAX_RATE = new TaxRate(25);
+
 	public StockMarketProjection stockMarketProjection() {
-//		Year startingYear = new Year(2010);
-//		Year endingYear = new Year(2050);
-//		Dollars startingBalance = new Dollars(10000);
-//		Dollars startingPrincipal = new Dollars(7000);
-//		GrowthRate interestRate = new GrowthRate(10);
-//		TaxRate capitalGainsTaxRate = new TaxRate(25);
-
-		
-		Year startingYear = new Year(0);
-		Year endingYear = new Year(0);
-		Dollars startingBalance = new Dollars(0);
-		Dollars startingPrincipal = new Dollars(0);
-		GrowthRate interestRate = new GrowthRate(1);
-		TaxRate capitalGainsTaxRate = new TaxRate(1);
-
-		return new StockMarketProjection(startingYear, endingYear, startingBalance, startingPrincipal, interestRate, capitalGainsTaxRate, new Dollars(695));
+		StockMarketYear firstYear = new StockMarketYear(
+			DEFAULT_STARTING_YEAR, 
+			DEFAULT_STARTING_BALANCE, 
+			DEFAULT_STARTING_COST_BASIS, 
+			DEFAULT_GROWTH_RATE, 
+			DEFAULT_CAPITAL_GAINS_TAX_RATE
+		);
+		return new StockMarketProjection(firstYear, DEFAULT_ENDING_YEAR, new Dollars(695));
 	}
+
+	public StockMarketTableModel stockMarketTableModel() {
+		return new StockMarketTableModel(stockMarketProjection());
+	}
+	
 
 }

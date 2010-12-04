@@ -15,7 +15,8 @@ public class _StockMarketTableModelTest {
 	
 	@Before
 	public void setup() {
-		StockMarketProjection market = new StockMarketProjection(STARTING_YEAR, ENDING_YEAR, STARTING_BALANCE, STARTING_PRINCIPAL, new GrowthRate(10), new TaxRate(25), new Dollars(0));
+		StockMarketYear startingYear = new StockMarketYear(STARTING_YEAR, STARTING_BALANCE, STARTING_PRINCIPAL, new GrowthRate(10), new TaxRate(25));
+		StockMarketProjection market = new StockMarketProjection(startingYear, ENDING_YEAR, new Dollars(0));
 		model = new StockMarketTableModel(market);
 	}
 	
