@@ -2,6 +2,7 @@ package com.jamesshore.finances.ui;
 
 import static org.junit.Assert.*;
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.table.*;
 import org.junit.*;
@@ -53,7 +54,6 @@ public class _ApplicationFrameTest {
 	}
 	
 	@Test
-	@Ignore //TODO
 	public void startingBalanceFieldShouldUpdateApplicationModel() {
 		class MockApplicationModel extends ApplicationModel {
 			public Dollars setStartingBalanceCalledWith;
@@ -63,10 +63,24 @@ public class _ApplicationFrameTest {
 				setStartingBalanceCalledWith = startingBalance;
 			}
 		}
+		MockApplicationModel mockModel = new MockApplicationModel();
+		frame = new ApplicationFrame(mockModel);
 		
+		JTextField field = frame.startingBalanceField();
+		field.setText("668");
+		ActionListener[] listeners = field.getActionListeners();
+		listeners[0].actionPerformed(new ActionEvent(field, 0, ""));
 		
+		assertEquals("text field should have action listener", 1, listeners.length);
+		assertEquals("applicationModel should be updated", new Dollars(668), mockModel.setStartingBalanceCalledWith);  
+
 		
-		assertEquals("applicationModel should be updated", expectedDollars, mockApplicationModel.setStartingBalanceCalledWith);  
+		field.setText("670");
+		FocusListener[] focusListeners = field.getFocusListeners();
+		focusListeners[0].focusLost(new FocusEvent(field, 0));
+		
+		assertEquals("text field should have focus listener", 1, focusListeners.length);
+//		assertEquals("applicationModel should be updated", new Dollars(670), mockModel.setStartingBalanceCalledWith);  
 	}
 	
 }

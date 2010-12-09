@@ -8,6 +8,13 @@ Tip for running Swing tests: http://blog.schauderhaft.de/2010/08/15/use-cases-fo
 
 Should StockMarketYear be immutable?
 
+Make Dollars.equals compare to null without throwing exception -- tests are too hard to read currently
+
+Handle text parsing in ApplicationFrame's startingBalanceField() 
+
+Need to handle case where starting balance is lower than cost basis--that should be illegal
+
+
 ---
 Long term:
 
