@@ -5,6 +5,7 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.*;
 import org.junit.*;
+import com.jamesshore.finances.domain.*;
 
 public class _ApplicationFrameTest {
 
@@ -12,7 +13,7 @@ public class _ApplicationFrameTest {
 	
 	@Before
 	public void setup() {
-		frame = new ApplicationFrame();
+		frame = new ApplicationFrame(new ApplicationModel());
 	}
 	
 	@Test
@@ -49,6 +50,23 @@ public class _ApplicationFrameTest {
 		TableModel model = ((ForecastTable)scrollPane.getViewport().getView()).getModel();
 		assertEquals("forecast table model class", StockMarketTableModel.class, model.getClass());
 		assertEquals("# of rows in model", 41, model.getRowCount());
+	}
+	
+	@Test
+	@Ignore //TODO
+	public void startingBalanceFieldShouldUpdateApplicationModel() {
+		class MockApplicationModel extends ApplicationModel {
+			public Dollars setStartingBalanceCalledWith;
+
+			@Override
+			public void setStartingBalance(Dollars startingBalance) {
+				setStartingBalanceCalledWith = startingBalance;
+			}
+		}
+		
+		
+		
+		assertEquals("applicationModel should be updated", expectedDollars, mockApplicationModel.setStartingBalanceCalledWith);  
 	}
 	
 }
