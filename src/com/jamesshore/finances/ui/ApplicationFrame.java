@@ -1,7 +1,6 @@
 package com.jamesshore.finances.ui;
 
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 import com.jamesshore.finances.domain.*;
@@ -34,27 +33,15 @@ public class ApplicationFrame extends JFrame {
 	public JTextField startingBalanceField() {
 		final JTextField field = new JTextField();
 		
-		field.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				applicationModel.setStartingBalance(new Dollars(Integer.parseInt(field.getText())));
-			}
-		});
-		
-		//SPIKE
 		field.getDocument().addDocumentListener(new DocumentListener() {
-			@Override public void removeUpdate(DocumentEvent e) {}
-			@Override public void insertUpdate(DocumentEvent e) {}
-			@Override public void changedUpdate(DocumentEvent e) {
-				System.out.print("*");
+			@Override public void removeUpdate(DocumentEvent e) { updateApplicationModel(); }
+			@Override public void insertUpdate(DocumentEvent e) { updateApplicationModel(); }
+			@Override public void changedUpdate(DocumentEvent e) { updateApplicationModel(); }
+			private void updateApplicationModel() {
+				int value = Integer.parseInt(field.getText());
+				applicationModel.setStartingBalance(new Dollars(value));
 			}
 		});
-		
-		
-//		field.addFocusListener(new FocusAdapter() {
-//			public void focusLost(FocusEvent e) {
-////				applicationModel.setStartingBalance(new Dollars(Integer.parseInt(field.getText())));
-//			}
-//		});
 		
 		return field;
 	}
