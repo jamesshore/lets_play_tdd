@@ -50,27 +50,35 @@ public class _StockMarketTableModelTest {
 	}
 	
 	@Test
-	public void changingTheProjectionShouldChangeTheTableModel() {
+	public void setProjection_ShouldChangeTableModel() {
 		StockMarketProjection projection = new StockMarketProjection(startingYear, startingYear.year(), new Dollars(0));
 		model.setProjection(projection);
-		assertEquals("projection should have changed", 1, model.getRowCount());
-		
-		//TODO: Combine this method with the following method?
+		assertEquals("projection should have changed", projection, model.getProjection());
+		assertEquals("change to projection should reflect in methods", 1, model.getRowCount());
 	}
 	
 	@Test
-	public void changingTheProjectionShouldFireUpdateEvent() {
+	public void setProjection_ShouldFireUpdateEvent() {
 		StockMarketProjection projection = new StockMarketProjection(startingYear, startingYear.year(), new Dollars(0));
-		final boolean[] eventFired = { false };
 		
-		model.addTableModelListener(new TableModelListener() {
+		class TestListener implements TableModelListener {
+			public boolean eventFired = false;
+			public Integer firstRowChanged = null;
+			public Integer lastRowChanged = null;
+			
 			public void tableChanged(TableModelEvent e) {
-				eventFired[0] = true;
+				eventFired = true;
+				firstRowChanged = e.getFirstRow();
+				lastRowChanged = e.getLastRow();
 			}
-		});
+		}
+		TestListener listener = new TestListener();
+		model.addTableModelListener(listener);
 
-		assertTrue("event should have been fired", eventFired[0]);
 		model.setProjection(projection);
+		assertTrue("event should have been fired", listener.eventFired);
+		assertEquals("whole table should change (first row)", 0, listener.firstRowChanged.intValue());
+		assertEquals("whole table should change (last row)", Integer.MAX_VALUE, listener.lastRowChanged.intValue());
 	}
 	
 }

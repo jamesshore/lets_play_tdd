@@ -1,9 +1,7 @@
 package com.jamesshore.finances.ui;
 
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
-import com.jamesshore.finances.domain.*;
 
 public class ApplicationFrame extends JFrame {
 	private static final long serialVersionUID = 1L;

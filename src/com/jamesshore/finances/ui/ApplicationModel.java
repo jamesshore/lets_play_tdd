@@ -1,6 +1,6 @@
-package com.jamesshore.finances.domain;
+package com.jamesshore.finances.ui;
 
-import com.jamesshore.finances.ui.*;
+import com.jamesshore.finances.domain.*;
 
 public class ApplicationModel {
 
@@ -13,7 +13,11 @@ public class ApplicationModel {
 	
 	private StockMarketTableModel stockMarketTableModel = new StockMarketTableModel(stockMarketProjection());
 
-	public StockMarketProjection stockMarketProjection() {
+	public StockMarketTableModel stockMarketTableModel() {
+		return stockMarketTableModel;
+	}
+
+	private StockMarketProjection stockMarketProjection() {
 		StockMarketYear firstYear = new StockMarketYear(
 			DEFAULT_STARTING_YEAR, 
 			DEFAULT_STARTING_BALANCE, 
@@ -22,10 +26,6 @@ public class ApplicationModel {
 			DEFAULT_CAPITAL_GAINS_TAX_RATE
 		);
 		return new StockMarketProjection(firstYear, DEFAULT_ENDING_YEAR, new Dollars(695));
-	}
-
-	public StockMarketTableModel stockMarketTableModel() {
-		return stockMarketTableModel;
 	}
 	
 	//TODO: spike code to re-do

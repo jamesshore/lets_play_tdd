@@ -1,7 +1,8 @@
-package com.jamesshore.finances.domain;
+package com.jamesshore.finances.ui;
 
 import static org.junit.Assert.*;
 import org.junit.*;
+import com.jamesshore.finances.domain.*;
 
 
 public class _ApplicationModelTest {
@@ -9,7 +10,7 @@ public class _ApplicationModelTest {
 	@Test
 	public void shouldStartWithDefaultStockMarket() {
 		ApplicationModel model = new ApplicationModel();
-		StockMarketProjection projection = model.stockMarketProjection();
+		StockMarketProjection projection = model.stockMarketTableModel().getProjection();
 		
 		StockMarketYear startingYear = projection.getYearOffset(0);
 		assertEquals(ApplicationModel.DEFAULT_STARTING_YEAR, startingYear.year());
@@ -25,6 +26,11 @@ public class _ApplicationModelTest {
 	public void shouldOnlyHaveOneInstanceOfStockMarketTableModel() {
 		ApplicationModel model = new ApplicationModel();
 		assertTrue("should be same instance", model.stockMarketTableModel() == model.stockMarketTableModel());
+	}
+	
+	@Test
+	public void changingStartingBalanceShouldChangeStockMarketTableModel() {
+		
 	}
 	
 }

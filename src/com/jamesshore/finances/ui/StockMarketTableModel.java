@@ -18,6 +18,10 @@ public class StockMarketTableModel extends AbstractTableModel {
 		this.projection = projection;
 		this.fireTableDataChanged();
 	}
+	
+	public StockMarketProjection getProjection() {
+		return projection;
+	}
 
 	@Override
 	public int getColumnCount() {
@@ -47,4 +51,5 @@ public class StockMarketTableModel extends AbstractTableModel {
 			default: throw new UnreachableCodeException();
 		}
 	}
+
 }
