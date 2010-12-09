@@ -8,10 +8,15 @@ public class StockMarketTableModel extends AbstractTableModel {
 	private static final long serialVersionUID = 1L;
 	private static final String[] COLUMN_TITLES = {"Year", "Starting Balance", "Cost Basis", "Sales", "Growth", "Ending Balance"};
 
-	private StockMarketProjection market;
+	private StockMarketProjection projection;
 
-	public StockMarketTableModel(StockMarketProjection market) {
-		this.market = market;
+	public StockMarketTableModel(StockMarketProjection projection) {
+		this.projection = projection;
+	}
+
+	public void setProjection(StockMarketProjection projection) {
+		this.projection = projection;
+		this.fireTableDataChanged();
 	}
 
 	@Override
@@ -26,12 +31,12 @@ public class StockMarketTableModel extends AbstractTableModel {
 
 	@Override
 	public int getRowCount() {
-		return market.numberOfYears();
+		return projection.numberOfYears();
 	}
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		StockMarketYear currentYear = market.getYearOffset(rowIndex);
+		StockMarketYear currentYear = projection.getYearOffset(rowIndex);
 		switch (columnIndex) {
 			case 0: return currentYear.year();
 			case 1: return currentYear.startingBalance();

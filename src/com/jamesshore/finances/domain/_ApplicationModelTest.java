@@ -21,4 +21,10 @@ public class _ApplicationModelTest {
 		assertEquals(41, projection.numberOfYears());
 	}
 	
+	@Test
+	public void shouldOnlyHaveOneInstanceOfStockMarketTableModel() {
+		ApplicationModel model = new ApplicationModel();
+		assertTrue("should be same instance", model.stockMarketTableModel() == model.stockMarketTableModel());
+	}
+	
 }

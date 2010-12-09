@@ -32,16 +32,12 @@ public class ApplicationFrame extends JFrame {
 	private JTextField startingBalanceField() {
 		JTextField field = new JTextField();
 		
-		//SPIKE
-		field.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				StockMarketTableModel model = applicationModel.stockMarketTableModel();
-				model.setValueAt("HI!", 0, 0);
-				model.fireTableDataChanged();
-				
-//				applicationModel.setStartingBalance(field.getText());
-			}
-		});
+		//TODO: spike code to re-do
+//		field.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				applicationModel.setStartingBalance(new Dollars(12345));
+//			}
+//		});
 		
 		return field;
 	}

@@ -1,9 +1,9 @@
 package com.jamesshore.finances.ui;
 
 import static org.junit.Assert.*;
+import javax.swing.event.*;
 import org.junit.*;
 import com.jamesshore.finances.domain.*;
-
 
 public class _StockMarketTableModelTest {
 
@@ -11,13 +11,15 @@ public class _StockMarketTableModelTest {
 	private static final Year ENDING_YEAR = new Year(2050);
 	private static final Dollars STARTING_BALANCE = new Dollars(10000);
 	private static final Dollars STARTING_PRINCIPAL = new Dollars(7000);
+	
+	private StockMarketYear startingYear;
 	private StockMarketTableModel model;
 	
 	@Before
 	public void setup() {
-		StockMarketYear startingYear = new StockMarketYear(STARTING_YEAR, STARTING_BALANCE, STARTING_PRINCIPAL, new GrowthRate(10), new TaxRate(25));
-		StockMarketProjection market = new StockMarketProjection(startingYear, ENDING_YEAR, new Dollars(0));
-		model = new StockMarketTableModel(market);
+		startingYear = new StockMarketYear(STARTING_YEAR, STARTING_BALANCE, STARTING_PRINCIPAL, new GrowthRate(10), new TaxRate(25));
+		StockMarketProjection projection = new StockMarketProjection(startingYear, ENDING_YEAR, new Dollars(0));
+		model = new StockMarketTableModel(projection);
 	}
 	
 	@Test
@@ -45,6 +47,30 @@ public class _StockMarketTableModelTest {
 		assertEquals(STARTING_BALANCE, model.getValueAt(0, 1));
 		assertEquals(new Dollars(11000), model.getValueAt(1, 1));
 		assertEquals(ENDING_YEAR, model.getValueAt(40, 0));
+	}
+	
+	@Test
+	public void changingTheProjectionShouldChangeTheTableModel() {
+		StockMarketProjection projection = new StockMarketProjection(startingYear, startingYear.year(), new Dollars(0));
+		model.setProjection(projection);
+		assertEquals("projection should have changed", 1, model.getRowCount());
+		
+		//TODO: Combine this method with the following method?
+	}
+	
+	@Test
+	public void changingTheProjectionShouldFireUpdateEvent() {
+		StockMarketProjection projection = new StockMarketProjection(startingYear, startingYear.year(), new Dollars(0));
+		final boolean[] eventFired = { false };
+		
+		model.addTableModelListener(new TableModelListener() {
+			public void tableChanged(TableModelEvent e) {
+				eventFired[0] = true;
+			}
+		});
+
+		assertTrue("event should have been fired", eventFired[0]);
+		model.setProjection(projection);
 	}
 	
 }
