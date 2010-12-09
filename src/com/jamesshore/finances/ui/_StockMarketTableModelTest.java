@@ -53,7 +53,7 @@ public class _StockMarketTableModelTest {
 	public void setProjection_ShouldChangeTableModel() {
 		StockMarketProjection projection = new StockMarketProjection(startingYear, startingYear.year(), new Dollars(0));
 		model.setProjection(projection);
-		assertEquals("projection should have changed", projection, model.getProjection());
+		assertEquals("projection should have changed", projection, model.stockMarketProjection());
 		assertEquals("change to projection should reflect in methods", 1, model.getRowCount());
 	}
 	
@@ -79,6 +79,11 @@ public class _StockMarketTableModelTest {
 		assertTrue("event should have been fired", listener.eventFired);
 		assertEquals("whole table should change (first row)", 0, listener.firstRowChanged.intValue());
 		assertEquals("whole table should change (last row)", Integer.MAX_VALUE, listener.lastRowChanged.intValue());
+	}
+	
+	@Test
+	public void startingBalance() {
+		assertEquals(STARTING_BALANCE, model.startingBalance());
 	}
 	
 }

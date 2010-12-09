@@ -7,10 +7,16 @@ import com.jamesshore.finances.domain.*;
 
 public class _ApplicationModelTest {
 
+	private ApplicationModel model;
+	
+	@Before
+	public void setup() {
+		model = new ApplicationModel();
+	}
+
 	@Test
 	public void shouldStartWithDefaultStockMarket() {
-		ApplicationModel model = new ApplicationModel();
-		StockMarketProjection projection = model.stockMarketTableModel().getProjection();
+		StockMarketProjection projection = model.stockMarketTableModel().stockMarketProjection();
 		
 		StockMarketYear startingYear = projection.getYearOffset(0);
 		assertEquals(ApplicationModel.DEFAULT_STARTING_YEAR, startingYear.year());
@@ -24,13 +30,13 @@ public class _ApplicationModelTest {
 	
 	@Test
 	public void shouldOnlyHaveOneInstanceOfStockMarketTableModel() {
-		ApplicationModel model = new ApplicationModel();
 		assertTrue("should be same instance", model.stockMarketTableModel() == model.stockMarketTableModel());
 	}
 	
 	@Test
 	public void changingStartingBalanceShouldChangeStockMarketTableModel() {
-		
+		model.setStartingBalance(new Dollars(123));
+		assertEquals(new Dollars(123), model.stockMarketTableModel().startingBalance());
 	}
 	
 }

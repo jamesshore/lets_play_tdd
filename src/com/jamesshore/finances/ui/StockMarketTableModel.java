@@ -19,7 +19,7 @@ public class StockMarketTableModel extends AbstractTableModel {
 		this.fireTableDataChanged();
 	}
 	
-	public StockMarketProjection getProjection() {
+	public StockMarketProjection stockMarketProjection() {
 		return projection;
 	}
 
@@ -50,6 +50,10 @@ public class StockMarketTableModel extends AbstractTableModel {
 			case 5: return currentYear.endingBalance();
 			default: throw new UnreachableCodeException();
 		}
+	}
+
+	public Dollars startingBalance() {
+		return projection.getYearOffset(0).startingBalance();
 	}
 
 }

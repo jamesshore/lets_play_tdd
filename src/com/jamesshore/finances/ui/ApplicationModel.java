@@ -11,34 +11,27 @@ public class ApplicationModel {
 	public static final GrowthRate DEFAULT_GROWTH_RATE = new GrowthRate(10);
 	public static final TaxRate DEFAULT_CAPITAL_GAINS_TAX_RATE = new TaxRate(25);
 	
+	private Year startingYear = DEFAULT_STARTING_YEAR;
+	private Year endingYear = DEFAULT_ENDING_YEAR;
+	private Dollars startingBalance = DEFAULT_STARTING_BALANCE;
+	private Dollars startingCostBasis = DEFAULT_STARTING_COST_BASIS;
+	private GrowthRate growthRate = DEFAULT_GROWTH_RATE;
+	private TaxRate capitalGainsTaxRate = DEFAULT_CAPITAL_GAINS_TAX_RATE;
+	
 	private StockMarketTableModel stockMarketTableModel = new StockMarketTableModel(stockMarketProjection());
 
 	public StockMarketTableModel stockMarketTableModel() {
 		return stockMarketTableModel;
 	}
 
-	private StockMarketProjection stockMarketProjection() {
-		StockMarketYear firstYear = new StockMarketYear(
-			DEFAULT_STARTING_YEAR, 
-			DEFAULT_STARTING_BALANCE, 
-			DEFAULT_STARTING_COST_BASIS, 
-			DEFAULT_GROWTH_RATE, 
-			DEFAULT_CAPITAL_GAINS_TAX_RATE
-		);
-		return new StockMarketProjection(firstYear, DEFAULT_ENDING_YEAR, new Dollars(695));
+	public void setStartingBalance(Dollars startingBalance) {
+		this.startingBalance = startingBalance;
+		stockMarketTableModel.setProjection(stockMarketProjection());
+	}
+
+	public StockMarketProjection stockMarketProjection() {
+		StockMarketYear firstYear = new StockMarketYear(startingYear, startingBalance, startingCostBasis, growthRate, capitalGainsTaxRate);
+		return new StockMarketProjection(firstYear, endingYear, new Dollars(695));
 	}
 	
-	//TODO: spike code to re-do
-//	public void setStartingBalance(Dollars startingBalance) {
-//		StockMarketYear firstYear = new StockMarketYear(
-//			DEFAULT_STARTING_YEAR, 
-//			startingBalance, 
-//			DEFAULT_STARTING_COST_BASIS, 
-//			DEFAULT_GROWTH_RATE, 
-//			DEFAULT_CAPITAL_GAINS_TAX_RATE
-//		);
-//		StockMarketProjection projection = new StockMarketProjection(firstYear, DEFAULT_ENDING_YEAR, new Dollars(695));
-//		stockMarketTableModel.setProjection(projection);
-//	}
-
 }
