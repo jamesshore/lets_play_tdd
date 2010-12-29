@@ -1,8 +1,10 @@
 package com.jamesshore.finances.ui;
 
 import java.awt.*;
+import java.text.*;
 import javax.swing.*;
 import javax.swing.event.*;
+import org.junit.experimental.theories.internal.*;
 import com.jamesshore.finances.domain.*;
 
 public class ApplicationFrame extends JFrame {
@@ -38,8 +40,13 @@ public class ApplicationFrame extends JFrame {
 			@Override public void insertUpdate(DocumentEvent e) { updateApplicationModel(); }
 			@Override public void changedUpdate(DocumentEvent e) { updateApplicationModel(); }
 			private void updateApplicationModel() {
-				int value = Integer.parseInt(field.getText());
-				applicationModel.setStartingBalance(new Dollars(value));
+				try {
+					int value = Integer.parseInt(field.getText());
+					applicationModel.setStartingBalance(new Dollars(value));
+				}
+				catch (NumberFormatException e) {
+					System.out.print("*");
+				}
 			}
 		});
 		
