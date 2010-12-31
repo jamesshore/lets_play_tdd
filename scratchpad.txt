@@ -7,6 +7,8 @@ Should StockMarketYear be immutable?
 
 Make Dollars.equals compare to null without throwing exception -- tests are too hard to read currently
 
+Test localization of currency
+
 ---
 Add remaining fields so that starting conditions can be set at runtime
 

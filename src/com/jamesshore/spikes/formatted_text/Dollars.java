@@ -11,11 +11,7 @@ public class Dollars {
 	public Dollars(double amount) {
 		this.amount = amount;
 	}
-	
-	public Dollars(String amount) {
-		this.amount = Integer.parseInt(amount);
-	}
-	
+		
 	public Dollars plus(Dollars dollars) {
 		return new Dollars(this.amount + dollars.amount);
 	}
@@ -43,7 +39,7 @@ public class Dollars {
 
 	@Override
 	public String toString() {
-		return "$" + roundOffPennies();
+		return "$" + roundOffPennies() + " DOLLARS";
 	}
 
 	@Override

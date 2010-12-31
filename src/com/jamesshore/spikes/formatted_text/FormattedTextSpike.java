@@ -2,11 +2,14 @@ package com.jamesshore.spikes.formatted_text;
 
 import java.awt.*;
 import java.beans.*;
+import java.text.*;
+import java.util.*;
 import javax.swing.*;
 import javax.swing.JFormattedTextField.AbstractFormatter;
 import javax.swing.JFormattedTextField.AbstractFormatterFactory;
-import javax.swing.table.*;
+import javax.swing.event.*;
 import javax.swing.text.*;
+import com.jamesshore.finances.domain.Dollars;
 
 public class FormattedTextSpike extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -27,13 +30,29 @@ public class FormattedTextSpike extends JFrame {
 	}
 	
 	private Component textField() {
-		JFormattedTextField field = new JFormattedTextField(formatterFactory());
-		field.setValue(new Integer(30));
+		final JFormattedTextField field = new JFormattedTextField(formatterFactory());
+		field.setValue(new Long(30));
 		field.addPropertyChangeListener("value", new PropertyChangeListener() {
 			@Override
 			public void propertyChange(PropertyChangeEvent evt) {
 				System.out.println("propertyChange event fired");
-				button.setText(evt.getNewValue().toString());
+				Long value = (Long)evt.getNewValue();
+				Dollars dollars = new Dollars(value.doubleValue());
+				button.setText(dollars.toString());
+			}
+		});
+		
+		field.getDocument().addDocumentListener(new DocumentListener() {
+			@Override public void removeUpdate(DocumentEvent e) { updateApplicationModel(); }
+			@Override public void insertUpdate(DocumentEvent e) { updateApplicationModel(); }
+			@Override public void changedUpdate(DocumentEvent e) { updateApplicationModel(); }
+			private void updateApplicationModel() {
+				// NOTE: field.getValue() is not updated until the field loses focus
+				// or the user presses enter. It does not update when the document changes.
+				System.out.println("Document event fired");
+				Long value = (Long)field.getValue();
+				Dollars dollars = new Dollars(value.doubleValue());
+				button.setText("*" + dollars.toString());
 			}
 		});
 		
@@ -41,8 +60,16 @@ public class FormattedTextSpike extends JFrame {
 	}
 	
 	private AbstractFormatterFactory formatterFactory() {
-		AbstractFormatter editFormatter = new NumberFormatter();
-		DefaultFormatterFactory factory = new DefaultFormatterFactory(editFormatter);
+		NumberFormat displayFormat = NumberFormat.getCurrencyInstance(Locale.FRANCE);
+		displayFormat.setCurrency(Currency.getInstance(Locale.US));
+		if (displayFormat instanceof DecimalFormat) {
+			displayFormat.setMaximumFractionDigits(0);
+		}
+		
+		AbstractFormatter displayFormatter = new NumberFormatter(displayFormat);
+		AbstractFormatter editFormatter = new NumberFormatter(NumberFormat.getNumberInstance());
+		
+		DefaultFormatterFactory factory = new DefaultFormatterFactory(displayFormatter, displayFormatter, editFormatter);
 		
 		return factory;
 	}

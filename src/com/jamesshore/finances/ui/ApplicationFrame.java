@@ -1,10 +1,8 @@
 package com.jamesshore.finances.ui;
 
 import java.awt.*;
-import java.text.*;
 import javax.swing.*;
 import javax.swing.event.*;
-import org.junit.experimental.theories.internal.*;
 import com.jamesshore.finances.domain.*;
 
 public class ApplicationFrame extends JFrame {
