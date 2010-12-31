@@ -39,9 +39,9 @@ public class _ApplicationFrameTest {
 		Component[] components = frame.getContentPane().getComponents();
 		
 		assertEquals("# of components", 2, components.length);
-		assertEquals("component #0", JScrollPane.class, components[0].getClass());
-		assertEquals("component #0 should contain table", ForecastTable.class, ((JScrollPane)components[0]).getViewport().getView().getClass());
-		assertEquals("component #1", JTextField.class, components[1].getClass());
+		assertEquals("scroll pane", JScrollPane.class, components[0].getClass());
+		assertEquals("scroll pane should contain table", ForecastTable.class, ((JScrollPane)components[0]).getViewport().getView().getClass());
+		assertEquals("starting balance field", DollarsTextField.class, components[1].getClass());
 	}
 	
 	@Test
@@ -65,7 +65,7 @@ public class _ApplicationFrameTest {
 		MockApplicationModel mockModel = new MockApplicationModel();
 		frame = new ApplicationFrame(mockModel);
 		
-		JTextField field = frame.startingBalanceField();
+		DollarsTextField field = frame.startingBalanceField();
 		field.setText("668");
 		assertEquals("applicationModel should be updated", new Dollars(668), mockModel.setStartingBalanceCalledWith);  
 	}

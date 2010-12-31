@@ -30,8 +30,9 @@ public class ApplicationFrame extends JFrame {
 		contentPane.add(BorderLayout.NORTH, startingBalanceField());
 	}
 
-	public JTextField startingBalanceField() {
-		final JTextField field = new JTextField();
+	public DollarsTextField startingBalanceField() {
+		// TODO: need to test that startingBalanceField is initialized with correct value
+		final DollarsTextField field = new DollarsTextField(new Dollars(666));
 		
 		field.getDocument().addDocumentListener(new DocumentListener() {
 			@Override public void removeUpdate(DocumentEvent e) { updateApplicationModel(); }
