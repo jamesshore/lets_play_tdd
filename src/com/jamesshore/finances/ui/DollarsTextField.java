@@ -1,5 +1,6 @@
 package com.jamesshore.finances.ui;
 
+import java.text.*;
 import javax.swing.*;
 import com.jamesshore.finances.domain.*;
 
@@ -10,11 +11,18 @@ public class DollarsTextField extends JFormattedTextField {
 
 	public DollarsTextField(Dollars dollars) {
 		this.dollars = dollars;
-		this.add(new JFormattedTextField());
+		this.setText(dollars.toString());
 	}
 
 	public Dollars getDollars() {
-		return dollars;
+		NumberFormat format = NumberFormat.getCurrencyInstance();
+		try {
+			Number value = format.parse(this.getText());
+			return new Dollars(value.doubleValue());
+		}
+		catch (ParseException e) {
+			throw new RuntimeException(e);  // TODO: implement
+		}
 	}
 
 }
