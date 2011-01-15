@@ -29,4 +29,10 @@ public class _DollarsTextFieldTest {
 		field.setText("1024");
 		assertEquals(new Dollars(1024), field.getDollars());
 	}
+	
+	@Test
+	public void emptyStringIsZeroDollars() {
+		field.setText("");
+		assertEquals(new Dollars(0), field.getDollars());
+	}
 }
