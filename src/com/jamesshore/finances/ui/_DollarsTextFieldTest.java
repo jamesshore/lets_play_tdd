@@ -2,6 +2,7 @@ package com.jamesshore.finances.ui;
 
 import static org.junit.Assert.*;
 import java.awt.event.*;
+import javax.swing.*;
 import org.junit.*;
 import com.jamesshore.finances.domain.*;
 
@@ -70,10 +71,14 @@ public class _DollarsTextFieldTest {
 	}
 	
 	@Test
-	public void fieldIsReformattedWhenItLosesFocus() {
+	public void fieldIsReformattedWhenItLosesFocus() throws Exception {
 		field.setText("10");
 		field.dispatchEvent(new FocusEvent(field, FocusEvent.FOCUS_LOST));
-		assertEquals("$10", field.getText());
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				assertEquals("$10", field.getText());
+			}
+		});
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.jamesshore.finances.ui;
 
+import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import com.jamesshore.finances.domain.*;
@@ -10,7 +11,11 @@ public class DollarsTextField extends JTextField {
 	public DollarsTextField(Dollars dollars) {
 		this.setText(dollars.toString());
 		this.addFocusListener(new FocusAdapter() {
+			public void focusGained(FocusEvent e) {
+				System.out.print("G");
+			}
 			public void focusLost(FocusEvent e) {
+				System.out.print("L");
 				DollarsTextField.this.setText(getDollars().toString());
 			}
 		});

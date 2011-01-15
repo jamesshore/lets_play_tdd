@@ -1,9 +1,10 @@
 Format the DollarsTextField when it loses focus
  - use commas
- - use dollar sign
  - red negative with parentheses
  
 A trailing 'd' or 'f' should be illegal in DollarsTextField
+
+Who should handle formatting of Dollars? (Dollars or DollarsTextField?)
 
 Handle text parsing in ApplicationFrame's startingBalanceField()--particularly exception handling 
 

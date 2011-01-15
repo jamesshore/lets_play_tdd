@@ -58,6 +58,13 @@ public class _DollarsTest {
 	}
 	
 	@Test
+	public void toStringFormatsLongNumbersWithCommas() {
+		assertEquals("$1,234", new Dollars(1234).toString());
+		assertEquals("$12,345,678", new Dollars(12345678).toString());
+		assertEquals("$123,456,789", new Dollars(123456789).toString());
+	}
+	
+	@Test
 	public void valueObject() {
 		Dollars dollars1a = new Dollars(10);
 		Dollars dollars1b = new Dollars(10);
@@ -68,6 +75,5 @@ public class _DollarsTest {
 		assertFalse("dollars with different amounts should not be equal", dollars1a.equals(dollars2));
 		assertTrue("equal dollars should have same hash code", dollars1a.hashCode() == dollars1b.hashCode());
 	}
-	
 
 }
