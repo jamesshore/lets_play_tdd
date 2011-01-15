@@ -1,3 +1,10 @@
+Format the DollarsTextField when it loses focus
+ - use commas
+ - use dollar sign
+ - red negative with parentheses
+ 
+A trailing 'd' or 'f' should be illegal in DollarsTextField
+
 Handle text parsing in ApplicationFrame's startingBalanceField()--particularly exception handling 
 
 Require class needs an "impossible exception" method (or "not implemented")
@@ -15,6 +22,8 @@ Test localization of currency
 Add remaining fields so that starting conditions can be set at runtime
 
 Check that keyboard shortcuts work (including tabbing between components)
+
+When tabbing to DollarsTextField, should the value be selected?
 
 Run Swing-related stuff on event dispatching thread: http://download.oracle.com/javase/6/docs/api/javax/swing/package-summary.html#threading
 
