@@ -77,14 +77,12 @@ public class _DollarsTextFieldTest {
 		field.dispatchEvent(new FocusEvent(field, FocusEvent.FOCUS_LOST));
 		
 		final String[] testResult = {null};
-		
 		SwingUtilities.invokeAndWait(new Runnable() {
 			public void run() {
 				testResult[0] = (field.getText());
 			}
 		});
 		assertEquals("$10", testResult[0]);
-
 	}
 
 }

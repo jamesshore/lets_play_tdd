@@ -1,10 +1,6 @@
-FocusLost test doesn't fail (thanks Matthius, ep 80)
-
 Format the DollarsTextField when it loses focus
  - use commas
  - red negative with parentheses
- 
-Don't pass half-constructed objects to event handlers (thanks to Alan, ep 79)
  
 A trailing 'd' or 'f' should be illegal in DollarsTextField
 

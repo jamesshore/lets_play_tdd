@@ -1,5 +1,8 @@
 package com.jamesshore.finances.domain;
 
+import java.text.*;
+import java.util.*;
+
 public class Dollars {
 
 	private double amount;
@@ -39,7 +42,8 @@ public class Dollars {
 
 	@Override
 	public String toString() {
-		return "$" + roundOffPennies();
+		String formattedNumber = NumberFormat.getInstance(Locale.US).format(roundOffPennies());
+		return "$" + formattedNumber;
 	}
 
 	@Override

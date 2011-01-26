@@ -1,6 +1,7 @@
 package com.jamesshore.finances.domain;
 
 import static org.junit.Assert.*;
+import java.util.*;
 import org.junit.*;
 
 
@@ -58,11 +59,21 @@ public class _DollarsTest {
 	}
 	
 	@Test
-	@Ignore
 	public void toStringFormatsLongNumbersWithCommas() {
 		assertEquals("$1,234", new Dollars(1234).toString());
 		assertEquals("$12,345,678", new Dollars(12345678).toString());
 		assertEquals("$123,456,789", new Dollars(123456789).toString());
+	}
+	
+	@Test
+	public void toStringFormatsInTheUsaStyleEvenWhenInDifferentLocales() {
+		try {
+			Locale.setDefault(Locale.FRANCE);
+			assertEquals("$1,234", new Dollars(1234).toString());
+		}
+		finally {
+			Locale.setDefault(Locale.US);
+		}
 	}
 	
 	@Test
