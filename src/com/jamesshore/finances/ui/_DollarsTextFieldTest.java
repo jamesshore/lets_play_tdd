@@ -32,30 +32,6 @@ public class _DollarsTextFieldTest {
 		assertEquals(new Dollars(1024), field.getDollars());
 	}
 	
-	
-	
-	
-	
-	
-	
-	@Test
-	public void commasAreOkay() {
-		field.setText("1,234");
-		assertEquals(new Dollars(1234), field.getDollars());
-		field.setText("1,234,567");
-		assertEquals(new Dollars(1234567), field.getDollars());
-		field.setText("1,,,,,2");
-		assertEquals(new Dollars(12), field.getDollars());
-	}
-	
-	@Test
-	public void negatives() {
-		field.setText("-9.32");
-		assertEquals(new Dollars(-9.32), field.getDollars());
-		field.setText("-");
-		assertEquals(new Dollars(0), field.getDollars());
-	}
-	
 	@Test
 	public void fieldIsReformattedWhenItLosesFocus() throws Exception {
 		field.dispatchEvent(new FocusEvent(field, FocusEvent.FOCUS_GAINED));

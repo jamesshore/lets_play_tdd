@@ -8,7 +8,10 @@ public class Dollars {
 	private double amount;
 
 	public static Dollars parse(String text) {
+		if (text.startsWith("(")) text = text.substring(1);
+		if (text.endsWith(")")) text = text.substring(0, text.length() - 1);
 		if (text.startsWith("$")) text = text.substring(1);
+		if (text.startsWith("-$")) text = "-" + text.substring(2);
 		if (text.isEmpty()) return new Dollars(0);
 		if (text.equals("-")) return new Dollars(0);
 		text = text.replace(",", "");		

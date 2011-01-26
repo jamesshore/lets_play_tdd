@@ -52,7 +52,7 @@ public class _DollarsTest {
 	}
 	
 	@Test
-	public void parse() {
+	public void parseNumbersAndDollarsAndNegativeSigns() {
 		assertEquals("empty string", new Dollars(0), Dollars.parse(""));
 		assertEquals("just a number", new Dollars(42), Dollars.parse("42"));
 		assertEquals("beginning dollar sign", new Dollars(42), Dollars.parse("$42"));
@@ -61,8 +61,21 @@ public class _DollarsTest {
 		assertEquals("one comma", new Dollars(1234), Dollars.parse("1,234"));
 		assertEquals("several commas", new Dollars(1234567), Dollars.parse("1,234,567"));
 		assertEquals("dysfunctional commas", new Dollars(42), Dollars.parse(",,,4,,,,,,2,,,"));
+		assertEquals("negative number", new Dollars(-42), Dollars.parse("-42"));
+		assertEquals("negative dollars", new Dollars(-42), Dollars.parse("-$42"));
+		assertEquals("dollars negative", new Dollars(-42), Dollars.parse("$-42"));  // TODO: finish
+		assertEquals("negative sign only", new Dollars(0), Dollars.parse("-"));
+		assertEquals("negative and dollar sign only", new Dollars(0), Dollars.parse("-$"));
+		assertEquals("dollar and negative sign only", new Dollars(0), Dollars.parse("$-"));
 	}
 	
+	@Test
+	public void parseParentheses() {
+		assertEquals("open parenthesis only", new Dollars(0), Dollars.parse("("));
+		assertEquals("close parenthesis only", new Dollars(0), Dollars.parse(")"));
+		assertEquals("both parenthesis only", new Dollars(0), Dollars.parse("()"));
+		assertEquals("number in parentheses", new Dollars(-42), Dollars.parse("(42)"));
+	}
 	
 	@Test
 	public void toStringIgnoresPennies() {
