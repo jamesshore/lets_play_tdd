@@ -72,13 +72,19 @@ public class _DollarsTextFieldTest {
 	
 	@Test
 	public void fieldIsReformattedWhenItLosesFocus() throws Exception {
+		field.dispatchEvent(new FocusEvent(field, FocusEvent.FOCUS_GAINED));
 		field.setText("10");
 		field.dispatchEvent(new FocusEvent(field, FocusEvent.FOCUS_LOST));
-		SwingUtilities.invokeLater(new Runnable() {
+		
+		final String[] testResult = {null};
+		
+		SwingUtilities.invokeAndWait(new Runnable() {
 			public void run() {
-				assertEquals("$10", field.getText());
+				testResult[0] = (field.getText());
 			}
 		});
+		assertEquals("$10", testResult[0]);
+
 	}
 
 }

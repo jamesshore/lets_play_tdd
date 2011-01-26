@@ -58,6 +58,7 @@ public class _DollarsTest {
 	}
 	
 	@Test
+	@Ignore
 	public void toStringFormatsLongNumbersWithCommas() {
 		assertEquals("$1,234", new Dollars(1234).toString());
 		assertEquals("$12,345,678", new Dollars(12345678).toString());
