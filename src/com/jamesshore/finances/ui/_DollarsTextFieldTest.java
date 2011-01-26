@@ -32,25 +32,11 @@ public class _DollarsTextFieldTest {
 		assertEquals(new Dollars(1024), field.getDollars());
 	}
 	
-	@Test
-	public void textMayStartWithDollarSign() {
-		field.setText("$42");
-		assertEquals(new Dollars(42), field.getDollars());
-		field.setText("$");
-		assertEquals(new Dollars(0), field.getDollars());
-	}
 	
-	@Test
-	public void emptyStringIsZeroDollars() {
-		field.setText("");
-		assertEquals(new Dollars(0), field.getDollars());
-	}
 	
-	@Test
-	public void decimalsWork() {
-		field.setText("1.23");
-		assertEquals(new Dollars(1.23), field.getDollars());
-	}
+	
+	
+	
 	
 	@Test
 	public void commasAreOkay() {

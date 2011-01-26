@@ -19,13 +19,7 @@ public final class DollarsTextField extends JTextField {
 	}
 
 	public Dollars getDollars() {
-		String text = getText();
-		if (text.startsWith("$")) text = text.substring(1);
-		if (text.isEmpty()) return new Dollars(0);
-		if (text.equals("-")) return new Dollars(0);
-		text = text.replace(",", "");		
-		
-		return new Dollars(Double.parseDouble(text));
+		return Dollars.parse(getText());
 	}
 
 }

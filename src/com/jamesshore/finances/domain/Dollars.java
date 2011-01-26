@@ -7,6 +7,15 @@ public class Dollars {
 
 	private double amount;
 
+	public static Dollars parse(String text) {
+		if (text.startsWith("$")) text = text.substring(1);
+		if (text.isEmpty()) return new Dollars(0);
+		if (text.equals("-")) return new Dollars(0);
+		text = text.replace(",", "");		
+		
+		return new Dollars(Double.parseDouble(text));
+	}
+	
 	public Dollars(int amount) {
 		this.amount = amount;
 	}
@@ -36,14 +45,28 @@ public class Dollars {
 		return new Dollars(Math.min(value1.amount, value2.amount));
 	}
 
+	private boolean isNegative() {
+		return amount < 0;
+	}
+
 	private long roundOffPennies() {
 		return Math.round(this.amount);
 	}
 
 	@Override
 	public String toString() {
-		String formattedNumber = NumberFormat.getInstance(Locale.US).format(roundOffPennies());
-		return "$" + formattedNumber;
+		if (isNegative()) {
+			return "(" + convertNumberToString() + ")";
+		}
+		else {
+			return convertNumberToString();
+		}
+	}
+
+	private String convertNumberToString() {
+		long roundedAmount = roundOffPennies();
+		roundedAmount = Math.abs(roundedAmount);
+		return "$" + NumberFormat.getInstance(Locale.US).format(roundedAmount);
 	}
 
 	@Override

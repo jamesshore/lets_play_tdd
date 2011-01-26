@@ -52,6 +52,19 @@ public class _DollarsTest {
 	}
 	
 	@Test
+	public void parse() {
+		assertEquals("empty string", new Dollars(0), Dollars.parse(""));
+		assertEquals("just a number", new Dollars(42), Dollars.parse("42"));
+		assertEquals("beginning dollar sign", new Dollars(42), Dollars.parse("$42"));
+		assertEquals("dollar sign only", new Dollars(0), Dollars.parse("$"));
+		assertEquals("decimals", new Dollars(42.13), Dollars.parse("42.13"));
+		assertEquals("one comma", new Dollars(1234), Dollars.parse("1,234"));
+		assertEquals("several commas", new Dollars(1234567), Dollars.parse("1,234,567"));
+		assertEquals("dysfunctional commas", new Dollars(42), Dollars.parse(",,,4,,,,,,2,,,"));
+	}
+	
+	
+	@Test
 	public void toStringIgnoresPennies() {
 		assertEquals("should round down", "$10", new Dollars(10.10).toString());
 		assertEquals("should round up", "$10", new Dollars(9.90).toString());
@@ -63,6 +76,11 @@ public class _DollarsTest {
 		assertEquals("$1,234", new Dollars(1234).toString());
 		assertEquals("$12,345,678", new Dollars(12345678).toString());
 		assertEquals("$123,456,789", new Dollars(123456789).toString());
+	}
+	
+	@Test
+	public void toStringFormatsNegativeNumbersWithParentheses() {
+		assertEquals("($500)", new Dollars(-500).toString());
 	}
 	
 	@Test

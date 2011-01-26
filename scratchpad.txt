@@ -1,5 +1,8 @@
+Parse negative numbers with parentheses e.g., ($500) and (500) = -$500
+
+Parse -$ as 0
+
 Format the DollarsTextField when it loses focus
- - use commas
  - red negative with parentheses
  
 A trailing 'd' or 'f' should be illegal in DollarsTextField
