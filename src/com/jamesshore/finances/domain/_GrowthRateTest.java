@@ -9,7 +9,7 @@ public class _GrowthRateTest {
 	@Test
 	public void interest() {
 		GrowthRate rate = new GrowthRate(10);
-		assertEquals(new Dollars(100), rate.growthFor(new Dollars(1000)));
+		assertEquals(new ValidDollars(100), rate.growthFor(new ValidDollars(1000)));
 	}
 	
 	@Test

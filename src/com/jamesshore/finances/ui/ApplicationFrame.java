@@ -32,7 +32,7 @@ public class ApplicationFrame extends JFrame {
 
 	public DollarsTextField startingBalanceField() {
 		// TODO: need to test that startingBalanceField is initialized with correct value
-		final DollarsTextField field = new DollarsTextField(new Dollars(666));
+		final DollarsTextField field = new DollarsTextField(new ValidDollars(666));
 		
 		field.getDocument().addDocumentListener(new DocumentListener() {
 			@Override public void removeUpdate(DocumentEvent e) { updateApplicationModel(); }

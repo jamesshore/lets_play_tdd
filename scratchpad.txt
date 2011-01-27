@@ -1,15 +1,13 @@
-Parse negative numbers with parentheses e.g., ($500) and (500) = -$500
-
-Parse -$ as 0
-
-Format the DollarsTextField when it loses focus
- - red negative with parentheses
+')' should be illegal when parsing
  
 A trailing 'd' or 'f' should be illegal in DollarsTextField
 
-Who should handle formatting of Dollars? (Dollars or DollarsTextField?)
+Strip out exception handling from ApplicationFrame.startingBalanceField()
 
-Handle text parsing in ApplicationFrame's startingBalanceField()--particularly exception handling 
+Format the DollarsTextField when it loses focus
+ - red negative with parentheses
+
+ApplicationFrame.startingBalanceField needs to be initialized with correct value
 
 Require class needs an "impossible exception" method (or "not implemented")
 
@@ -19,8 +17,6 @@ Need to handle case where starting balance is lower than cost basis--that should
 Should StockMarketYear be immutable?
 
 Make Dollars.equals compare to null without throwing exception -- tests are too hard to read currently
-
-Test localization of currency
 
 ---
 Add remaining fields so that starting conditions can be set at runtime
@@ -41,18 +37,3 @@ Long term:
 - Cross-platform testing & support (Consider "Macify")
   - Cmd-W should close window on Mac
 - More realistic abstraction for capital gains tax (in StockMarketYear)
-
-
-
-		
-		field.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				forecastTable.setModel(new DefaultTableModel());
-			}
-		});
-		
-		field.addFocusListener(new FocusAdapter() {
-			public void focusLost(FocusEvent e) {
-				forecastTable.setModel(new DefaultTableModel());
-			}
-		});

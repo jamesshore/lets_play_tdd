@@ -13,12 +13,12 @@ public class _DollarsTextFieldTest {
 
 	@Before
 	public void setup() {
-		field = new DollarsTextField(new Dollars(42));
+		field = new DollarsTextField(new ValidDollars(42));
 	}
 	
 	@Test
 	public void canRetrieveAmount() {
-		assertEquals(new Dollars(42), field.getDollars());
+		assertEquals(new ValidDollars(42), field.getDollars());
 	}
 
 	@Test
@@ -29,7 +29,7 @@ public class _DollarsTextFieldTest {
 	@Test
 	public void changingTextChangesDollarAmount() {
 		field.setText("1024");
-		assertEquals(new Dollars(1024), field.getDollars());
+		assertEquals(new ValidDollars(1024), field.getDollars());
 	}
 	
 	@Test

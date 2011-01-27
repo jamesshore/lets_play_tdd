@@ -9,7 +9,6 @@ import javax.swing.JFormattedTextField.AbstractFormatter;
 import javax.swing.JFormattedTextField.AbstractFormatterFactory;
 import javax.swing.event.*;
 import javax.swing.text.*;
-import com.jamesshore.finances.domain.Dollars;
 
 public class FormattedTextSpike extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -37,7 +36,7 @@ public class FormattedTextSpike extends JFrame {
 			public void propertyChange(PropertyChangeEvent evt) {
 				System.out.println("propertyChange event fired");
 				Long value = (Long)evt.getNewValue();
-				Dollars dollars = new Dollars(value.doubleValue());
+				SpikeDollars dollars = new SpikeDollars(value.doubleValue());
 				button.setText(dollars.toString());
 			}
 		});
@@ -51,7 +50,7 @@ public class FormattedTextSpike extends JFrame {
 				// or the user presses enter. It does not update when the document changes.
 				System.out.println("Document event fired");
 				Long value = (Long)field.getValue();
-				Dollars dollars = new Dollars(value.doubleValue());
+				SpikeDollars dollars = new SpikeDollars(value.doubleValue());
 				button.setText("*" + dollars.toString());
 			}
 		});

@@ -67,7 +67,7 @@ public class _ApplicationFrameTest {
 		
 		DollarsTextField field = frame.startingBalanceField();
 		field.setText("668");
-		assertEquals("applicationModel should be updated", new Dollars(668), mockModel.setStartingBalanceCalledWith);  
+		assertEquals("applicationModel should be updated", new ValidDollars(668), mockModel.setStartingBalanceCalledWith);  
 	}
 	
 }
