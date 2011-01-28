@@ -8,6 +8,11 @@ import org.junit.*;
 public class _ValidDollarsTest {
 
 	@Test
+	public void isInvalid() {
+		assertTrue(new ValidDollars(42).isValid());
+	}
+	
+	@Test
 	public void addition() {
 		assertEquals(new ValidDollars(40), new ValidDollars(10).plus(new ValidDollars(30)));
 	}

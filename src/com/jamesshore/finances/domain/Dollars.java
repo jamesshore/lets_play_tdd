@@ -22,6 +22,7 @@ public abstract class Dollars {
 		return value1.min(value2);
 	}
 
+	public abstract boolean isValid();
 	public abstract Dollars plus(Dollars dollars);
 	public abstract Dollars minus(Dollars dollars);
 	public abstract Dollars subtractToZero(Dollars dollars);

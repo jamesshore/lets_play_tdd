@@ -15,19 +15,26 @@ public class ValidDollars extends Dollars{
 		this.amount = amount;
 	}
 	
+	public boolean isValid() {
+		return true;
+	}
+	
 	private double amount(Dollars dollars) {
 		return ((ValidDollars)dollars).amount;
 	}
 	
 	public Dollars plus(Dollars dollars) {
+		if (!dollars.isValid()) return new InvalidDollars();
 		return new ValidDollars(this.amount + amount(dollars));
 	}
 	
 	public Dollars minus(Dollars dollars) {
+		if (!dollars.isValid()) return new InvalidDollars();
 		return new ValidDollars(this.amount - amount(dollars));
 	}
 
 	public Dollars subtractToZero(Dollars dollars) {
+		if (!dollars.isValid()) return new InvalidDollars();
 		double result = this.amount - amount(dollars);
 		return new ValidDollars(Math.max(0, result));
 	}
@@ -37,6 +44,7 @@ public class ValidDollars extends Dollars{
 	}
 	
 	public Dollars min(Dollars value2) {
+		if (!value2.isValid()) return new InvalidDollars();
 		return new ValidDollars(Math.min(this.amount, amount(value2)));
 	}
 
