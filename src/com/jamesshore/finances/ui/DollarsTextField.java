@@ -9,11 +9,12 @@ import com.jamesshore.finances.domain.*;
 public final class DollarsTextField extends JTextField {
 	private static final long serialVersionUID = 1L;
 	
-	public DollarsTextField(Dollars dollars) {
-		this.setText(dollars.toString());
+	public DollarsTextField(Dollars initialValue) {
+		this.setText(initialValue.toString());
 		this.addFocusListener(new FocusAdapter() {
 			public void focusLost(FocusEvent e) {
-				DollarsTextField.this.setText(getDollars().toString());
+				Dollars dollars = getDollars();
+				if (dollars.isValid()) DollarsTextField.this.setText(dollars.toString());
 			}
 		});
 	}

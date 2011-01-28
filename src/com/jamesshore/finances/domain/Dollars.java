@@ -4,6 +4,10 @@ package com.jamesshore.finances.domain;
 public abstract class Dollars {
 
 	public static Dollars parse(String text) {
+		if (text.equals(")")) return new InvalidDollars();
+		if (text.endsWith("d")) return new InvalidDollars();
+		if (text.endsWith("f")) return new InvalidDollars();
+
 		boolean parenthesis = false;
 		if (text.startsWith("(")) { text = text.substring(1); parenthesis = true; }
 		if (text.endsWith(")")) { text = text.substring(0, text.length() - 1); parenthesis = true; }
@@ -15,7 +19,12 @@ public abstract class Dollars {
 		if (text.equals("-")) return new ValidDollars(0);
 		text = text.replace(",", "");		
 		
-		return new ValidDollars(Double.parseDouble(text));
+		try {
+			return new ValidDollars(Double.parseDouble(text));
+		}
+		catch (NumberFormatException e) {
+			return new InvalidDollars();
+		}
 	}
 	
 	public static Dollars min(Dollars value1, Dollars value2) {

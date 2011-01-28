@@ -46,5 +46,20 @@ public class _DollarsTextFieldTest {
 		});
 		assertEquals("$10", testResult[0]);
 	}
+	
+	@Test
+	public void fieldIsNotReformattedWhenTheValueIsInvalid() throws Exception {
+		field.dispatchEvent(new FocusEvent(field, FocusEvent.FOCUS_GAINED));
+		field.setText("xxx");
+		field.dispatchEvent(new FocusEvent(field, FocusEvent.FOCUS_LOST));
+		
+		final String[] testResult = {null};
+		SwingUtilities.invokeAndWait(new Runnable() {
+			public void run() {
+				testResult[0] = (field.getText());
+			}
+		});
+		assertEquals("xxx", testResult[0]);
+	}
 
 }

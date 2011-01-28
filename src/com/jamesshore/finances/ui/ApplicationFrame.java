@@ -39,13 +39,7 @@ public class ApplicationFrame extends JFrame {
 			@Override public void insertUpdate(DocumentEvent e) { updateApplicationModel(); }
 			@Override public void changedUpdate(DocumentEvent e) { updateApplicationModel(); }
 			private void updateApplicationModel() {
-				try {
-					applicationModel.setStartingBalance(field.getDollars());
-				}
-				catch (NumberFormatException e) {
-					// TODO: Need to strip out error handling
-					System.out.println("ERROR: " + field.getText());
-				}
+				applicationModel.setStartingBalance(field.getDollars());
 			}
 		});
 		

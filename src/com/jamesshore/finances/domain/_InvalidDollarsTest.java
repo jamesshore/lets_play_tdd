@@ -60,6 +60,7 @@ public class _InvalidDollarsTest {
 		assertEquals("$???", invalidA.toString());
 		assertTrue("invalid dollars are always equal", invalidA.equals(invalidB));
 		assertFalse("invalid dollars don't equal anything else", invalidA.equals(valid));
+		assertFalse("shouldn't blow up when comparing to null", invalidA.equals(null));
 		assertTrue("equal dollars should have same hash code", invalidA.hashCode() == invalidB.hashCode());
 	}
 	

@@ -26,11 +26,19 @@ public class _DollarsTest {
 	@Test
 	public void parseParentheses() {
 		assertEquals("open parenthesis only", new ValidDollars(0), Dollars.parse("("));
-		assertEquals("close parenthesis only", new ValidDollars(0), Dollars.parse(")"));
+		assertEquals("close parenthesis only", new InvalidDollars(), Dollars.parse(")"));
 		assertEquals("both parenthesis only", new ValidDollars(0), Dollars.parse("()"));
 		assertEquals("number in parentheses", new ValidDollars(-42), Dollars.parse("(42)"));
 		assertEquals("open parenthesis and number", new ValidDollars(-42), Dollars.parse("(42"));
 		assertEquals("close parenthesis and number", new ValidDollars(-42), Dollars.parse("42)"));
+	}
+	
+	@Test
+	public void parseIllegals() {
+		InvalidDollars invalid = new InvalidDollars();
+		assertEquals(invalid, Dollars.parse("x"));
+		assertEquals(invalid, Dollars.parse("40d"));
+		assertEquals(invalid, Dollars.parse("40f"));
 	}
 
 }

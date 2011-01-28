@@ -1,7 +1,4 @@
-')' should be illegal when parsing
  
-A trailing 'd' or 'f' should be illegal in DollarsTextField
-
 Strip out exception handling from ApplicationFrame.startingBalanceField()
 
 Format the DollarsTextField when it loses focus
