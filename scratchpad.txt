@@ -1,4 +1,5 @@
- 
+2.2250738585072012e-308
+
 Strip out exception handling from ApplicationFrame.startingBalanceField()
 
 Format the DollarsTextField when it loses focus
@@ -8,12 +9,12 @@ ApplicationFrame.startingBalanceField needs to be initialized with correct value
 
 Require class needs an "impossible exception" method (or "not implemented")
 
+Handle overflow/underflow in Dollars??
+
 ---
 Need to handle case where starting balance is lower than cost basis--that should be illegal
 
 Should StockMarketYear be immutable?
-
-Make Dollars.equals compare to null without throwing exception -- tests are too hard to read currently
 
 ---
 Add remaining fields so that starting conditions can be set at runtime

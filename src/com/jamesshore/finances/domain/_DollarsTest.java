@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 import org.junit.*;
 
 public class _DollarsTest {
-	
+
 	@Test
 	public void parseNumbersAndDollarsAndNegativeSigns() {
 		assertEquals("empty string", new ValidDollars(0), Dollars.parse(""));
@@ -22,7 +22,7 @@ public class _DollarsTest {
 		assertEquals("negative and dollar sign only", new ValidDollars(0), Dollars.parse("-$"));
 		assertEquals("dollar and negative sign only", new ValidDollars(0), Dollars.parse("$-"));
 	}
-	
+
 	@Test
 	public void parseParentheses() {
 		assertEquals("open parenthesis only", new ValidDollars(0), Dollars.parse("("));
@@ -32,13 +32,19 @@ public class _DollarsTest {
 		assertEquals("open parenthesis and number", new ValidDollars(-42), Dollars.parse("(42"));
 		assertEquals("close parenthesis and number", new ValidDollars(-42), Dollars.parse("42)"));
 	}
-	
+
 	@Test
 	public void parseIllegals() {
 		InvalidDollars invalid = new InvalidDollars();
 		assertEquals(invalid, Dollars.parse("x"));
 		assertEquals(invalid, Dollars.parse("40d"));
 		assertEquals(invalid, Dollars.parse("40f"));
+	}
+
+	@Test
+	public void parsingTheDoubleOfDeathDoesntHangMachine() {
+		Dollars.parse("2.2250738585072012e-308");
+		// should not hang -- if we reached this line, everything is okay.
 	}
 
 }
