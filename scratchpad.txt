@@ -4,11 +4,13 @@ Render negative Dollars as red
  - in table
  - in text field
  
-Have Invalid Dollars description reflect actual underlying problem (matching the tooltip)?
+Have InvalidDollars icon description reflect actual underlying problem (matching the tooltip)?
+
+InvalidDollars should display a tooltip explaining why there's an error
  
 Draw proper icon for invalid_dollars.gif
 
-Look into whether there's a better resource way to manage resources like invalid_dollars.gif
+Look into whether there's a better way to manage resources like invalid_dollars.gif
 
 ApplicationFrame.startingBalanceField needs to be initialized with correct value
 

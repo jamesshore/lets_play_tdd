@@ -6,7 +6,8 @@ import com.jamesshore.finances.util.*;
 
 public class StockMarketTableModel extends AbstractTableModel {
 	private static final long serialVersionUID = 1L;
-	private static final String[] COLUMN_TITLES = {"Year", "Starting Balance", "Cost Basis", "Sales", "Growth", "Ending Balance"};
+	private static final String[] COLUMN_TITLES = { "Year", "Starting Balance", "Cost Basis", "Sales", "Growth", "Ending Balance" };
+	private static final Class<?>[] COLUMN_CLASSES = { Year.class, Dollars.class, Dollars.class, Dollars.class, Dollars.class, Dollars.class };
 
 	private StockMarketProjection projection;
 
@@ -18,7 +19,7 @@ public class StockMarketTableModel extends AbstractTableModel {
 		this.projection = projection;
 		this.fireTableDataChanged();
 	}
-	
+
 	public StockMarketProjection stockMarketProjection() {
 		return projection;
 	}
@@ -27,10 +28,15 @@ public class StockMarketTableModel extends AbstractTableModel {
 	public int getColumnCount() {
 		return COLUMN_TITLES.length;
 	}
-	
+
 	@Override
 	public String getColumnName(int column) {
 		return COLUMN_TITLES[column];
+	}
+
+	@Override
+	public Class<?> getColumnClass(int column) {
+		return COLUMN_CLASSES[column];
 	}
 
 	@Override
@@ -42,13 +48,20 @@ public class StockMarketTableModel extends AbstractTableModel {
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		StockMarketYear currentYear = projection.getYearOffset(rowIndex);
 		switch (columnIndex) {
-			case 0: return currentYear.year();
-			case 1: return currentYear.startingBalance();
-			case 2: return currentYear.startingCostBasis();
-			case 3: return currentYear.totalSold();
-			case 4: return currentYear.growth();
-			case 5: return currentYear.endingBalance();
-			default: throw new UnreachableCodeException();
+			case 0:
+				return currentYear.year();
+			case 1:
+				return currentYear.startingBalance();
+			case 2:
+				return currentYear.startingCostBasis();
+			case 3:
+				return currentYear.totalSold();
+			case 4:
+				return currentYear.growth();
+			case 5:
+				return currentYear.endingBalance();
+			default:
+				throw new UnreachableCodeException();
 		}
 	}
 
