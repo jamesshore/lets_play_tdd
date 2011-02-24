@@ -60,19 +60,22 @@ public class _ForecastTableTest {
 	}
 
 	@Test
+	@SuppressWarnings("serial")
 	public void tableShouldHaveSelfRenderableObjectsRenderThemselves() {
 		SelfRenderable renderable = new SelfRenderable() {
-			@Override
 			public void render(JLabel label) {
 				label.setText("I rendered myself");
 			}
 		};
-
-		DefaultTableModel tableModel = new DefaultTableModel(0, 1);
+		DefaultTableModel tableModel = new DefaultTableModel(0, 1) {
+			public Class<?> getColumnClass(int column) {
+				return SelfRenderable.class;
+			}
+		};
 		tableModel.addRow(new SelfRenderable[] { renderable });
 		JTable table = new ForecastTable(tableModel);
-		TableColumn column = table.getColumnModel().getColumn(1);
-		column.setCellRenderer(cellRenderer)
+
+		assertEquals("I rendered myself", getCellText(table, 0, 0));
 	}
 
 	private Color getCellBackground(JTable table, int row, int column) {
@@ -82,4 +85,9 @@ public class _ForecastTableTest {
 		return actualColor;
 	}
 
+	private String getCellText(JTable table, int row, int column) {
+		TableCellRenderer renderer = table.getCellRenderer(row, column);
+		JLabel label = (JLabel)table.prepareRenderer(renderer, row, column);
+		return label.getText();
+	}
 }

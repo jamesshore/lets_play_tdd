@@ -14,15 +14,13 @@ public class ForecastTable extends JTable {
 
 	public ForecastTable(TableModel model) {
 		super(model);
-
-		// SPIKE //TODO: remove me
-		this.setDefaultRenderer(SelfRenderable.class, renderer());
+		setDefaultRenderer(SelfRenderable.class, selfRenderer());
 	}
 
-	// SPIKE // TODO: remove me
-	@SuppressWarnings("serial")
-	private TableCellRenderer renderer() {
+	private TableCellRenderer selfRenderer() {
 		return new DefaultTableCellRenderer() {
+			private static final long serialVersionUID = 1L;
+
 			public void setValue(Object value) {
 				SelfRenderable renderable = (SelfRenderable)value;
 				renderable.render(this);
