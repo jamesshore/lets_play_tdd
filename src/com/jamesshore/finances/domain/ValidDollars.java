@@ -1,5 +1,6 @@
 package com.jamesshore.finances.domain;
 
+import java.awt.*;
 import java.text.*;
 import java.util.*;
 import javax.swing.*;
@@ -58,6 +59,11 @@ public class ValidDollars extends Dollars {
 	}
 
 	public void render(JLabel label) {
+		label.setIcon(null);
+		label.setToolTipText(null);
+		label.setText(this.toString());
+		label.setForeground(Color.BLACK);
+		if (amount < 0) label.setForeground(Color.RED);
 	}
 
 	@Override

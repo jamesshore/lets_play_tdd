@@ -1,11 +1,19 @@
 package com.jamesshore.finances.domain;
 
 import static org.junit.Assert.*;
+import java.awt.*;
 import java.util.*;
 import javax.swing.*;
 import org.junit.*;
 
 public class _ValidDollarsTest {
+
+	private ValidDollars twentyDollars;
+
+	@Before
+	public void setup() {
+		twentyDollars = new ValidDollars(20);
+	}
 
 	@Test
 	public void isInvalid() {
@@ -44,10 +52,42 @@ public class _ValidDollarsTest {
 
 	@Test
 	public void renderToSwingLabel() {
-		ValidDollars value = new ValidDollars(20);
 		JLabel label = new JLabel();
-		value.render(label);
-		assertEquals(value.toString(), label.getText());
+		twentyDollars.render(label);
+		assertEquals("label text should be toString() value", twentyDollars.toString(), label.getText());
+	}
+
+	@Test
+	public void renderNegativeValuesInRed() {
+		JLabel label = new JLabel();
+		ValidDollars minusTwenty = new ValidDollars(-20);
+		minusTwenty.render(label);
+		assertEquals("red when negative", Color.RED, label.getForeground());
+	}
+
+	@Test
+	public void renderZeroAndPositiveInBlack() {
+		JLabel label = new JLabel();
+		ValidDollars zero = new ValidDollars(0);
+		zero.render(label);
+		assertEquals("black when zero", Color.BLACK, label.getForeground());
+
+		label = new JLabel();
+		twentyDollars.render(label);
+		assertEquals("black when positive", Color.BLACK, label.getForeground());
+	}
+
+	@Test
+	public void renderingShouldResetLabelToDefaultState() {
+		JLabel label = new JLabel();
+		label.setIcon(new ImageIcon());
+		label.setToolTipText("bogus tooltip");
+		label.setForeground(Color.CYAN);
+
+		twentyDollars.render(label);
+		assertNull("should not have icon", label.getIcon());
+		assertNull("should not have tooltip", label.getToolTipText());
+		assertEquals("foreground color", Color.BLACK, label.getForeground());
 	}
 
 	@Test

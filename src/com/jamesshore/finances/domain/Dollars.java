@@ -1,5 +1,6 @@
 package com.jamesshore.finances.domain;
 
+
 public abstract class Dollars {
 
 	public static Dollars parse(String text) {
@@ -48,5 +49,7 @@ public abstract class Dollars {
 	public abstract Dollars percentage(double percent);
 
 	public abstract Dollars min(Dollars value2);
+
+	// public abstract void render(JLabel label);
 
 }

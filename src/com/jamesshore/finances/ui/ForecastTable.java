@@ -14,15 +14,15 @@ public class ForecastTable extends JTable {
 	public ForecastTable(TableModel model) {
 		super(model);
 	}
-	
+
 	@Override
 	public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
 		Component cell = super.prepareRenderer(renderer, row, column);
-		
+
 		if (isCellSelected(row, column)) cell.setBackground(SELECTION_BACKGROUND_COLOR);
 		else if (alternatingRow(row)) cell.setBackground(ALTERNATE_BACKGROUND_COLOR);
 		else cell.setBackground(STANDARD_BACKGROUND_COLOR);
-		
+
 		return cell;
 	}
 
