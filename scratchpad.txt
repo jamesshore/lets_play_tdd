@@ -1,9 +1,6 @@
-2.2250738585072012e-308
-
-Strip out exception handling from ApplicationFrame.startingBalanceField()
-
-Format the DollarsTextField when it loses focus
- - red negative with parentheses
+Render negative Dollars as red
+ - in table
+ - in text field
 
 ApplicationFrame.startingBalanceField needs to be initialized with correct value
 

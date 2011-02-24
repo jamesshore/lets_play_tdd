@@ -42,6 +42,8 @@ public class _DollarsTest {
 	}
 
 	@Test
+	// This test handles the special case where the core Java library hangs when
+	// parsing a magic number
 	public void parsingTheDoubleOfDeathDoesntHangMachine() {
 		Dollars.parse("2.2250738585072012e-308");
 		// should not hang -- if we reached this line, everything is okay.

@@ -2,32 +2,33 @@ package com.jamesshore.finances.domain;
 
 import java.text.*;
 import java.util.*;
+import javax.swing.*;
 
-public class ValidDollars extends Dollars{
+public class ValidDollars extends Dollars {
 
 	private double amount;
 
 	public ValidDollars(int amount) {
 		this.amount = amount;
 	}
-	
+
 	public ValidDollars(double amount) {
 		this.amount = amount;
 	}
-	
+
 	public boolean isValid() {
 		return true;
 	}
-	
+
 	private double amount(Dollars dollars) {
 		return ((ValidDollars)dollars).amount;
 	}
-	
+
 	public Dollars plus(Dollars dollars) {
 		if (!dollars.isValid()) return new InvalidDollars();
 		return new ValidDollars(this.amount + amount(dollars));
 	}
-	
+
 	public Dollars minus(Dollars dollars) {
 		if (!dollars.isValid()) return new InvalidDollars();
 		return new ValidDollars(this.amount - amount(dollars));
@@ -42,7 +43,7 @@ public class ValidDollars extends Dollars{
 	public Dollars percentage(double percent) {
 		return new ValidDollars(amount * percent / 100.0);
 	}
-	
+
 	public Dollars min(Dollars value2) {
 		if (!value2.isValid()) return new InvalidDollars();
 		return new ValidDollars(Math.min(this.amount, amount(value2)));
@@ -51,9 +52,12 @@ public class ValidDollars extends Dollars{
 	private boolean isNegative() {
 		return amount < 0;
 	}
-	
+
 	private long roundOffPennies() {
 		return Math.round(this.amount);
+	}
+
+	public void render(JLabel label) {
 	}
 
 	@Override
