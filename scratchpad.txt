@@ -1,6 +1,14 @@
+Consider whether to inject icon in _InvalidDollarsTest.renderToSwingLabel
+
 Render negative Dollars as red
  - in table
  - in text field
+ 
+Have Invalid Dollars description reflect actual underlying problem (matching the tooltip)?
+ 
+Draw proper icon for invalid_dollars.gif
+
+Look into whether there's a better resource way to manage resources like invalid_dollars.gif
 
 ApplicationFrame.startingBalanceField needs to be initialized with correct value
 
