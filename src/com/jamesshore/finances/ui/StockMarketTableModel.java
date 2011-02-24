@@ -7,7 +7,7 @@ import com.jamesshore.finances.util.*;
 public class StockMarketTableModel extends AbstractTableModel {
 	private static final long serialVersionUID = 1L;
 	private static final String[] COLUMN_TITLES = { "Year", "Starting Balance", "Cost Basis", "Sales", "Growth", "Ending Balance" };
-	private static final Class<?>[] COLUMN_CLASSES = { Year.class, Dollars.class, Dollars.class, Dollars.class, Dollars.class, Dollars.class };
+	private static final Class<?>[] COLUMN_CLASSES = { Year.class, SelfRenderable.class, SelfRenderable.class, SelfRenderable.class, SelfRenderable.class, SelfRenderable.class };
 
 	private StockMarketProjection projection;
 

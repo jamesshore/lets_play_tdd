@@ -3,6 +3,7 @@ package com.jamesshore.finances.ui;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.*;
+import com.jamesshore.finances.domain.*;
 
 public class ForecastTable extends JTable {
 	private static final long serialVersionUID = 1L;
@@ -13,6 +14,20 @@ public class ForecastTable extends JTable {
 
 	public ForecastTable(TableModel model) {
 		super(model);
+
+		// SPIKE //TODO: remove me
+		this.setDefaultRenderer(SelfRenderable.class, renderer());
+	}
+
+	// SPIKE // TODO: remove me
+	@SuppressWarnings("serial")
+	private TableCellRenderer renderer() {
+		return new DefaultTableCellRenderer() {
+			public void setValue(Object value) {
+				SelfRenderable renderable = (SelfRenderable)value;
+				renderable.render(this);
+			}
+		};
 	}
 
 	@Override

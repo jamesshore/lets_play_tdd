@@ -4,6 +4,8 @@ Render negative Dollars as red
  - in table
  - in text field
  
+Take a second look at the way we're saying the columns are SelfRenderable in StockMarketTableModel. Too ugly?
+ 
 Have InvalidDollars icon description reflect actual underlying problem (matching the tooltip)?
 
 InvalidDollars should display a tooltip explaining why there's an error

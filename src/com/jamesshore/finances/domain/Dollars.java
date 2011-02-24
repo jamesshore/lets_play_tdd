@@ -1,7 +1,6 @@
 package com.jamesshore.finances.domain;
 
-
-public abstract class Dollars {
+public abstract class Dollars implements SelfRenderable {
 
 	public static Dollars parse(String text) {
 		if (text.equals(")")) return new InvalidDollars();
@@ -49,7 +48,4 @@ public abstract class Dollars {
 	public abstract Dollars percentage(double percent);
 
 	public abstract Dollars min(Dollars value2);
-
-	// public abstract void render(JLabel label);
-
 }
