@@ -1,9 +1,9 @@
 package com.jamesshore.finances.domain;
 
 import static org.junit.Assert.*;
-import java.net.*;
 import javax.swing.*;
 import org.junit.*;
+import com.jamesshore.finances.ui.*;
 
 public class _InvalidDollarsTest {
 
@@ -59,10 +59,9 @@ public class _InvalidDollarsTest {
 	@Test
 	public void renderToSwingLabel() {
 		JLabel label = new JLabel();
-		invalidA.render(label);
+		invalidA.render(new Resources(), label);
 
-		URL iconUrl = getClass().getResource("invalid_dollars.gif");
-		ImageIcon expectedIcon = new ImageIcon(iconUrl);
+		ImageIcon expectedIcon = new Resources().invalidDollarIcon();
 		ImageIcon actualIcon = (ImageIcon)label.getIcon();
 
 		assertEquals("icon image", expectedIcon.getImage(), actualIcon.getImage());
@@ -75,7 +74,7 @@ public class _InvalidDollarsTest {
 		label.setText("foodle");
 		label.setToolTipText("bogus tooltip");
 
-		invalidA.render(label);
+		invalidA.render(new Resources(), label);
 		assertNull("should have no text", label.getText());
 		assertNull("should have no tooltip", label.getToolTipText());
 	}

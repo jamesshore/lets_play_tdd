@@ -5,6 +5,7 @@ import java.awt.*;
 import java.util.*;
 import javax.swing.*;
 import org.junit.*;
+import com.jamesshore.finances.ui.*;
 
 public class _ValidDollarsTest {
 
@@ -53,7 +54,7 @@ public class _ValidDollarsTest {
 	@Test
 	public void renderToSwingLabel() {
 		JLabel label = new JLabel();
-		twentyDollars.render(label);
+		twentyDollars.render(new Resources(), label);
 		assertEquals("label text should be toString() value", twentyDollars.toString(), label.getText());
 	}
 
@@ -61,7 +62,7 @@ public class _ValidDollarsTest {
 	public void renderNegativeValuesInRed() {
 		JLabel label = new JLabel();
 		ValidDollars minusTwenty = new ValidDollars(-20);
-		minusTwenty.render(label);
+		minusTwenty.render(new Resources(), label);
 		assertEquals("red when negative", Color.RED, label.getForeground());
 	}
 
@@ -69,11 +70,11 @@ public class _ValidDollarsTest {
 	public void renderZeroAndPositiveInBlack() {
 		JLabel label = new JLabel();
 		ValidDollars zero = new ValidDollars(0);
-		zero.render(label);
+		zero.render(new Resources(), label);
 		assertEquals("black when zero", Color.BLACK, label.getForeground());
 
 		label = new JLabel();
-		twentyDollars.render(label);
+		twentyDollars.render(new Resources(), label);
 		assertEquals("black when positive", Color.BLACK, label.getForeground());
 	}
 

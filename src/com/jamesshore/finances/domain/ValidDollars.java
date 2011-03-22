@@ -4,6 +4,7 @@ import java.awt.*;
 import java.text.*;
 import java.util.*;
 import javax.swing.*;
+import com.jamesshore.finances.ui.*;
 
 public class ValidDollars extends Dollars {
 
@@ -58,7 +59,7 @@ public class ValidDollars extends Dollars {
 		return Math.round(this.amount);
 	}
 
-	public void render(JLabel label) {
+	public void render(Resources resources, JLabel label) {
 		label.setIcon(null);
 		label.setToolTipText(null);
 		label.setText(this.toString());

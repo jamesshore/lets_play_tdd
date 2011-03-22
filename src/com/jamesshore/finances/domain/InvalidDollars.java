@@ -1,7 +1,7 @@
 package com.jamesshore.finances.domain;
 
-import java.net.*;
 import javax.swing.*;
+import com.jamesshore.finances.ui.*;
 
 public class InvalidDollars extends Dollars {
 
@@ -35,9 +35,8 @@ public class InvalidDollars extends Dollars {
 		return new InvalidDollars();
 	}
 
-	public void render(JLabel label) {
-		URL iconUrl = getClass().getResource("invalid_dollars.gif");
-		label.setIcon(new ImageIcon(iconUrl, "Invalid dollar amount"));
+	public void render(Resources resources, JLabel label) {
+		label.setIcon(resources.invalidDollarIcon());
 		label.setText(null);
 		label.setToolTipText(null);
 	}

@@ -5,7 +5,9 @@ import javax.swing.*;
 import javax.swing.table.*;
 import com.jamesshore.finances.domain.*;
 
-public class ForecastTable extends JTable {
+//If you want to subclass this class, it's okay to remove the 'final designator, but be careful of race 
+//conditions with the cell renderer in the constructor. It could execute before the subclass constructor.
+public final class ForecastTable extends JTable {
 	private static final long serialVersionUID = 1L;
 
 	public static final Color STANDARD_BACKGROUND_COLOR = Color.WHITE;

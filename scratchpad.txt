@@ -1,18 +1,10 @@
-Render negative Dollars as red in text field
- 
-Take a second look at the way we're saying the columns are SelfRenderable in StockMarketTableModel. Too ugly?
- 
-Have InvalidDollars icon description reflect actual underlying problem (matching the tooltip)?
-
-InvalidDollars should display a tooltip explaining why there's an error
- 
-Draw proper icon for invalid_dollars.gif
-
 Look into whether there's a better way to manage resources like invalid_dollars.gif
+
+_InvalidDollarsTest.renderToSwingLabel - referring to resources class rather than loading from the file system
 
 ApplicationFrame.startingBalanceField needs to be initialized with correct value
 
-Require class needs an "impossible exception" method (or "not implemented")
+Render negative Dollars as red in text field 
 
 Handle overflow/underflow in Dollars??
 
