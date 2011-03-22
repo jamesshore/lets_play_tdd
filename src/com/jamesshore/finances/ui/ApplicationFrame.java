@@ -30,7 +30,6 @@ public class ApplicationFrame extends JFrame {
 	}
 
 	public DollarsTextField startingBalanceField() {
-		// TODO: need to test that startingBalanceField is initialized with correct value
 		final DollarsTextField field = new DollarsTextField(applicationModel.startingBalance());
 
 		field.getDocument().addDocumentListener(new DocumentListener() {

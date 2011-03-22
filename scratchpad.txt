@@ -1,5 +1,3 @@
-ApplicationFrame.startingBalanceField needs to be initialized with correct value
-
 Render negative Dollars as red in text field 
 
 Handle overflow/underflow in Dollars??

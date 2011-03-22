@@ -9,10 +9,14 @@ import com.jamesshore.finances.ui.*;
 
 public class _ValidDollarsTest {
 
+	private ValidDollars oneDollar;
 	private ValidDollars twentyDollars;
+	private ValidDollars MAX_VALID = ValidDollars.MAXIMUM_VALUE;
+	private ValidDollars MIN_VALID = ValidDollars.MINIMUM_VALUE;
 
 	@Before
 	public void setup() {
+		oneDollar = new ValidDollars(1);
 		twentyDollars = new ValidDollars(20);
 	}
 
@@ -22,8 +26,10 @@ public class _ValidDollarsTest {
 	}
 
 	@Test
-	public void addition() {
-		assertEquals(new ValidDollars(40), new ValidDollars(10).plus(new ValidDollars(30)));
+	public void arithmetic() {
+		assertEquals("addition", new ValidDollars(40), new ValidDollars(10).plus(new ValidDollars(30)));
+		assertEquals("overflow", new InvalidDollars(), MAX_VALID.plus(new ValidDollars(1)));
+		assertEquals("underflow", new InvalidDollars(), MIN_VALID.minus(new ValidDollars(1)));
 	}
 
 	@Test

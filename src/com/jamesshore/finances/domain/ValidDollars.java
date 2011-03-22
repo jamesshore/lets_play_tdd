@@ -8,6 +8,11 @@ import com.jamesshore.finances.ui.*;
 
 public class ValidDollars extends Dollars {
 
+	private static final double MAX_DOUBLE = 1000000000d; // one beeeellion dollars!
+	private static final double MIN_DOUBLE = MAX_DOUBLE * -1;
+	public static final ValidDollars MAXIMUM_VALUE = new ValidDollars(MAX_DOUBLE);
+	public static final ValidDollars MINIMUM_VALUE = new ValidDollars(MIN_DOUBLE);
+
 	private double amount;
 
 	public ValidDollars(int amount) {
@@ -28,7 +33,10 @@ public class ValidDollars extends Dollars {
 
 	public Dollars plus(Dollars dollars) {
 		if (!dollars.isValid()) return new InvalidDollars();
-		return new ValidDollars(this.amount + amount(dollars));
+		double result = this.amount + amount(dollars);
+		if (result > MAX_DOUBLE) return new InvalidDollars();
+		if (result < MIN_DOUBLE) return new InvalidDollars();
+		return new ValidDollars(result);
 	}
 
 	public Dollars minus(Dollars dollars) {
