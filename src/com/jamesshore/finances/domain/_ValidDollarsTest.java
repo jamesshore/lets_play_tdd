@@ -9,15 +9,18 @@ import com.jamesshore.finances.ui.*;
 
 public class _ValidDollarsTest {
 
-	private ValidDollars oneDollar;
 	private ValidDollars twentyDollars;
-	private ValidDollars MAX_VALID = ValidDollars.MAXIMUM_VALUE;
-	private ValidDollars MIN_VALID = ValidDollars.MINIMUM_VALUE;
+	private ValidDollars MAX_VALID = new ValidDollars(ValidDollars.MAX_VALUE);
+	private ValidDollars MIN_VALID = new ValidDollars(ValidDollars.MIN_VALUE);
 
 	@Before
 	public void setup() {
-		oneDollar = new ValidDollars(1);
 		twentyDollars = new ValidDollars(20);
+	}
+
+	@Test
+	public void inValidRange() {
+		assertTrue(ValidDollars.inValidRange(ValidDollars.MAX_VALUE));
 	}
 
 	@Test
@@ -26,27 +29,31 @@ public class _ValidDollarsTest {
 	}
 
 	@Test
-	public void arithmetic() {
+	public void addition() {
 		assertEquals("addition", new ValidDollars(40), new ValidDollars(10).plus(new ValidDollars(30)));
 		assertEquals("overflow", new InvalidDollars(), MAX_VALID.plus(new ValidDollars(1)));
-		assertEquals("underflow", new InvalidDollars(), MIN_VALID.minus(new ValidDollars(1)));
+		assertEquals("underflow", new InvalidDollars(), MIN_VALID.plus(new ValidDollars(-1)));
 	}
 
 	@Test
 	public void subtraction() {
 		assertEquals("positive result", new ValidDollars(20), new ValidDollars(50).minus(new ValidDollars(30)));
 		assertEquals("negative result", new ValidDollars(-60), new ValidDollars(40).minus(new ValidDollars(100)));
+		assertEquals("overflow", new InvalidDollars(), MAX_VALID.minus(new ValidDollars(-1)));
+		assertEquals("underflow", new InvalidDollars(), MIN_VALID.minus(new ValidDollars(1)));
 	}
 
 	@Test
 	public void minusToZero() {
 		assertEquals("positive result", new ValidDollars(20), new ValidDollars(50).subtractToZero(new ValidDollars(30)));
 		assertEquals("no negative result--return zero instead", new ValidDollars(0), new ValidDollars(40).subtractToZero(new ValidDollars(100)));
+		assertEquals("overflow", new InvalidDollars(), MAX_VALID.subtractToZero(new ValidDollars(-1)));
 	}
 
 	@Test
 	public void percentage() {
-		assertEquals(new ValidDollars(20), new ValidDollars(100).percentage(20));
+		assertEquals("percent", new ValidDollars(20), new ValidDollars(100).percentage(20));
+		assertEquals("overflow", new InvalidDollars(), MAX_VALID.percentage(200));
 	}
 
 	@Test

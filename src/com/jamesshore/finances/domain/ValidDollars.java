@@ -5,21 +5,17 @@ import java.text.*;
 import java.util.*;
 import javax.swing.*;
 import com.jamesshore.finances.ui.*;
+import com.jamesshore.finances.util.*;
 
 public class ValidDollars extends Dollars {
 
-	private static final double MAX_DOUBLE = 1000000000d; // one beeeellion dollars!
-	private static final double MIN_DOUBLE = MAX_DOUBLE * -1;
-	public static final ValidDollars MAXIMUM_VALUE = new ValidDollars(MAX_DOUBLE);
-	public static final ValidDollars MINIMUM_VALUE = new ValidDollars(MIN_DOUBLE);
+	public static final double MAX_VALUE = 1000000000d; // one beeeellion dollars!
+	public static final double MIN_VALUE = -1000000000d;
 
 	private double amount;
 
-	public ValidDollars(int amount) {
-		this.amount = amount;
-	}
-
 	public ValidDollars(double amount) {
+		Require.that(!outOfRange(amount), "amount [" + amount + "] out of valid range (" + MIN_VALUE + " - " + MAX_VALUE + ")");
 		this.amount = amount;
 	}
 
@@ -31,27 +27,35 @@ public class ValidDollars extends Dollars {
 		return ((ValidDollars)dollars).amount;
 	}
 
+	private boolean outOfRange(double value) {
+		return (value > MAX_VALUE) || (value < MIN_VALUE);
+	}
+
 	public Dollars plus(Dollars dollars) {
 		if (!dollars.isValid()) return new InvalidDollars();
 		double result = this.amount + amount(dollars);
-		if (result > MAX_DOUBLE) return new InvalidDollars();
-		if (result < MIN_DOUBLE) return new InvalidDollars();
+		if (outOfRange(result)) return new InvalidDollars();
 		return new ValidDollars(result);
 	}
 
 	public Dollars minus(Dollars dollars) {
 		if (!dollars.isValid()) return new InvalidDollars();
-		return new ValidDollars(this.amount - amount(dollars));
+		double result = this.amount - amount(dollars);
+		if (outOfRange(result)) return new InvalidDollars();
+		return new ValidDollars(result);
 	}
 
 	public Dollars subtractToZero(Dollars dollars) {
 		if (!dollars.isValid()) return new InvalidDollars();
 		double result = this.amount - amount(dollars);
+		if (outOfRange(result)) return new InvalidDollars();
 		return new ValidDollars(Math.max(0, result));
 	}
 
 	public Dollars percentage(double percent) {
-		return new ValidDollars(amount * percent / 100.0);
+		double result = amount * percent / 100.0;
+		if (outOfRange(result)) return new InvalidDollars();
+		return new ValidDollars(result);
 	}
 
 	public Dollars min(Dollars value2) {
