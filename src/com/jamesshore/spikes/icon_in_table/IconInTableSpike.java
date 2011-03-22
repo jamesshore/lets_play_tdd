@@ -40,7 +40,7 @@ public class IconInTableSpike extends JFrame {
 		}
 
 		JTable table = newTable();
-		TableColumn column = table.getColumnModel().getColumn(1);
+		// TableColumn column = table.getColumnModel().getColumn(1);
 		// column.setCellRenderer(renderer());
 		table.setDefaultRenderer(SpikeDollars.class, renderer());
 
@@ -48,6 +48,7 @@ public class IconInTableSpike extends JFrame {
 		return scrollPane;
 	}
 
+	@SuppressWarnings("serial")
 	private JTable newTable() {
 		return new JTable(tableModel) {
 			public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
@@ -63,17 +64,6 @@ public class IconInTableSpike extends JFrame {
 
 	@SuppressWarnings("serial")
 	private TableCellRenderer renderer() {
-		class ColorRenderer extends JLabel implements TableCellRenderer {
-
-			@Override
-			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-				this.setText(value.toString());
-				return this;
-			}
-
-		}
-		// return new ColorRenderer();
-
 		return new DefaultTableCellRenderer() {
 			public void setValue(Object value) {
 				SpikeDollars dollars = (SpikeDollars)value;

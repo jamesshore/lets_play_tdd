@@ -25,7 +25,7 @@ public final class ForecastTable extends JTable {
 
 			public void setValue(Object value) {
 				SelfRenderable renderable = (SelfRenderable)value;
-				renderable.render(this);
+				renderable.render(new Resources(), this);
 			}
 		};
 	}

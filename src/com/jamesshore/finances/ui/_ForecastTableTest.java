@@ -63,7 +63,7 @@ public class _ForecastTableTest {
 	@SuppressWarnings("serial")
 	public void tableShouldHaveSelfRenderableObjectsRenderThemselves() {
 		SelfRenderable renderable = new SelfRenderable() {
-			public void render(JLabel label) {
+			public void render(Resources resources, JLabel label) {
 				label.setText("I rendered myself");
 			}
 		};

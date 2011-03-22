@@ -1,7 +1,3 @@
-Look into whether there's a better way to manage resources like invalid_dollars.gif
-
-_InvalidDollarsTest.renderToSwingLabel - referring to resources class rather than loading from the file system
-
 ApplicationFrame.startingBalanceField needs to be initialized with correct value
 
 Render negative Dollars as red in text field 
@@ -25,6 +21,11 @@ Run Swing-related stuff on event dispatching thread: http://download.oracle.com/
 Error handling for exceptions within Swing components--how?
 
 Tip for running Swing tests: http://blog.schauderhaft.de/2010/08/15/use-cases-for-junit-rules/ (via Esko Luontola)
+
+---
+Polish:
+
+- Better tooltips for invalid dollar amounts
 
 ---
 Long term:

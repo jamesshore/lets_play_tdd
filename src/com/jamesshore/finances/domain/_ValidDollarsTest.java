@@ -85,7 +85,7 @@ public class _ValidDollarsTest {
 		label.setToolTipText("bogus tooltip");
 		label.setForeground(Color.CYAN);
 
-		twentyDollars.render(label);
+		twentyDollars.render(new Resources(), label);
 		assertNull("should not have icon", label.getIcon());
 		assertNull("should not have tooltip", label.getToolTipText());
 		assertEquals("foreground color", Color.BLACK, label.getForeground());

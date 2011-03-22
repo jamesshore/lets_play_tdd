@@ -66,6 +66,7 @@ public class _InvalidDollarsTest {
 
 		assertEquals("icon image", expectedIcon.getImage(), actualIcon.getImage());
 		assertEquals("icon description", "Invalid dollar amount", actualIcon.getDescription());
+		assertEquals("tooltip message", "Invalid dollar amount", label.getToolTipText());
 	}
 
 	@Test
@@ -76,7 +77,6 @@ public class _InvalidDollarsTest {
 
 		invalidA.render(new Resources(), label);
 		assertNull("should have no text", label.getText());
-		assertNull("should have no tooltip", label.getToolTipText());
 	}
 
 	@Test

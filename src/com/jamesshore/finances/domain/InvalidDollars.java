@@ -38,7 +38,7 @@ public class InvalidDollars extends Dollars {
 	public void render(Resources resources, JLabel label) {
 		label.setIcon(resources.invalidDollarIcon());
 		label.setText(null);
-		label.setToolTipText(null);
+		label.setToolTipText("Invalid dollar amount");
 	}
 
 	@Override
