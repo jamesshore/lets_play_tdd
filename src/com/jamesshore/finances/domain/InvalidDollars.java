@@ -1,6 +1,5 @@
 package com.jamesshore.finances.domain;
 
-import javax.swing.*;
 import com.jamesshore.finances.ui.*;
 
 public class InvalidDollars extends Dollars {
@@ -36,13 +35,9 @@ public class InvalidDollars extends Dollars {
 	}
 
 	public void render(Resources resources, RenderTarget target) {
-
-	}
-
-	public void render(Resources resources, JLabel label) {
-		label.setIcon(resources.invalidDollarIcon());
-		label.setText(null);
-		label.setToolTipText("Invalid dollar amount");
+		target.setIcon(resources.invalidDollarIcon());
+		target.setText(null);
+		target.setToolTipText("Invalid dollar amount");
 	}
 
 	@Override

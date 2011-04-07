@@ -61,23 +61,21 @@ public class _InvalidDollarsTest {
 		__RenderTargetStub target = new __RenderTargetStub();
 		invalidA.render(new Resources(), target);
 
-		// TODO: finish him!!
-		// ImageIcon expectedIcon = new Resources().invalidDollarIcon();
-		// ImageIcon actualIcon = (ImageIcon)label.getIcon();
-		//
-		// assertEquals("icon image", expectedIcon.getImage(), actualIcon.getImage());
-		// assertEquals("icon description", "Invalid dollar amount", actualIcon.getDescription());
-		// assertEquals("tooltip message", "Invalid dollar amount", label.getToolTipText());
+		ImageIcon expectedIcon = new Resources().invalidDollarIcon();
+		ImageIcon actualIcon = (ImageIcon)target.icon;
+
+		assertEquals("icon image", expectedIcon.getImage(), actualIcon.getImage());
+		assertEquals("icon description", "Invalid dollar amount", actualIcon.getDescription());
+		assertEquals("tooltip message", "Invalid dollar amount", target.toolTipText);
 	}
 
 	@Test
 	public void renderingShouldResetLabelToDefaultState() {
-		JLabel label = new JLabel();
-		label.setText("foodle");
-		label.setToolTipText("bogus tooltip");
+		__RenderTargetStub target = new __RenderTargetStub();
+		target.text = "foodle";
 
-		invalidA.render(new Resources(), label);
-		assertNull("should have no text", label.getText());
+		invalidA.render(new Resources(), target);
+		assertNull("should have no text", target.text);
 	}
 
 	@Test

@@ -6,7 +6,6 @@ import javax.swing.*;
 import javax.swing.table.*;
 import org.junit.*;
 import com.jamesshore.finances.domain.*;
-import com.jamesshore.finances.util.*;
 
 public class _ForecastTableTest {
 
@@ -65,11 +64,7 @@ public class _ForecastTableTest {
 	public void tableShouldHaveSelfRenderableObjectsRenderThemselves() {
 		SelfRenderable renderable = new SelfRenderable() {
 			public void render(Resources resources, RenderTarget target) {
-				throw new UnreachableCodeException();
-			}
-
-			public void render(Resources resources, JLabel label) {
-				label.setText("I rendered myself");
+				target.setText("I rendered myself");
 			}
 		};
 		DefaultTableModel tableModel = new DefaultTableModel(0, 1) {

@@ -1,4 +1,4 @@
-package com.jamesshore.finances.domain;
+package com.jamesshore.finances.ui;
 
 import java.awt.*;
 import javax.swing.*;

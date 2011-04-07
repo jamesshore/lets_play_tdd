@@ -2,6 +2,7 @@ package com.jamesshore.finances.domain;
 
 import java.awt.*;
 import javax.swing.*;
+import com.jamesshore.finances.ui.*;
 
 class __RenderTargetStub implements RenderTarget {
 	public String text;
