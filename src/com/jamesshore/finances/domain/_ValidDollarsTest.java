@@ -67,68 +67,42 @@ public class _ValidDollarsTest {
 
 	@Test
 	public void rendersItself() {
-		class RenderTargetFake implements RenderTarget {
-			public String text;
-			public Icon icon;
-			public String toolTipText;
-			public Color foregroundColor;
-
-			public void setText(String text) {
-				this.text = text;
-			}
-
-			public void setIcon(Icon icon) {
-				this.icon = icon;
-			}
-
-			public void setToolTipText(String text) {
-				this.toolTipText = text;
-			}
-
-			public void setForegroundColor(Color color) {
-				this.foregroundColor = color;
-			}
-		}
-		;
-
-		RenderTargetFake target = new RenderTargetFake();
-
-		// JLabel label = new JLabel();
+		__RenderTargetStub target = new __RenderTargetStub();
 		twentyDollars.render(new Resources(), target);
 		assertEquals("label text should be toString() value", twentyDollars.toString(), target.text);
 	}
 
 	@Test
-	public void renderNegativeValuesInRed() {
-		JLabel label = new JLabel();
+	public void rendersNegativeValuesInRed() {
+		__RenderTargetStub target = new __RenderTargetStub();
 		Dollars minusTwenty = ValidDollars.create(-20);
-		minusTwenty.render(new Resources(), label);
-		assertEquals("red when negative", Color.RED, label.getForeground());
+		minusTwenty.render(new Resources(), target);
+		assertEquals("red when negative", Color.RED, target.foregroundColor);
 	}
 
 	@Test
-	public void renderZeroAndPositiveInBlack() {
-		JLabel label = new JLabel();
+	public void rendersZeroAndPositiveInBlack() {
+		__RenderTargetStub target = new __RenderTargetStub();
 		Dollars zero = ValidDollars.create(0);
-		zero.render(new Resources(), label);
-		assertEquals("black when zero", Color.BLACK, label.getForeground());
+		zero.render(new Resources(), target);
+		assertEquals("black when zero", Color.BLACK, target.foregroundColor);
 
-		label = new JLabel();
-		twentyDollars.render(new Resources(), label);
-		assertEquals("black when positive", Color.BLACK, label.getForeground());
+		target = new __RenderTargetStub();
+		twentyDollars.render(new Resources(), target);
+		assertEquals("black when positive", Color.BLACK, target.foregroundColor);
 	}
 
 	@Test
-	public void renderingShouldResetLabelToDefaultState() {
-		JLabel label = new JLabel();
-		label.setIcon(new ImageIcon());
-		label.setToolTipText("bogus tooltip");
-		label.setForeground(Color.CYAN);
+	public void renderingResetsLabelToDefaultState() {
+		__RenderTargetStub target = new __RenderTargetStub();
+		target.icon = new ImageIcon();
+		target.toolTipText = "bogus tooltip";
+		target.foregroundColor = Color.CYAN;
 
-		twentyDollars.render(new Resources(), label);
-		assertNull("should not have icon", label.getIcon());
-		assertNull("should not have tooltip", label.getToolTipText());
-		assertEquals("foreground color", Color.BLACK, label.getForeground());
+		twentyDollars.render(new Resources(), target);
+		assertNull("should not have icon", target.icon);
+		assertNull("should not have tooltip", target.toolTipText);
+		assertEquals("foreground color", Color.BLACK, target.foregroundColor);
 	}
 
 	@Test

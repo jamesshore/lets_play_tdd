@@ -76,7 +76,10 @@ public class ValidDollars extends Dollars {
 
 	public void render(Resources resources, RenderTarget target) {
 		target.setText(this.toString());
-
+		target.setIcon(null);
+		target.setToolTipText(null);
+		target.setForegroundColor(Color.BLACK);
+		if (amount < 0) target.setForegroundColor(Color.RED);
 	}
 
 	public void render(Resources resources, JLabel label) {

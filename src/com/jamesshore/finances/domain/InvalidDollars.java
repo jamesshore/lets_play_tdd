@@ -35,6 +35,10 @@ public class InvalidDollars extends Dollars {
 		return new InvalidDollars();
 	}
 
+	public void render(Resources resources, RenderTarget target) {
+
+	}
+
 	public void render(Resources resources, JLabel label) {
 		label.setIcon(resources.invalidDollarIcon());
 		label.setText(null);
