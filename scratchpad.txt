@@ -1,5 +1,7 @@
 Render negative Dollars as red in text field 
 
+Figure out better way to test Dollars being rendered by domain objects 
+
 Render invalid Dollars with an icon in the text field
 
 ---
