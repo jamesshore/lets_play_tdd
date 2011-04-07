@@ -74,6 +74,11 @@ public class ValidDollars extends Dollars {
 		return Math.round(this.amount);
 	}
 
+	public void render(Resources resources, RenderTarget target) {
+		target.setText(this.toString());
+
+	}
+
 	public void render(Resources resources, JLabel label) {
 		label.setIcon(null);
 		label.setToolTipText(null);

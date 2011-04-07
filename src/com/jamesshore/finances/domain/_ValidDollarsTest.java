@@ -66,10 +66,36 @@ public class _ValidDollarsTest {
 	}
 
 	@Test
-	public void renderToSwingLabel() {
-		JLabel label = new JLabel();
-		twentyDollars.render(new Resources(), label);
-		assertEquals("label text should be toString() value", twentyDollars.toString(), label.getText());
+	public void rendersItself() {
+		class RenderTargetFake implements RenderTarget {
+			public String text;
+			public Icon icon;
+			public String toolTipText;
+			public Color foregroundColor;
+
+			public void setText(String text) {
+				this.text = text;
+			}
+
+			public void setIcon(Icon icon) {
+				this.icon = icon;
+			}
+
+			public void setToolTipText(String text) {
+				this.toolTipText = text;
+			}
+
+			public void setForegroundColor(Color color) {
+				this.foregroundColor = color;
+			}
+		}
+		;
+
+		RenderTargetFake target = new RenderTargetFake();
+
+		// JLabel label = new JLabel();
+		twentyDollars.render(new Resources(), target);
+		assertEquals("label text should be toString() value", twentyDollars.toString(), target.text);
 	}
 
 	@Test

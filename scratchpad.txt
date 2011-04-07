@@ -1,6 +1,6 @@
 Render negative Dollars as red in text field 
 
-Handle overflow/underflow in Dollars??
+Render invalid Dollars with an icon in the text field
 
 ---
 Need to handle case where starting balance is lower than cost basis--that should be illegal
