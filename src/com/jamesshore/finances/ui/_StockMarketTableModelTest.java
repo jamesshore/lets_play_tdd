@@ -9,8 +9,8 @@ public class _StockMarketTableModelTest {
 
 	private static final Year STARTING_YEAR = new Year(2010);
 	private static final Year ENDING_YEAR = new Year(2050);
-	private static final Dollars STARTING_BALANCE = new ValidDollars(10000);
-	private static final Dollars STARTING_PRINCIPAL = new ValidDollars(7000);
+	private static final Dollars STARTING_BALANCE = ValidDollars.create(10000);
+	private static final Dollars STARTING_PRINCIPAL = ValidDollars.create(7000);
 
 	private StockMarketYear startingYear;
 	private StockMarketTableModel model;
@@ -18,7 +18,7 @@ public class _StockMarketTableModelTest {
 	@Before
 	public void setup() {
 		startingYear = new StockMarketYear(STARTING_YEAR, STARTING_BALANCE, STARTING_PRINCIPAL, new GrowthRate(10), new TaxRate(25));
-		StockMarketProjection projection = new StockMarketProjection(startingYear, ENDING_YEAR, new ValidDollars(0));
+		StockMarketProjection projection = new StockMarketProjection(startingYear, ENDING_YEAR, ValidDollars.create(0));
 		model = new StockMarketTableModel(projection);
 	}
 
@@ -46,9 +46,9 @@ public class _StockMarketTableModelTest {
 		assertEquals("year", STARTING_YEAR, model.getValueAt(0, 0));
 		assertEquals("starting balance", STARTING_BALANCE, model.getValueAt(0, 1));
 		assertEquals("starting principal", STARTING_PRINCIPAL, model.getValueAt(0, 2));
-		assertEquals("withdrawals", new ValidDollars(0), model.getValueAt(0, 3));
-		assertEquals("appreciation", new ValidDollars(1000), model.getValueAt(0, 4));
-		assertEquals("ending balance", new ValidDollars(11000), model.getValueAt(0, 5));
+		assertEquals("withdrawals", ValidDollars.create(0), model.getValueAt(0, 3));
+		assertEquals("appreciation", ValidDollars.create(1000), model.getValueAt(0, 4));
+		assertEquals("ending balance", ValidDollars.create(11000), model.getValueAt(0, 5));
 	}
 
 	@Test
@@ -56,13 +56,13 @@ public class _StockMarketTableModelTest {
 		assertEquals(41, model.getRowCount());
 		assertEquals(STARTING_YEAR, model.getValueAt(0, 0));
 		assertEquals(STARTING_BALANCE, model.getValueAt(0, 1));
-		assertEquals(new ValidDollars(11000), model.getValueAt(1, 1));
+		assertEquals(ValidDollars.create(11000), model.getValueAt(1, 1));
 		assertEquals(ENDING_YEAR, model.getValueAt(40, 0));
 	}
 
 	@Test
 	public void setProjection_ShouldChangeTableModel() {
-		StockMarketProjection projection = new StockMarketProjection(startingYear, startingYear.year(), new ValidDollars(0));
+		StockMarketProjection projection = new StockMarketProjection(startingYear, startingYear.year(), ValidDollars.create(0));
 		model.setProjection(projection);
 		assertEquals("projection should have changed", projection, model.stockMarketProjection());
 		assertEquals("change to projection should reflect in methods", 1, model.getRowCount());
@@ -70,7 +70,7 @@ public class _StockMarketTableModelTest {
 
 	@Test
 	public void setProjection_ShouldFireUpdateEvent() {
-		StockMarketProjection projection = new StockMarketProjection(startingYear, startingYear.year(), new ValidDollars(0));
+		StockMarketProjection projection = new StockMarketProjection(startingYear, startingYear.year(), ValidDollars.create(0));
 
 		class TestListener implements TableModelListener {
 			public boolean eventFired = false;

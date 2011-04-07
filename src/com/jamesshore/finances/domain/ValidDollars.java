@@ -5,7 +5,6 @@ import java.text.*;
 import java.util.*;
 import javax.swing.*;
 import com.jamesshore.finances.ui.*;
-import com.jamesshore.finances.util.*;
 
 public class ValidDollars extends Dollars {
 
@@ -14,8 +13,12 @@ public class ValidDollars extends Dollars {
 
 	private double amount;
 
-	public ValidDollars(double amount) {
-		Require.that(!outOfRange(amount), "amount [" + amount + "] out of valid range (" + MIN_VALUE + " - " + MAX_VALUE + ")");
+	public static Dollars create(double amount) {
+		if (outOfRange(amount)) return new InvalidDollars();
+		else return new ValidDollars(amount);
+	}
+
+	private ValidDollars(double amount) {
 		this.amount = amount;
 	}
 
@@ -27,7 +30,7 @@ public class ValidDollars extends Dollars {
 		return ((ValidDollars)dollars).amount;
 	}
 
-	private boolean outOfRange(double value) {
+	private static boolean outOfRange(double value) {
 		return (value > MAX_VALUE) || (value < MIN_VALUE);
 	}
 
@@ -35,32 +38,32 @@ public class ValidDollars extends Dollars {
 		if (!dollars.isValid()) return new InvalidDollars();
 		double result = this.amount + amount(dollars);
 		if (outOfRange(result)) return new InvalidDollars();
-		return new ValidDollars(result);
+		return create(result);
 	}
 
 	public Dollars minus(Dollars dollars) {
 		if (!dollars.isValid()) return new InvalidDollars();
 		double result = this.amount - amount(dollars);
 		if (outOfRange(result)) return new InvalidDollars();
-		return new ValidDollars(result);
+		return create(result);
 	}
 
 	public Dollars subtractToZero(Dollars dollars) {
 		if (!dollars.isValid()) return new InvalidDollars();
 		double result = this.amount - amount(dollars);
 		if (outOfRange(result)) return new InvalidDollars();
-		return new ValidDollars(Math.max(0, result));
+		return create(Math.max(0, result));
 	}
 
 	public Dollars percentage(double percent) {
 		double result = amount * percent / 100.0;
 		if (outOfRange(result)) return new InvalidDollars();
-		return new ValidDollars(result);
+		return create(result);
 	}
 
 	public Dollars min(Dollars value2) {
 		if (!value2.isValid()) return new InvalidDollars();
-		return new ValidDollars(Math.min(this.amount, amount(value2)));
+		return create(Math.min(this.amount, amount(value2)));
 	}
 
 	private boolean isNegative() {

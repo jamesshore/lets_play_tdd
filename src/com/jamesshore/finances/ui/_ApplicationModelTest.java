@@ -35,8 +35,8 @@ public class _ApplicationModelTest {
 	
 	@Test
 	public void changingStartingBalanceShouldChangeStockMarketTableModel() {
-		model.setStartingBalance(new ValidDollars(123));
-		assertEquals(new ValidDollars(123), model.stockMarketTableModel().startingBalance());
+		model.setStartingBalance(ValidDollars.create(123));
+		assertEquals(ValidDollars.create(123), model.stockMarketTableModel().startingBalance());
 	}
 	
 }
