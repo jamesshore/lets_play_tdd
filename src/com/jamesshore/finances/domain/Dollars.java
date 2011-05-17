@@ -4,6 +4,7 @@ public abstract class Dollars implements SelfRenderable {
 
 	public static Dollars parse(String text) {
 		if (text.equals(")")) return new InvalidDollars();
+		if (text.contains("a")) return new InvalidDollars();
 		if (text.endsWith("d")) return new InvalidDollars();
 		if (text.contains("e")) return new InvalidDollars();
 		if (text.endsWith("f")) return new InvalidDollars();

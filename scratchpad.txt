@@ -1,10 +1,8 @@
-Render negative Dollars as red in text field 
+Consider using Command pattern to move ApplicationFrame textfield monitoring into DollarsTextField
 
 Figure out better way to test Dollars being rendered by domain objects 
 
 Render invalid Dollars with an icon in the text field
-
-Consider using Command pattern to move ApplicationFrame textfield monitoring into DollarsTextField
 
 ---
 Need to handle case where starting balance is lower than cost basis--that should be illegal

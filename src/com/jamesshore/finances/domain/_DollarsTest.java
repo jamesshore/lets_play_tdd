@@ -39,6 +39,7 @@ public class _DollarsTest {
 		assertEquals(invalid, Dollars.parse("x"));
 		assertEquals(invalid, Dollars.parse("40d"));
 		assertEquals(invalid, Dollars.parse("40f"));
+		assertEquals(invalid, Dollars.parse("NaN"));
 	}
 
 	@Test

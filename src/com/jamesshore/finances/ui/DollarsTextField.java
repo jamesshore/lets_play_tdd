@@ -1,7 +1,6 @@
 package com.jamesshore.finances.ui;
 
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 import com.jamesshore.finances.domain.*;
@@ -11,16 +10,16 @@ import com.jamesshore.finances.domain.*;
 public final class DollarsTextField extends JTextField {
 	private static final long serialVersionUID = 1L;
 
-	class DollarsTextFieldRenderTargetAdapter implements RenderTarget {
+	class NoReformatTextRenderTargetAdapter implements RenderTarget {
 		private DollarsTextField field;
 
-		public DollarsTextFieldRenderTargetAdapter(DollarsTextField field) {
+		public NoReformatTextRenderTargetAdapter(DollarsTextField field) {
 			this.field = field;
 		}
 
 		@Override
 		public void setText(String text) {
-			field.setText(text);
+			// this space intentionally left blank. It's the "NO" reformat text adapter.
 		}
 
 		@Override
@@ -41,18 +40,10 @@ public final class DollarsTextField extends JTextField {
 
 	public DollarsTextField(Dollars initialValue) {
 		this.setText(initialValue.toString());
-		this.addFocusListener(new FocusAdapter() {
-			public void focusLost(FocusEvent e) {
-				Dollars dollars = getDollars();
-				if (dollars.isValid()) {
-					dollars.render(new Resources(), new DollarsTextFieldRenderTargetAdapter(DollarsTextField.this));
-				}
-			}
-		});
 		addDocumentListener();
 	}
 
-	public void addDocumentListener() {
+	private void addDocumentListener() {
 		this.getDocument().addDocumentListener(new DocumentListener() {
 			@Override
 			public void removeUpdate(DocumentEvent e) {
@@ -70,7 +61,7 @@ public final class DollarsTextField extends JTextField {
 			}
 
 			private void render() {
-				getDollars().render(new Resources(), new DollarsTextFieldRenderTargetAdapter(DollarsTextField.this));
+				getDollars().render(new Resources(), new NoReformatTextRenderTargetAdapter(DollarsTextField.this));
 			}
 		});
 	}
