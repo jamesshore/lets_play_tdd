@@ -3,6 +3,7 @@ package com.jamesshore.finances.ui;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.event.*;
 import com.jamesshore.finances.domain.*;
 
 // If you want to subclass this class, it's okay to remove the 'final' designator, but be careful of race 
@@ -46,6 +47,30 @@ public final class DollarsTextField extends JTextField {
 				if (dollars.isValid()) {
 					dollars.render(new Resources(), new DollarsTextFieldRenderTargetAdapter(DollarsTextField.this));
 				}
+			}
+		});
+		addDocumentListener();
+	}
+
+	public void addDocumentListener() {
+		this.getDocument().addDocumentListener(new DocumentListener() {
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				render();
+			}
+
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				render();
+			}
+
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				render();
+			}
+
+			private void render() {
+				getDollars().render(new Resources(), new DollarsTextFieldRenderTargetAdapter(DollarsTextField.this));
 			}
 		});
 	}

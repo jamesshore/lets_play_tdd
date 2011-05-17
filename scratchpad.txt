@@ -4,7 +4,7 @@ Figure out better way to test Dollars being rendered by domain objects
 
 Render invalid Dollars with an icon in the text field
 
-Improve ValidDollars.create() as described by Michal Svoboda in http://jamesshore.com/Blog/Lets-Play/Episode-101.html
+Consider using Command pattern to move ApplicationFrame textfield monitoring into DollarsTextField
 
 ---
 Need to handle case where starting balance is lower than cost basis--that should be illegal

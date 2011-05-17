@@ -43,22 +43,32 @@ public class _DollarsTextFieldTest {
 	}
 
 	@Test
-	public void negativeValuesRenderedByDomainClass() throws Exception {
-		field.dispatchEvent(new FocusEvent(field, FocusEvent.FOCUS_GAINED));
-		field.setText("-10");
-		field.dispatchEvent(new FocusEvent(field, FocusEvent.FOCUS_LOST));
-
-		assertEquals("($10)", getTextUsingEventThread(field));
-		assertEquals(Color.RED, field.getForeground());
-	}
-
-	@Test
 	public void fieldIsNotReformattedWhenTheValueIsInvalid() throws Exception {
 		field.dispatchEvent(new FocusEvent(field, FocusEvent.FOCUS_GAINED));
 		field.setText("xxx");
 		field.dispatchEvent(new FocusEvent(field, FocusEvent.FOCUS_LOST));
 
 		assertEquals("xxx", getTextUsingEventThread(field));
+	}
+
+	@Test
+	public void fieldTextAndColorIsRenderedByDomainClassWhenItLosesFocus() throws Exception {
+		field.dispatchEvent(new FocusEvent(field, FocusEvent.FOCUS_GAINED));
+		field.setText("-10");
+		field.dispatchEvent(new FocusEvent(field, FocusEvent.FOCUS_LOST));
+
+		assertEquals("($10)", getTextUsingEventThread(field));
+		assertEquals(Color.RED, field.getForeground()); // TODO: decouple from domain decision about colors?
+	}
+
+	@Test
+	public void fieldColorIsRenderedByDomainClassWhenTextChanges_EvenIfItHasntLostFocus() throws Exception {
+		// TODO: decouple this from specifics of the colors used by domain class?
+
+		field.setText("10");
+		assertEquals("starts black", Color.BLACK, field.getForeground());
+		field.setText("-10");
+		assertEquals("should change to red", Color.RED, field.getForeground());
 	}
 
 	private String getTextUsingEventThread(DollarsTextField textField) throws InterruptedException, InvocationTargetException {
