@@ -17,19 +17,34 @@ public class _DollarsTextFieldTest {
 	}
 
 	@Test
-	public void canRetrieveAmount() {
-		assertEquals(ValidDollars.create(42), field.getDollars());
+	public void textReflectsDollarAmountUponConstruction() {
+		assertEquals("$42", field.getText());
 	}
 
 	@Test
-	public void textReflectsDollarAmountUponConstruction() {
-		assertEquals("$42", field.getText());
+	public void canRetrieveAmount() {
+		assertEquals(ValidDollars.create(42), field.getDollars());
 	}
 
 	@Test
 	public void changingTextChangesDollarAmount() {
 		field.setText("1024");
 		assertEquals(ValidDollars.create(1024), field.getDollars());
+	}
+
+	@Test
+	public void canCallFunctionWhenTextChanges() {
+		final boolean[] changed = { false };
+		DollarsTextField.ChangeListener listener = new DollarsTextField.ChangeListener() {
+			public void textChanged() {
+				changed[0] = true;
+			}
+		};
+
+		field.addTextChangeListener(listener);
+		assertFalse("textChanged() should not have been called yet", changed[0]);
+		field.setText("1000");
+		assertTrue("textChanged() should have been called", changed[0]);
 	}
 
 	@Test

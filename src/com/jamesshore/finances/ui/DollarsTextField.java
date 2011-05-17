@@ -8,12 +8,53 @@ import com.jamesshore.finances.domain.*;
 // If you want to subclass this class, it's okay to remove the 'final' designator, but be careful of race 
 // conditions with the event handler in the constructor. It could execute before the subclass constructor.
 public final class DollarsTextField extends JTextField {
+
 	private static final long serialVersionUID = 1L;
 
-	class NoReformatTextRenderTargetAdapter implements RenderTarget {
+	public DollarsTextField(Dollars initialValue) {
+		this.setText(initialValue.toString());
+		addTextChangeListener(new ChangeListener() {
+			public void textChanged() {
+				getDollars().render(new Resources(), new DollarsTextFieldRenderTargetAdapter(DollarsTextField.this));
+			}
+		});
+	}
+
+	public Dollars getDollars() {
+		return Dollars.parse(getText());
+	}
+
+	public void addTextChangeListener(final ChangeListener listener) {
+		this.getDocument().addDocumentListener(new DocumentListener() {
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				render();
+			}
+
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				render();
+			}
+
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				render();
+			}
+
+			private void render() {
+				listener.textChanged();
+			}
+		});
+	}
+
+	public static interface ChangeListener {
+		public void textChanged();
+	}
+
+	private static class DollarsTextFieldRenderTargetAdapter implements RenderTarget {
 		private DollarsTextField field;
 
-		public NoReformatTextRenderTargetAdapter(DollarsTextField field) {
+		public DollarsTextFieldRenderTargetAdapter(DollarsTextField field) {
 			this.field = field;
 		}
 
@@ -37,37 +78,4 @@ public final class DollarsTextField extends JTextField {
 			field.setForeground(color);
 		}
 	}
-
-	public DollarsTextField(Dollars initialValue) {
-		this.setText(initialValue.toString());
-		addDocumentListener();
-	}
-
-	private void addDocumentListener() {
-		this.getDocument().addDocumentListener(new DocumentListener() {
-			@Override
-			public void removeUpdate(DocumentEvent e) {
-				render();
-			}
-
-			@Override
-			public void insertUpdate(DocumentEvent e) {
-				render();
-			}
-
-			@Override
-			public void changedUpdate(DocumentEvent e) {
-				render();
-			}
-
-			private void render() {
-				getDollars().render(new Resources(), new NoReformatTextRenderTargetAdapter(DollarsTextField.this));
-			}
-		});
-	}
-
-	public Dollars getDollars() {
-		return Dollars.parse(getText());
-	}
-
 }

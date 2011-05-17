@@ -2,7 +2,7 @@ package com.jamesshore.finances.ui;
 
 import java.awt.*;
 import javax.swing.*;
-import javax.swing.event.*;
+import com.jamesshore.finances.ui.DollarsTextField.ChangeListener;
 
 public class ApplicationFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -31,28 +31,11 @@ public class ApplicationFrame extends JFrame {
 
 	public DollarsTextField startingBalanceField() {
 		final DollarsTextField field = new DollarsTextField(applicationModel.startingBalance());
-
-		field.getDocument().addDocumentListener(new DocumentListener() {
-			@Override
-			public void removeUpdate(DocumentEvent e) {
-				updateApplicationModel();
-			}
-
-			@Override
-			public void insertUpdate(DocumentEvent e) {
-				updateApplicationModel();
-			}
-
-			@Override
-			public void changedUpdate(DocumentEvent e) {
-				updateApplicationModel();
-			}
-
-			private void updateApplicationModel() {
+		field.addTextChangeListener(new ChangeListener() {
+			public void textChanged() {
 				applicationModel.setStartingBalance(field.getDollars());
 			}
 		});
-
 		return field;
 	}
 
