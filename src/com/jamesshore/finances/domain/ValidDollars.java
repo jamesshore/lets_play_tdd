@@ -35,29 +35,22 @@ public class ValidDollars extends Dollars {
 
 	public Dollars plus(Dollars dollars) {
 		if (!dollars.isValid()) return new InvalidDollars();
-		double result = this.amount + amount(dollars);
-		if (outOfRange(result)) return new InvalidDollars();
-		return create(result);
+		return create(this.amount + amount(dollars));
 	}
 
 	public Dollars minus(Dollars dollars) {
 		if (!dollars.isValid()) return new InvalidDollars();
-		double result = this.amount - amount(dollars);
-		if (outOfRange(result)) return new InvalidDollars();
-		return create(result);
+		return create(this.amount - amount(dollars));
 	}
 
 	public Dollars subtractToZero(Dollars dollars) {
 		if (!dollars.isValid()) return new InvalidDollars();
 		double result = this.amount - amount(dollars);
-		if (outOfRange(result)) return new InvalidDollars();
 		return create(Math.max(0, result));
 	}
 
 	public Dollars percentage(double percent) {
-		double result = amount * percent / 100.0;
-		if (outOfRange(result)) return new InvalidDollars();
-		return create(result);
+		return create(amount * percent / 100.0);
 	}
 
 	public Dollars min(Dollars value2) {

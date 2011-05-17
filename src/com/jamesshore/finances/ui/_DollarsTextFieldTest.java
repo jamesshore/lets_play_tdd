@@ -3,6 +3,7 @@ package com.jamesshore.finances.ui;
 import static org.junit.Assert.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.lang.reflect.*;
 import javax.swing.*;
 import org.junit.*;
 import com.jamesshore.finances.domain.*;
@@ -38,13 +39,7 @@ public class _DollarsTextFieldTest {
 		field.setText("10");
 		field.dispatchEvent(new FocusEvent(field, FocusEvent.FOCUS_LOST));
 
-		final String[] testResult = { null };
-		SwingUtilities.invokeAndWait(new Runnable() {
-			public void run() {
-				testResult[0] = (field.getText());
-			}
-		});
-		assertEquals("$10", testResult[0]);
+		assertEquals("$10", getTextUsingEventThread(field));
 	}
 
 	@Test
@@ -53,13 +48,7 @@ public class _DollarsTextFieldTest {
 		field.setText("-10");
 		field.dispatchEvent(new FocusEvent(field, FocusEvent.FOCUS_LOST));
 
-		final String[] testResult = { null };
-		SwingUtilities.invokeAndWait(new Runnable() {
-			public void run() {
-				testResult[0] = (field.getText());
-			}
-		});
-		assertEquals("($10)", testResult[0]);
+		assertEquals("($10)", getTextUsingEventThread(field));
 		assertEquals(Color.RED, field.getForeground());
 	}
 
@@ -69,13 +58,17 @@ public class _DollarsTextFieldTest {
 		field.setText("xxx");
 		field.dispatchEvent(new FocusEvent(field, FocusEvent.FOCUS_LOST));
 
+		assertEquals("xxx", getTextUsingEventThread(field));
+	}
+
+	private String getTextUsingEventThread(DollarsTextField textField) throws InterruptedException, InvocationTargetException {
 		final String[] testResult = { null };
+		final DollarsTextField field = textField;
 		SwingUtilities.invokeAndWait(new Runnable() {
 			public void run() {
 				testResult[0] = (field.getText());
 			}
 		});
-		assertEquals("xxx", testResult[0]);
+		return testResult[0];
 	}
-
 }
