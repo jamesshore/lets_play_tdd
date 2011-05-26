@@ -13,8 +13,8 @@ public class ValidDollars extends Dollars {
 	private double amount;
 
 	public static Dollars create(double amount) {
-		if (outOfRange(amount)) return new InvalidDollars();
-		else return new ValidDollars(amount);
+		if (inRange(amount)) return new ValidDollars(amount);
+		else return new InvalidDollars();
 	}
 
 	private ValidDollars(double amount) {
@@ -29,8 +29,8 @@ public class ValidDollars extends Dollars {
 		return ((ValidDollars)dollars).amount;
 	}
 
-	private static boolean outOfRange(double value) {
-		return (value > MAX_VALUE) || (value < MIN_VALUE);
+	private static boolean inRange(double value) {
+		return (value >= MIN_VALUE) && (value <= MAX_VALUE);
 	}
 
 	public Dollars plus(Dollars dollars) {

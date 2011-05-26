@@ -49,8 +49,6 @@ public class _DollarsTextFieldTest {
 
 	@Test
 	public void fieldIsRenderedByDomainClassWhenTextChanges_EvenIfItHasntLostFocus() throws Exception {
-		// TODO: decouple this from specifics of the colors used by domain class?
-
 		field.setText("10");
 		assertEquals("starts black", Color.BLACK, field.getForeground());
 		field.setText("  -10 ");

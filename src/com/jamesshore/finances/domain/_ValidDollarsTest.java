@@ -19,9 +19,10 @@ public class _ValidDollarsTest {
 	}
 
 	@Test
-	public void cannotConstructDollarsLargerThanMaxRange() {
+	public void cannotConstructDollarsOutsideValidRange() {
 		assertEquals("overflow", new InvalidDollars(), ValidDollars.create(ValidDollars.MAX_VALUE + 1));
 		assertEquals("underflow", new InvalidDollars(), ValidDollars.create(ValidDollars.MIN_VALUE - 1));
+		assertEquals("not a number", new InvalidDollars(), ValidDollars.create(Double.NaN));
 	}
 
 	@Test
