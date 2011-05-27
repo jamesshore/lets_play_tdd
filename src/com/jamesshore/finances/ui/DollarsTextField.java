@@ -29,8 +29,9 @@ public final class DollarsTextField extends JPanel {
 	}
 
 	private void addComponents() {
-		JPanel iconPanel = new JPanel();
+		JPanel iconPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		iconPanel.add(iconLabel);
+		iconPanel.setOpaque(false);
 
 		this.setLayout(new OverlayLayout(this));
 		this.add(iconPanel);
@@ -46,6 +47,10 @@ public final class DollarsTextField extends JPanel {
 			iconLabel.setIcon(icon);
 			iconLabel.setVisible(true);
 		}
+	}
+
+	public void setIconToolTipText(String text) {
+		iconLabel.setToolTipText(text);
 	}
 
 	public String getText() {
@@ -106,7 +111,7 @@ public final class DollarsTextField extends JPanel {
 
 		@Override
 		public void setToolTipText(String text) {
-			// TODO: implement?
+			field.setIconToolTipText(text);
 		}
 
 		@Override

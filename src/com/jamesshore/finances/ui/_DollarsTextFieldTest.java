@@ -9,6 +9,7 @@ import com.jamesshore.finances.domain.*;
 public class _DollarsTextFieldTest {
 
 	private DollarsTextField field;
+	private JPanel iconPanel;
 	private JTextField textComponent;
 	private JLabel iconComponent;
 
@@ -19,7 +20,7 @@ public class _DollarsTextFieldTest {
 		// Note: for overlay layout to work properly, icon must be first. If you change
 		// the way components are added to the container, be sure to do a visual check.
 		Component[] components = field.getComponents();
-		JPanel iconPanel = (JPanel)components[0];
+		iconPanel = (JPanel)components[0];
 		iconComponent = (JLabel)iconPanel.getComponents()[0];
 		textComponent = (JTextField)components[1];
 	}
@@ -31,7 +32,11 @@ public class _DollarsTextFieldTest {
 		assertEquals("layout", OverlayLayout.class, field.getLayout().getClass());
 		assertEquals("# of components", 2, components.length);
 
-		assertEquals("icon should be contained within a panel", JPanel.class, components[0].getClass());
+		FlowLayout iconLayout = (FlowLayout)iconPanel.getLayout();
+		assertEquals("icon should be contained within a panel", JPanel.class, iconPanel.getClass());
+		assertFalse("icon panel should be transparent", iconPanel.isOpaque());
+		assertEquals("icon panel layout", FlowLayout.class, iconLayout.getClass());
+		assertEquals("icon panel alignment", FlowLayout.RIGHT, iconLayout.getAlignment());
 
 		assertEquals("layout should include icon", JLabel.class, iconComponent.getClass());
 		assertEquals("layout should include text field", JTextField.class, textComponent.getClass());
@@ -93,6 +98,7 @@ public class _DollarsTextFieldTest {
 		field.setText("10");
 		assertEquals("starts black", Color.BLACK, field.getForeground());
 		assertFalse("starts with no icon", iconComponent.isVisible());
+		assertNull("starts with no tooltip", iconComponent.getToolTipText());
 
 		field.setText("  -10 ");
 		assertEquals("should not change text", "  -10 ", field.getText());
@@ -100,5 +106,6 @@ public class _DollarsTextFieldTest {
 
 		field.setText("xxx");
 		assertTrue("should set icon", iconComponent.isVisible());
+		assertNotNull("should set tooltip text", iconComponent.getToolTipText());
 	}
 }
