@@ -29,9 +29,12 @@ public final class DollarsTextField extends JPanel {
 	}
 
 	private void addComponents() {
+		JPanel iconPanel = new JPanel();
+		iconPanel.add(iconLabel);
+
 		this.setLayout(new OverlayLayout(this));
+		this.add(iconPanel);
 		this.add(textField);
-		this.add(iconLabel);
 		iconLabel.setVisible(false);
 	}
 
