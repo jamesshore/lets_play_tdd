@@ -17,8 +17,8 @@ public class IconInTextField extends JFrame {
 
 	private void addComponents() {
 		Container content = this.getContentPane();
-		// content.add("Center", iconTextFieldWithGridBag());
-		content.add("Center", iconTextFieldWithOverlay());
+		content.add("Center", iconTextFieldWithGridBag());
+		// content.add("Center", iconTextFieldWithOverlay());
 		// content.add("Center", textField());
 		// content.add("East", icon());
 	}
@@ -28,11 +28,15 @@ public class IconInTextField extends JFrame {
 		panel.setLayout(new OverlayLayout(panel));
 
 		JPanel iconPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-		iconPanel.setBackground(null);
+		iconPanel.setOpaque(false);
 		iconPanel.add(icon());
 
+		JPanel gridbag = new JPanel();
+		gridbag.setLayout(new GridBagLayout());
+		gridbag.add(textField(), new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
+
 		panel.add(iconPanel);
-		panel.add(textField());
+		panel.add(gridbag);
 		return panel;
 	}
 
@@ -66,6 +70,8 @@ public class IconInTextField extends JFrame {
 		URL iconUrl = getClass().getResource("invalid_dollars.png");
 		ImageIcon icon = new ImageIcon(iconUrl, "Invalid dollar amount");
 		iconLabel.setIcon(icon);
+		iconLabel.setBackground(Color.WHITE);
+		iconLabel.setOpaque(false);
 		return iconLabel;
 	}
 
