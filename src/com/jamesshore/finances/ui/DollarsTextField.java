@@ -35,9 +35,14 @@ public final class DollarsTextField extends JPanel {
 		iconLabel.setVisible(false);
 	}
 
-	public void setIcon(ImageIcon icon) {
-		iconLabel.setIcon(icon);
-		iconLabel.setVisible(true);
+	public void setIcon(Icon icon) {
+		if (icon == null) {
+			iconLabel.setVisible(false);
+		}
+		else {
+			iconLabel.setIcon(icon);
+			iconLabel.setVisible(true);
+		}
 	}
 
 	public String getText() {
@@ -56,20 +61,20 @@ public final class DollarsTextField extends JPanel {
 		textField.getDocument().addDocumentListener(new DocumentListener() {
 			@Override
 			public void removeUpdate(DocumentEvent e) {
-				render();
+				fireEvent();
 			}
 
 			@Override
 			public void insertUpdate(DocumentEvent e) {
-				render();
+				fireEvent();
 			}
 
 			@Override
 			public void changedUpdate(DocumentEvent e) {
-				render();
+				fireEvent();
 			}
 
-			private void render() {
+			private void fireEvent() {
 				listener.textChanged();
 			}
 		});
@@ -88,12 +93,12 @@ public final class DollarsTextField extends JPanel {
 
 		@Override
 		public void setText(String text) {
-			// this space intentionally left blank. It's the "NO" reformat text adapter.
+			// this space intentionally left blank. We never overwrite user's text.
 		}
 
 		@Override
 		public void setIcon(Icon icon) {
-			// TODO: implement?
+			field.setIcon(icon);
 		}
 
 		@Override

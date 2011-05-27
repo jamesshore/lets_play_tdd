@@ -2,7 +2,6 @@ package com.jamesshore.finances.ui;
 
 import static org.junit.Assert.*;
 import java.awt.*;
-import java.lang.reflect.*;
 import javax.swing.*;
 import org.junit.*;
 import com.jamesshore.finances.domain.*;
@@ -35,6 +34,9 @@ public class _DollarsTextFieldTest {
 		JLabel iconLabel = (JLabel)field.getComponents()[1];
 		assertEquals("icon image", icon, iconLabel.getIcon());
 		assertTrue("icon label should be visible", iconLabel.isVisible());
+
+		field.setIcon(null);
+		assertFalse("icon label should not be visible", iconLabel.isVisible());
 	}
 
 	@Test
@@ -75,22 +77,18 @@ public class _DollarsTextFieldTest {
 	}
 
 	@Test
-	public void fieldIsRenderedByDomainClassWhenTextChanges_EvenIfItHasntLostFocus() throws Exception {
+	public void fieldIsRenderedByDomainClassWhenTextChanges() throws Exception {
+		JLabel iconLabel = (JLabel)field.getComponents()[1];
+
 		field.setText("10");
 		assertEquals("starts black", Color.BLACK, field.getForeground());
-		field.setText("  -10 ");
-		assertEquals("should change to red", Color.RED, field.getForeground());
-		assertEquals("should not change text", "  -10 ", getTextUsingEventThread(field));
-	}
+		assertFalse("starts with no icon", iconLabel.isVisible());
 
-	private String getTextUsingEventThread(DollarsTextField textField) throws InterruptedException, InvocationTargetException {
-		final String[] testResult = { null };
-		final DollarsTextField field = textField;
-		SwingUtilities.invokeAndWait(new Runnable() {
-			public void run() {
-				testResult[0] = (field.getText());
-			}
-		});
-		return testResult[0];
+		field.setText("  -10 ");
+		assertEquals("should not change text", "  -10 ", field.getText());
+		assertFalse("should change color", Color.BLACK.equals(field.getForeground()));
+
+		field.setText("xxx");
+		assertTrue("should set icon", iconLabel.isVisible());
 	}
 }
