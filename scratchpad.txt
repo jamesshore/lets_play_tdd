@@ -28,4 +28,5 @@ Long term:
 
 - Cross-platform testing & support (Consider "Macify")
   - Cmd-W should close window on Mac
+  - Does the DollarsTextField warning icon work properly in all look-and-feels that we use
 - More realistic abstraction for capital gains tax (in StockMarketYear)

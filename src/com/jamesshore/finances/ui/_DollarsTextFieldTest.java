@@ -17,6 +17,27 @@ public class _DollarsTextFieldTest {
 	}
 
 	@Test
+	public void layout() {
+		// assertEquals("layout", OverlayLayout.class, field.getLayout().getClass());
+		//
+		// Component[] components = field.getComponents();
+		//
+		// assertEquals("# of components", 1, components.length);
+		// assertEquals("layout should include text field", JTextField.class, components[0].getClass());
+
+		// assertEquals("scroll pane", JScrollPane.class, components[0].getClass());
+		// assertEquals("scroll pane should contain table", ForecastTable.class,
+		// ((JScrollPane)components[0]).getViewport().getView().getClass());
+		// assertEquals("starting balance field", DollarsTextField.class, components[1].getClass());
+	}
+
+	@Test
+	public void canGetAndSetArbitraryText() {
+		field.setText("foo");
+		assertEquals("foo", field.getText());
+	}
+
+	@Test
 	public void textReflectsDollarAmountUponConstruction() {
 		assertEquals("$42", field.getText());
 	}

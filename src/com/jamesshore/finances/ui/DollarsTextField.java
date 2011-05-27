@@ -7,12 +7,14 @@ import com.jamesshore.finances.domain.*;
 
 // If you want to subclass this class, it's okay to remove the 'final' designator, but be careful of race 
 // conditions with the event handler in the constructor. It could execute before the subclass constructor.
-public final class DollarsTextField extends JTextField {
-
+public final class DollarsTextField extends JPanel {
 	private static final long serialVersionUID = 1L;
 
+	private JTextField textField = new JTextField();
+
 	public DollarsTextField(Dollars initialValue) {
-		this.setText(initialValue.toString());
+		this.add(textField);
+		textField.setText(initialValue.toString());
 		addTextChangeListener(new ChangeListener() {
 			public void textChanged() {
 				getDollars().render(new Resources(), new DollarsTextFieldRenderTargetAdapter(DollarsTextField.this));
@@ -20,12 +22,20 @@ public final class DollarsTextField extends JTextField {
 		});
 	}
 
+	public String getText() {
+		return textField.getText();
+	}
+
+	public void setText(String value) {
+		textField.setText(value);
+	}
+
 	public Dollars getDollars() {
-		return Dollars.parse(getText());
+		return Dollars.parse(textField.getText());
 	}
 
 	public void addTextChangeListener(final ChangeListener listener) {
-		this.getDocument().addDocumentListener(new DocumentListener() {
+		textField.getDocument().addDocumentListener(new DocumentListener() {
 			@Override
 			public void removeUpdate(DocumentEvent e) {
 				render();
