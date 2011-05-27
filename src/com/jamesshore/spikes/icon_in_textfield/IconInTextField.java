@@ -23,11 +23,22 @@ public class IconInTextField extends JFrame {
 	}
 
 	private Component iconTextField() {
-		JPanel borderPanel = new JPanel();
-		borderPanel.setLayout(new BorderLayout());
-		borderPanel.add("Center", textField());
-		borderPanel.add("East", icon());
-		return borderPanel;
+		JPanel gridbag = new JPanel();
+		gridbag.setLayout(new GridBagLayout());
+
+		gridbag.add(textField(), new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
+		gridbag.add(icon(), new GridBagConstraints(1, 0, 1, 1, 0, 1, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+
+		return gridbag;
+		// Box box = Box.createVerticalBox();
+		// box.add(textField());
+		// JPanel borderPanel = new JPanel();
+		// borderPanel.setLayout(new BorderLayout());
+		// borderPanel.add("Center", textField());
+		// borderPanel.add("East", icon());
+		// box.add(borderPanel);
+		// box.add(Box.createVerticalGlue());
+		// return box;
 	}
 
 	private Component textField() {
