@@ -11,15 +11,33 @@ public final class DollarsTextField extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	private JTextField textField = new JTextField();
+	private JLabel iconLabel = new JLabel();
 
 	public DollarsTextField(Dollars initialValue) {
-		this.add(textField);
 		textField.setText(initialValue.toString());
+
+		addComponents();
+		addListener();
+	}
+
+	private void addListener() {
 		addTextChangeListener(new ChangeListener() {
 			public void textChanged() {
 				getDollars().render(new Resources(), new DollarsTextFieldRenderTargetAdapter(DollarsTextField.this));
 			}
 		});
+	}
+
+	private void addComponents() {
+		this.setLayout(new OverlayLayout(this));
+		this.add(textField);
+		this.add(iconLabel);
+		iconLabel.setVisible(false);
+	}
+
+	public void setIcon(ImageIcon icon) {
+		iconLabel.setIcon(icon);
+		iconLabel.setVisible(true);
 	}
 
 	public String getText() {

@@ -1,5 +1,7 @@
 Render invalid Dollars with an icon in the text field
 
+Create abstraction methods in DollarsTextFieldTest for the components
+
 ---
 Need to handle case where starting balance is lower than cost basis--that should be illegal
 

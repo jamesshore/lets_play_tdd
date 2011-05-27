@@ -18,17 +18,23 @@ public class _DollarsTextFieldTest {
 
 	@Test
 	public void layout() {
-		// assertEquals("layout", OverlayLayout.class, field.getLayout().getClass());
-		//
-		// Component[] components = field.getComponents();
-		//
-		// assertEquals("# of components", 1, components.length);
-		// assertEquals("layout should include text field", JTextField.class, components[0].getClass());
+		Component[] components = field.getComponents();
 
-		// assertEquals("scroll pane", JScrollPane.class, components[0].getClass());
-		// assertEquals("scroll pane should contain table", ForecastTable.class,
-		// ((JScrollPane)components[0]).getViewport().getView().getClass());
-		// assertEquals("starting balance field", DollarsTextField.class, components[1].getClass());
+		assertEquals("layout", OverlayLayout.class, field.getLayout().getClass());
+		assertEquals("# of components", 2, components.length);
+		assertEquals("layout should include text field", JTextField.class, components[0].getClass());
+		assertEquals("layout should include icon", JLabel.class, components[1].getClass());
+		assertFalse("icon should be invisible by default", components[1].isVisible());
+	}
+
+	@Test
+	public void canSetAndClearIcon() {
+		ImageIcon icon = new ImageIcon();
+		field.setIcon(icon);
+
+		JLabel iconLabel = (JLabel)field.getComponents()[1];
+		assertEquals("icon image", icon, iconLabel.getIcon());
+		assertTrue("icon label should be visible", iconLabel.isVisible());
 	}
 
 	@Test
