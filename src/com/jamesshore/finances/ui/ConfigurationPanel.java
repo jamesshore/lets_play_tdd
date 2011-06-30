@@ -10,8 +10,8 @@ public class ConfigurationPanel extends JPanel {
 
 	public ConfigurationPanel(ApplicationModel applicationModel) {
 		this.applicationModel = applicationModel;
-		this.setLayout(new MigLayout());
-		this.add(startingBalanceField());
+		this.setLayout(new MigLayout("fillx", "[grow]"));
+		this.add(startingBalanceField(), "growx");
 	}
 
 	public DollarsTextField startingBalanceField() {

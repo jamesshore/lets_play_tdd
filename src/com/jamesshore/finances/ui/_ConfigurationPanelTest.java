@@ -1,7 +1,6 @@
 package com.jamesshore.finances.ui;
 
 import static org.junit.Assert.*;
-import java.awt.*;
 import net.miginfocom.swing.*;
 import org.junit.*;
 import com.jamesshore.finances.domain.*;
@@ -23,11 +22,14 @@ public class _ConfigurationPanelTest {
 
 	@Test
 	public void layout() {
-		assertEquals("layout", MigLayout.class, panel.getLayout().getClass());
+		MigLayout manager = (MigLayout)panel.getLayout();
+		assertEquals("layout", MigLayout.class, manager.getClass());
+		assertEquals("layout constraints", "fillx", manager.getLayoutConstraints());
+		assertEquals("column constraints", "[grow]", manager.getColumnConstraints());
 
-		Component[] components = panel.getComponents();
-		assertEquals("# of components", 1, components.length);
-		assertEquals("starting balance field", DollarsTextField.class, components[0].getClass());
+		assertEquals("# of components", 1, panel.getComponents().length);
+		assertEquals("starting balance field", DollarsTextField.class, startingBalanceField().getClass());
+		assertEquals("starting balance field constraint", "growx", manager.getComponentConstraints(startingBalanceField()));
 	}
 
 	@Test
