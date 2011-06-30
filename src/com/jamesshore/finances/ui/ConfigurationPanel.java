@@ -1,6 +1,7 @@
 package com.jamesshore.finances.ui;
 
 import javax.swing.*;
+import net.miginfocom.swing.*;
 import com.jamesshore.finances.ui.DollarsTextField.ChangeListener;
 
 public class ConfigurationPanel extends JPanel {
@@ -9,6 +10,7 @@ public class ConfigurationPanel extends JPanel {
 
 	public ConfigurationPanel(ApplicationModel applicationModel) {
 		this.applicationModel = applicationModel;
+		this.setLayout(new MigLayout());
 		this.add(startingBalanceField());
 	}
 

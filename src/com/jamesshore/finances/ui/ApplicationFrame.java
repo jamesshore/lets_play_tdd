@@ -15,21 +15,29 @@ public class ApplicationFrame extends JFrame {
 	public ApplicationFrame(ApplicationModel applicationModel) {
 		super(TITLE);
 		this.model = applicationModel;
+		configureWindow();
+		addComponents();
+	}
+
+	private void configureWindow() {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocation(INITIAL_POSITION);
 		setSize(INITIAL_SIZE);
-		addComponents();
 	}
 
 	private void addComponents() {
 		Container contentPane = getContentPane();
 		contentPane.setLayout(new BorderLayout());
 		contentPane.add(BorderLayout.CENTER, forecastTable());
-		contentPane.add(BorderLayout.NORTH, new ConfigurationPanel(model));
+		contentPane.add(BorderLayout.NORTH, configurationPanel());
 	}
 
 	private Component forecastTable() {
 		return new JScrollPane(new ForecastTable(model.stockMarketTableModel()));
+	}
+
+	private ConfigurationPanel configurationPanel() {
+		return new ConfigurationPanel(model);
 	}
 
 }
