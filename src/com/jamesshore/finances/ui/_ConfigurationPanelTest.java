@@ -2,22 +2,22 @@ package com.jamesshore.finances.ui;
 
 import static org.junit.Assert.*;
 import java.awt.*;
-import javax.swing.*;
 import org.junit.*;
+import com.jamesshore.finances.domain.*;
 
 public class _ConfigurationPanelTest {
 
-	private JPanel panel;
+	private ConfigurationPanel panel;
 	private ApplicationModel model;
-	private DollarsTextField startingBalanceField;
+
+	private DollarsTextField startingBalanceField() {
+		return (DollarsTextField)panel.getComponent(0);
+	}
 
 	@Before
 	public void setUp() {
 		model = new ApplicationModel();
 		panel = new ConfigurationPanel(model);
-
-		Component[] components = panel.getComponents();
-		startingBalanceField = (DollarsTextField)components[0];
 	}
 
 	@Test
@@ -29,6 +29,23 @@ public class _ConfigurationPanelTest {
 
 	@Test
 	public void startingBalanceShouldBeInitializedToModelsValue() {
-		assertEquals("starting balance field text", model.startingBalance(), startingBalanceField.getDollars());
+		assertEquals("starting balance field text", model.startingBalance(), startingBalanceField().getDollars());
+	}
+
+	@Test
+	public void startingBalanceFieldShouldUpdateApplicationModel() {
+		class MockApplicationModel extends ApplicationModel {
+			public Dollars setStartingBalanceCalledWith;
+
+			@Override
+			public void setStartingBalance(Dollars startingBalance) {
+				setStartingBalanceCalledWith = startingBalance;
+			}
+		}
+		MockApplicationModel mockModel = new MockApplicationModel();
+		panel = new ConfigurationPanel(mockModel);
+
+		startingBalanceField().setText("668");
+		assertEquals("applicationModel should be updated", ValidDollars.create(668), mockModel.setStartingBalanceCalledWith);
 	}
 }

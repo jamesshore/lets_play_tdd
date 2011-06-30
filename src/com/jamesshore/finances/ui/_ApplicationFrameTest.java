@@ -5,7 +5,6 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.*;
 import org.junit.*;
-import com.jamesshore.finances.domain.*;
 
 public class _ApplicationFrameTest {
 
@@ -43,12 +42,7 @@ public class _ApplicationFrameTest {
 		assertEquals("# of components", 2, components.length);
 		assertEquals("scroll pane", JScrollPane.class, components[0].getClass());
 		assertEquals("scroll pane should contain table", ForecastTable.class, ((JScrollPane)components[0]).getViewport().getView().getClass());
-		assertEquals("starting balance field", DollarsTextField.class, components[1].getClass());
-	}
-
-	@Test
-	public void startingBalanceShouldBeInitializedToModelsValue() {
-		assertEquals("starting balance field text", model.startingBalance(), frame.startingBalanceField().getDollars());
+		assertEquals("configuration panel", ConfigurationPanel.class, components[1].getClass());
 	}
 
 	@Test
@@ -57,24 +51,6 @@ public class _ApplicationFrameTest {
 		TableModel model = ((ForecastTable)scrollPane.getViewport().getView()).getModel();
 		assertEquals("forecast table model class", StockMarketTableModel.class, model.getClass());
 		assertEquals("# of rows in model", 41, model.getRowCount());
-	}
-
-	@Test
-	public void startingBalanceFieldShouldUpdateApplicationModel() {
-		class MockApplicationModel extends ApplicationModel {
-			public Dollars setStartingBalanceCalledWith;
-
-			@Override
-			public void setStartingBalance(Dollars startingBalance) {
-				setStartingBalanceCalledWith = startingBalance;
-			}
-		}
-		MockApplicationModel mockModel = new MockApplicationModel();
-		frame = new ApplicationFrame(mockModel);
-
-		DollarsTextField field = frame.startingBalanceField();
-		field.setText("668");
-		assertEquals("applicationModel should be updated", ValidDollars.create(668), mockModel.setStartingBalanceCalledWith);
 	}
 
 }
