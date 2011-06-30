@@ -1,6 +1,8 @@
 package com.jamesshore.finances.ui;
 
 import static org.junit.Assert.*;
+import java.awt.*;
+import javax.swing.*;
 import net.miginfocom.swing.*;
 import org.junit.*;
 import com.jamesshore.finances.domain.*;
@@ -11,7 +13,11 @@ public class _ConfigurationPanelTest {
 	private ApplicationModel model;
 
 	private DollarsTextField startingBalanceField() {
-		return (DollarsTextField)panel.getComponent(0);
+		return (DollarsTextField)panel.getComponent(1);
+	}
+
+	private DollarsTextField costBasisField() {
+		return (DollarsTextField)panel.getComponent(3);
 	}
 
 	@Before
@@ -24,17 +30,23 @@ public class _ConfigurationPanelTest {
 	public void layout() {
 		MigLayout manager = (MigLayout)panel.getLayout();
 		assertEquals("layout", MigLayout.class, manager.getClass());
-		assertEquals("layout constraints", "fillx", manager.getLayoutConstraints());
-		assertEquals("column constraints", "[grow]", manager.getColumnConstraints());
+		assertEquals("layout constraints", "fillx, wrap 2", manager.getLayoutConstraints());
+		assertEquals("column constraints", "[right]rel[grow]", manager.getColumnConstraints());
 
-		assertEquals("# of components", 1, panel.getComponents().length);
+		Component[] components = panel.getComponents();
+		assertEquals("# of components", 4, components.length);
+		assertEquals("starting balance label", JLabel.class, components[0].getClass());
 		assertEquals("starting balance field", DollarsTextField.class, startingBalanceField().getClass());
 		assertEquals("starting balance field constraint", "growx", manager.getComponentConstraints(startingBalanceField()));
+		assertEquals("cost basis label", JLabel.class, components[2].getClass());
+		assertEquals("cost basis field", DollarsTextField.class, costBasisField().getClass());
+		assertEquals("cost basis field constraint", "growx", manager.getComponentConstraints(costBasisField()));
 	}
 
 	@Test
-	public void startingBalanceInitializesToModelsValue() {
+	public void fieldsInitializeToModelValue() {
 		assertEquals("starting balance field text", model.startingBalance(), startingBalanceField().getDollars());
+		assertEquals("cost basis field text", model.startingCostBasis(), costBasisField().getDollars());
 	}
 
 	@Test

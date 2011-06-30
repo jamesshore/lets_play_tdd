@@ -1,3 +1,5 @@
+Why is starting balance field not turning red when negative?
+
 Add remaining fields so that starting conditions can be set at runtime
 
 When tabbing to DollarsTextField, should the value be selected?

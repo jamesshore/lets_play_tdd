@@ -30,7 +30,7 @@ public class MigLayoutSpike extends JFrame {
 	}
 
 	private void addField(Container content, String label) {
-		content.add(new JLabel(label), "right");
+		content.add(new JLabel(label));
 		content.add(new JTextField(), "growx, sizegroup");
 	}
 

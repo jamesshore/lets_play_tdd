@@ -28,6 +28,10 @@ public class ApplicationModel {
 		return startingBalance;
 	}
 
+	public Dollars startingCostBasis() {
+		return startingCostBasis;
+	}
+
 	public void setStartingBalance(Dollars startingBalance) {
 		this.startingBalance = startingBalance;
 		stockMarketTableModel.setProjection(stockMarketProjection());
