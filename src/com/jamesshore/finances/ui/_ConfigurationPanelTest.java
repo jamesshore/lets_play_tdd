@@ -20,6 +20,10 @@ public class _ConfigurationPanelTest {
 		return (DollarsTextField)panel.getComponent(3);
 	}
 
+	private DollarsTextField yearlySpendingField() {
+		return (DollarsTextField)panel.getComponent(5);
+	}
+
 	@Before
 	public void setUp() {
 		model = new ApplicationModel();
@@ -34,35 +38,74 @@ public class _ConfigurationPanelTest {
 		assertEquals("column constraints", "[right]rel[grow]", manager.getColumnConstraints());
 
 		Component[] components = panel.getComponents();
-		assertEquals("# of components", 4, components.length);
-		assertEquals("starting balance label", JLabel.class, components[0].getClass());
-		assertEquals("starting balance field", DollarsTextField.class, startingBalanceField().getClass());
-		assertEquals("starting balance field constraint", "growx", manager.getComponentConstraints(startingBalanceField()));
-		assertEquals("cost basis label", JLabel.class, components[2].getClass());
-		assertEquals("cost basis field", DollarsTextField.class, costBasisField().getClass());
-		assertEquals("cost basis field constraint", "growx", manager.getComponentConstraints(costBasisField()));
+		assertEquals("# of components", 6, components.length);
+		assertFormField("starting balance", components[0], components[1]);
+		assertFormField("cost basis", components[2], components[3]);
+		assertFormField("yearly spending", components[4], components[5]);
+	}
+
+	private void assertFormField(String message, Component label, Component field) {
+		MigLayout manager = (MigLayout)panel.getLayout();
+		assertEquals(message + " label", JLabel.class, label.getClass());
+		assertEquals(message + " field", DollarsTextField.class, field.getClass());
+		assertEquals(message + " field constraint", "growx", manager.getComponentConstraints(field));
 	}
 
 	@Test
 	public void fieldsInitializeToModelValue() {
 		assertEquals("starting balance field text", model.startingBalance(), startingBalanceField().getDollars());
 		assertEquals("cost basis field text", model.startingCostBasis(), costBasisField().getDollars());
+		assertEquals("yearly spending field text", model.yearlySpending(), yearlySpendingField().getDollars());
 	}
 
 	@Test
 	public void startingBalanceFieldUpdatesApplicationModel() {
-		class MockApplicationModel extends ApplicationModel {
-			public Dollars setStartingBalanceCalledWith;
-
-			@Override
-			public void setStartingBalance(Dollars startingBalance) {
-				setStartingBalanceCalledWith = startingBalance;
-			}
-		}
 		MockApplicationModel mockModel = new MockApplicationModel();
 		panel = new ConfigurationPanel(mockModel);
 
 		startingBalanceField().setText("668");
 		assertEquals("applicationModel should be updated", ValidDollars.create(668), mockModel.setStartingBalanceCalledWith);
 	}
+
+	@Test
+	public void costBasisFieldUpdatesApplicationModel() {
+		MockApplicationModel mockModel = new MockApplicationModel();
+		panel = new ConfigurationPanel(mockModel);
+
+		costBasisField().setText("670");
+		assertEquals("applicationModel should be updated", ValidDollars.create(670), mockModel.setStartingCostBasisCalledWith);
+	}
+
+	@Test
+	public void yearlySpendingFieldUpdatesApplicationModel() {
+		// MockApplicationModel mockModel = new MockApplicationModel();
+		// panel = new ConfigurationPanel(mockModel);
+		//
+		// costBasisField().setText("672");
+		// assertEquals("applicationModel should be updated", ValidDollars.create(672),
+		// mockModel.setYearlySpendingCalledWith);
+
+	}
+
+	private static class MockApplicationModel extends ApplicationModel {
+		public Dollars setStartingBalanceCalledWith;
+		public Dollars setStartingCostBasisCalledWith;
+		public Dollars setYearlySpendingCalledWith;
+
+		@Override
+		public void setStartingBalance(Dollars startingBalance) {
+			setStartingBalanceCalledWith = startingBalance;
+		}
+
+		@Override
+		public void setStartingCostBasis(Dollars startingCostBasis) {
+			setStartingCostBasisCalledWith = startingCostBasis;
+		}
+
+		// @Override
+		// public void setYearlySpending(Dollars yearlySpending) {
+		// setYearlySpendingCalledWith = yearlySpending;
+		// }
+	}
+
 }

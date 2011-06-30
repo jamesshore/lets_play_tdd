@@ -69,4 +69,7 @@ public class StockMarketTableModel extends AbstractTableModel {
 		return projection.getYearOffset(0).startingBalance();
 	}
 
+	public Dollars startingCostBasis() {
+		return projection.getYearOffset(0).startingCostBasis();
+	}
 }

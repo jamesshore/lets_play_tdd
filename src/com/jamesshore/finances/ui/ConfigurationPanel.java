@@ -10,11 +10,19 @@ public class ConfigurationPanel extends JPanel {
 
 	public ConfigurationPanel(ApplicationModel applicationModel) {
 		this.applicationModel = applicationModel;
+		addComponents();
+	}
+
+	private void addComponents() {
 		this.setLayout(new MigLayout("fillx, wrap 2", "[right]rel[grow]"));
-		this.add(new JLabel("Starting Balance:"));
-		this.add(startingBalanceField(), "growx");
-		this.add(new JLabel("Cost Basis:"));
-		this.add(costBasisField(), "growx");
+		addField("Starting Balance:", startingBalanceField());
+		addField("Cost Basis:", costBasisField());
+		addField("Yearly Spending:", yearlySpendingField());
+	}
+
+	private void addField(String name, DollarsTextField field) {
+		this.add(new JLabel(name));
+		this.add(field, "growx");
 	}
 
 	public DollarsTextField startingBalanceField() {
@@ -28,6 +36,17 @@ public class ConfigurationPanel extends JPanel {
 	}
 
 	private DollarsTextField costBasisField() {
-		return new DollarsTextField(applicationModel.startingCostBasis());
+		final DollarsTextField field = new DollarsTextField(applicationModel.startingCostBasis());
+		field.addTextChangeListener(new ChangeListener() {
+			public void textChanged() {
+				applicationModel.setStartingCostBasis(field.getDollars());
+			}
+		});
+		return field;
+	}
+
+	private DollarsTextField yearlySpendingField() {
+		final DollarsTextField field = new DollarsTextField(applicationModel.yearlySpending());
+		return field;
 	}
 }
