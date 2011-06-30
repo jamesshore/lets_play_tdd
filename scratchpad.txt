@@ -1,15 +1,13 @@
+Add remaining fields so that starting conditions can be set at runtime
+
+When tabbing to DollarsTextField, should the value be selected?
 
 ---
 Need to handle case where starting balance is lower than cost basis--that should be illegal
 
-Should StockMarketYear be immutable?
-
 ---
-Add remaining fields so that starting conditions can be set at runtime
 
 Check that keyboard shortcuts work (including tabbing between components)
-
-When tabbing to DollarsTextField, should the value be selected?
 
 Run Swing-related stuff on event dispatching thread: http://download.oracle.com/javase/6/docs/api/javax/swing/package-summary.html#threading
 
