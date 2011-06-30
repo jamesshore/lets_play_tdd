@@ -78,12 +78,11 @@ public class _ConfigurationPanelTest {
 
 	@Test
 	public void yearlySpendingFieldUpdatesApplicationModel() {
-		// MockApplicationModel mockModel = new MockApplicationModel();
-		// panel = new ConfigurationPanel(mockModel);
-		//
-		// costBasisField().setText("672");
-		// assertEquals("applicationModel should be updated", ValidDollars.create(672),
-		// mockModel.setYearlySpendingCalledWith);
+		MockApplicationModel mockModel = new MockApplicationModel();
+		panel = new ConfigurationPanel(mockModel);
+
+		yearlySpendingField().setText("672");
+		assertEquals("applicationModel should be updated", ValidDollars.create(672), mockModel.setYearlySpendingCalledWith);
 
 	}
 
@@ -102,10 +101,10 @@ public class _ConfigurationPanelTest {
 			setStartingCostBasisCalledWith = startingCostBasis;
 		}
 
-		// @Override
-		// public void setYearlySpending(Dollars yearlySpending) {
-		// setYearlySpendingCalledWith = yearlySpending;
-		// }
+		@Override
+		public void setYearlySpending(Dollars yearlySpending) {
+			setYearlySpendingCalledWith = yearlySpending;
+		}
 	}
 
 }

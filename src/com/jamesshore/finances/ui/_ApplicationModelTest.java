@@ -45,4 +45,10 @@ public class _ApplicationModelTest {
 		assertEquals(ValidDollars.create(39), model.stockMarketTableModel().startingCostBasis());
 	}
 
+	@Test
+	public void changingYearlySpendingShouldChangeStockMarketTableModel() {
+		model.setYearlySpending(ValidDollars.create(423));
+		assertEquals(ValidDollars.create(423), model.stockMarketTableModel().yearlySpending());
+	}
+
 }

@@ -47,6 +47,11 @@ public class ConfigurationPanel extends JPanel {
 
 	private DollarsTextField yearlySpendingField() {
 		final DollarsTextField field = new DollarsTextField(applicationModel.yearlySpending());
+		field.addTextChangeListener(new ChangeListener() {
+			public void textChanged() {
+				applicationModel.setYearlySpending(field.getDollars());
+			}
+		});
 		return field;
 	}
 }

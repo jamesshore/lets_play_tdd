@@ -1,9 +1,3 @@
-Add remaining fields so that starting conditions can be set at runtime
-
-Address duplication for DollarsTextField configuration in ConfigurationPanel (tests and production)
-
-Why are first year's sales changing when cost basis is changed through UI?
-
 Why is starting balance field not turning red when negative?
 
 When tabbing to DollarsTextField, should the value be selected?
@@ -11,6 +5,10 @@ When tabbing to DollarsTextField, should the value be selected?
 Why do sales change when cost basis is near starting balance value? 
 
 Need to handle case where cost basis is larger than starting balance--that should be illegal
+
+---
+
+Add remaining fields so that starting conditions can be set at runtime
 
 ---
 

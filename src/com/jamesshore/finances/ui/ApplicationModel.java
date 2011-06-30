@@ -48,6 +48,11 @@ public class ApplicationModel {
 		stockMarketTableModel.setProjection(stockMarketProjection());
 	}
 
+	public void setYearlySpending(Dollars yearlySpending) {
+		this.yearlySpending = yearlySpending;
+		stockMarketTableModel.setProjection(stockMarketProjection());
+	}
+
 	public StockMarketProjection stockMarketProjection() {
 		StockMarketYear firstYear = new StockMarketYear(startingYear, startingBalance, startingCostBasis, growthRate, capitalGainsTaxRate);
 		return new StockMarketProjection(firstYear, endingYear, yearlySpending);
