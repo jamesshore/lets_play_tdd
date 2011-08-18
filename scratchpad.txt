@@ -1,8 +1,6 @@
-Why is starting balance field not turning red when negative?
+Modify ChangeListener so that icon and icon's tooltip are set together?
 
 When tabbing to DollarsTextField, should the value be selected?
-
-Why do sales change when cost basis is near starting balance value? 
 
 Need to handle case where cost basis is larger than starting balance--that should be illegal
 
@@ -32,3 +30,9 @@ Long term:
   - Cmd-W should close window on Mac
   - Does the DollarsTextField warning icon work properly in all look-and-feels that we use
 - More realistic abstraction for capital gains tax (in StockMarketYear)
+
+
+ROOT CAUSE CHECKLIST:
+---
+Swing semantics change even when interface doesn't
+Therefore... when refactoring from one Swing class to another, check usage of all Swing APIs.

@@ -61,6 +61,18 @@ public final class DollarsTextField extends JPanel {
 		textField.setText(value);
 	}
 
+	@Override
+	public Color getForeground() {
+		if (textField != null) return textField.getForeground();
+		else return super.getForeground();
+	}
+
+	@Override
+	public void setForeground(Color color) {
+		super.setForeground(color);
+		if (textField != null) textField.setForeground(color);
+	}
+
 	public Dollars getDollars() {
 		return Dollars.parse(textField.getText());
 	}
@@ -105,13 +117,9 @@ public final class DollarsTextField extends JPanel {
 		}
 
 		@Override
-		public void setIcon(Icon icon) {
+		public void setIcon(Icon icon, String toolTipText) {
 			field.setIcon(icon);
-		}
-
-		@Override
-		public void setToolTipText(String text) {
-			field.setIconToolTipText(text);
+			field.setIconToolTipText(toolTipText);
 		}
 
 		@Override

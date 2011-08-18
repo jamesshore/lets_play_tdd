@@ -7,9 +7,7 @@ public interface RenderTarget {
 
 	void setText(String text);
 
-	void setIcon(Icon icon);
-
-	void setToolTipText(String text);
+	void setIcon(Icon icon, String toolTipText);
 
 	void setForegroundColor(Color color);
 

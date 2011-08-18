@@ -14,12 +14,9 @@ class __RenderTargetStub implements RenderTarget {
 		this.text = text;
 	}
 
-	public void setIcon(Icon icon) {
+	public void setIcon(Icon icon, String toolTipText) {
 		this.icon = icon;
-	}
-
-	public void setToolTipText(String text) {
-		this.toolTipText = text;
+		this.toolTipText = toolTipText;
 	}
 
 	public void setForegroundColor(Color color) {

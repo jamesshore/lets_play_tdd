@@ -16,13 +16,9 @@ class LabelRenderTargetAdapter implements RenderTarget {
 	}
 
 	@Override
-	public void setIcon(Icon icon) {
+	public void setIcon(Icon icon, String toolTipText) {
 		label.setIcon(icon);
-	}
-
-	@Override
-	public void setToolTipText(String text) {
-		label.setToolTipText(text);
+		label.setToolTipText(toolTipText);
 	}
 
 	@Override

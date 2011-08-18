@@ -35,9 +35,8 @@ public class InvalidDollars extends Dollars {
 	}
 
 	public void render(Resources resources, RenderTarget target) {
-		target.setIcon(resources.invalidDollarIcon());
+		target.setIcon(resources.invalidDollarIcon(), "Invalid dollar amount");
 		target.setText(null);
-		target.setToolTipText("Invalid dollar amount");
 	}
 
 	@Override

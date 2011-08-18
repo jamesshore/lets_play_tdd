@@ -63,6 +63,19 @@ public class _DollarsTextFieldTest {
 	}
 
 	@Test
+	public void settingForegroundColorChangesTextColor() {
+		field.setForeground(Color.CYAN);
+		assertEquals("can retrieve color", Color.CYAN, field.getForeground());
+		assertEquals("actual text color changed", Color.CYAN, textComponent.getForeground());
+	}
+
+	@Test
+	public void getForegroundColorIsBasedOnTextColorNotPanelColor() {
+		textComponent.setForeground(Color.PINK);
+		assertEquals("color is based on text color", Color.PINK, field.getForeground());
+	}
+
+	@Test
 	public void textReflectsDollarAmountUponConstruction() {
 		assertEquals("$42", field.getText());
 	}
@@ -96,13 +109,13 @@ public class _DollarsTextFieldTest {
 	@Test
 	public void fieldIsRenderedByDomainClassWhenTextChanges() throws Exception {
 		field.setText("10");
-		assertEquals("starts black", Color.BLACK, field.getForeground());
+		assertEquals("starts black", Color.BLACK, textComponent.getForeground());
 		assertFalse("starts with no icon", iconComponent.isVisible());
 		assertNull("starts with no tooltip", iconComponent.getToolTipText());
 
 		field.setText("  -10 ");
-		assertEquals("should not change text", "  -10 ", field.getText());
-		assertFalse("should change color", Color.BLACK.equals(field.getForeground()));
+		assertEquals("should not change text", "  -10 ", textComponent.getText());
+		assertFalse("should change color", Color.BLACK.equals(textComponent.getForeground()));
 
 		field.setText("xxx");
 		assertTrue("should set icon", iconComponent.isVisible());
