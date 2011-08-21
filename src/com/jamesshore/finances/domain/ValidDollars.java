@@ -58,6 +58,10 @@ public class ValidDollars extends Dollars {
 		return create(Math.min(this.amount, amount(value2)));
 	}
 
+	public ValidDollars flipSign(ValidDollars dollars) {
+		return dollars;
+	}
+
 	private boolean isNegative() {
 		return amount < 0;
 	}

@@ -54,7 +54,7 @@ public class _StockMarketTableModelTest {
 		assertEquals("year", STARTING_YEAR, model.getValueAt(0, 0));
 		assertEquals("starting balance", STARTING_BALANCE, model.getValueAt(0, 1));
 		assertEquals("starting principal", STARTING_COST_BASIS, model.getValueAt(0, 2));
-		assertEquals("sell orders", YEARLY_SPENDING, model.getValueAt(0, 3));
+		assertEquals("sell orders", ValidDollars.create(0).minus(YEARLY_SPENDING), model.getValueAt(0, 3));
 		assertEquals("taxes", ValidDollars.create(-12), model.getValueAt(0, 4));
 		assertEquals("appreciation", ValidDollars.create(995), model.getValueAt(0, 5));
 		assertEquals("ending balance", ValidDollars.create(10947), model.getValueAt(0, 6));

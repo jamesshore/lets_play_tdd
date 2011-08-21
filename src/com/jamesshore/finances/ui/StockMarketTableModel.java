@@ -55,7 +55,7 @@ public class StockMarketTableModel extends AbstractTableModel {
 			case 2:
 				return currentYear.startingCostBasis();
 			case 3:
-				return currentYear.totalSellOrders();
+				return ValidDollars.create(0).minus(currentYear.totalSellOrders());
 			case 4:
 				return ValidDollars.create(0).minus(currentYear.capitalGainsTaxIncurred());
 			case 5:
