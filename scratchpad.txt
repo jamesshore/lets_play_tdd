@@ -6,6 +6,8 @@ When tabbing to DollarsTextField, should the value be selected?
 
 Need to handle case where cost basis is larger than starting balance--that should be illegal
 
+Similarly, need to handle case where account runs out of money. All kinds of funkiness ensues.
+
 ---
 
 Check that keyboard shortcuts work (including tabbing between components)

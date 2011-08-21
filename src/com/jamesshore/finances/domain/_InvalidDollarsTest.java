@@ -57,6 +57,11 @@ public class _InvalidDollarsTest {
 	}
 
 	@Test
+	public void flipSign() {
+		assertEquals(new InvalidDollars(), invalidA.flipSign());
+	}
+
+	@Test
 	public void rendersItself() {
 		__RenderTargetStub target = new __RenderTargetStub();
 		invalidA.render(new Resources(), target);

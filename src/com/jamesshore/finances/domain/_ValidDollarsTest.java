@@ -52,6 +52,8 @@ public class _ValidDollarsTest {
 	@Test
 	public void flipSign() {
 		assertEquals("zero to zero", zeroDollars, zeroDollars.flipSign());
+		assertEquals("positive to negative", minusTwentyDollars, twentyDollars.flipSign());
+		assertEquals("negative to positive", twentyDollars, minusTwentyDollars.flipSign());
 	}
 
 	@Test
