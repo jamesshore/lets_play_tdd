@@ -1,12 +1,10 @@
-Modify ChangeListener so that icon and icon's tooltip are set together?
+Add remaining fields so that starting conditions can be set at runtime
+
+---
 
 When tabbing to DollarsTextField, should the value be selected?
 
 Need to handle case where cost basis is larger than starting balance--that should be illegal
-
----
-
-Add remaining fields so that starting conditions can be set at runtime
 
 ---
 

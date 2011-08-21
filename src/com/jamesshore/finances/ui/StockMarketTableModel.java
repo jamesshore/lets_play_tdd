@@ -6,8 +6,8 @@ import com.jamesshore.finances.util.*;
 
 public class StockMarketTableModel extends AbstractTableModel {
 	private static final long serialVersionUID = 1L;
-	private static final String[] COLUMN_TITLES = { "Year", "Starting Balance", "Cost Basis", "Sales", "Growth", "Ending Balance" };
-	private static final Class<?>[] COLUMN_CLASSES = { Year.class, SelfRenderable.class, SelfRenderable.class, SelfRenderable.class, SelfRenderable.class, SelfRenderable.class };
+	private static final String[] COLUMN_TITLES = { "Year", "Starting Balance", "Cost Basis", "Sell Orders", "Taxes", "Growth", "Ending Balance" };
+	private static final Class<?>[] COLUMN_CLASSES = { Year.class, SelfRenderable.class, SelfRenderable.class, SelfRenderable.class, SelfRenderable.class, SelfRenderable.class, SelfRenderable.class };
 
 	private StockMarketProjection projection;
 
@@ -55,10 +55,12 @@ public class StockMarketTableModel extends AbstractTableModel {
 			case 2:
 				return currentYear.startingCostBasis();
 			case 3:
-				return currentYear.totalSold();
+				return currentYear.totalSellOrders();
 			case 4:
-				return currentYear.growth();
+				return ValidDollars.create(0).minus(currentYear.capitalGainsTaxIncurred());
 			case 5:
+				return currentYear.growth();
+			case 6:
 				return currentYear.endingBalance();
 			default:
 				throw new UnreachableCodeException();
