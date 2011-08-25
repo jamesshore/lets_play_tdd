@@ -11,15 +11,25 @@ public class _ApplicationFrameTest {
 
 	private ApplicationFrame frame;
 	private ApplicationModel model;
+	private JMenuBar menuBar;
+	private JMenu fileMenu;
+	private JMenuItem newMenuItem;
+	private JMenuItem closeMenuItem;
 
 	@Before
 	public void setup() throws Exception {
 		model = new ApplicationModel();
 		frame = new ApplicationFrame(model);
+		menuBar = frame.getJMenuBar();
+		fileMenu = menuBar.getMenu(0);
+		newMenuItem = fileMenu.getItem(0);
+		closeMenuItem = fileMenu.getItem(1);
 	}
 
 	@After
 	public void teardown() {
+		frame.setVisible(false);
+
 		// POTENTIAL GOTCHA:
 		//
 		// I could 'frame.dispose()' here, which would release the resources consumed
@@ -51,20 +61,18 @@ public class _ApplicationFrameTest {
 
 	@Test
 	public void shouldHaveMenu() {
-		JMenuBar menuBar = frame.getJMenuBar();
-
 		assertNotNull("should have menu bar", menuBar);
 		assertEquals("# of menus", 1, menuBar.getMenuCount());
 
-		JMenu fileMenu = menuBar.getMenu(0);
 		assertEquals("file menu title", "File", fileMenu.getText());
-		assertEquals("# of menu items", 1, fileMenu.getItemCount());
-		JMenuItem newMenuItem = fileMenu.getItem(0);
-		assertEquals("'new' menu item", "New", newMenuItem.getText());
+		assertEquals("# of menu items", 2, fileMenu.getItemCount());
 
+		assertEquals("'new' menu item", "New", newMenuItem.getText());
 		KeyStroke newMenuItemAccelerator = newMenuItem.getAccelerator();
 		assertNotNull("'new' menu item should have accelerator", newMenuItemAccelerator);
 		assertEquals("'new' accelerator key", KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.META_MASK), newMenuItemAccelerator);
+
+		assertEquals("'close' menu item", "Close", closeMenuItem.getText());
 	}
 
 	@Test
@@ -100,15 +108,26 @@ public class _ApplicationFrameTest {
 	public void newMenuItemShouldCreateANewWindow() throws Throwable {
 		int frameCount = Frame.getFrames().length;
 
-		// TODO: Clean up duplication with shouldHaveMenu()
-		JMenuBar menuBar = frame.getJMenuBar();
-		JMenu fileMenu = menuBar.getMenu(0);
-		JMenuItem newMenuItem = fileMenu.getItem(0);
 		newMenuItem.doClick();
 
 		Frame[] allFrames = Frame.getFrames();
 		assertEquals("number of windows should increase by 1", frameCount + 1, allFrames.length);
 		assertTrue("new window should be visible", allFrames[allFrames.length - 1].isVisible());
+	}
+
+	@Test
+	public void closeMenuItemShouldCloseTheWindow() throws Throwable {
+		// Technically, it should dispose() the frame, but there's no way to test that
+		// as far I as I know.
+
+		int frameCount = Frame.getFrames().length;
+
+		closeMenuItem.doClick();
+
+		Frame[] allFrames = Frame.getFrames();
+		boolean frameDisposed = allFrames.length == frameCount - 1;
+		boolean isDisplayable = allFrames[allFrames.length - 1].isDisplayable();
+		assertTrue("frame should have been disposed", frameDisposed || !isDisplayable);
 	}
 
 }

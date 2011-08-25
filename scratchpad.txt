@@ -1,3 +1,7 @@
+Need 'Close' menu item
+
+---
+
 Use a @Rule to enforce SwingUtilities.invokeAndWait on every Swing test?
 
 ---

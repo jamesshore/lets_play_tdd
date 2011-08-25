@@ -35,6 +35,7 @@ public class ApplicationFrame extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		JMenu fileMenu = new JMenu("File");
 		JMenuItem newMenuItem = new JMenuItem("New");
+		JMenuItem closeMenuItem = new JMenuItem("Close");
 
 		newMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.META_MASK));
 		newMenuItem.addActionListener(new ActionListener() {
@@ -44,6 +45,7 @@ public class ApplicationFrame extends JFrame {
 		});
 
 		fileMenu.add(newMenuItem);
+		fileMenu.add(closeMenuItem);
 		menuBar.add(fileMenu);
 		setJMenuBar(menuBar);
 	}
