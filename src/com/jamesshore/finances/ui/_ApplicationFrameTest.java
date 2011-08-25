@@ -18,6 +18,21 @@ public class _ApplicationFrameTest {
 		frame = new ApplicationFrame(model);
 	}
 
+	@After
+	public void teardown() {
+		// POTENTIAL GOTCHA:
+		//
+		// I could 'frame.dispose()' here, which would release the resources consumed
+		// by creating the frame. However, that could cause tests to fail if they are
+		// assuming a certain number of frames, because the number of frames decrements
+		// according to the whims of the garbage collector.
+		//
+		// Also, dispose() is very slow, so I've decided not to dispose of frames at this
+		// time. As a result, many frames are being created and then hanging around in
+		// memory consuming graphic resources. This could cause out-of-memory errors or
+		// some other problems in the future, so good luck to future me.
+	}
+
 	@Test
 	public void shouldExitApplicationWhenWindowClosed() throws Exception {
 		assertEquals("should exit on close", WindowConstants.EXIT_ON_CLOSE, frame.getDefaultCloseOperation());
@@ -49,7 +64,7 @@ public class _ApplicationFrameTest {
 
 		KeyStroke newMenuItemAccelerator = newMenuItem.getAccelerator();
 		assertNotNull("'new' menu item should have accelerator", newMenuItemAccelerator);
-		assertEquals("'new' accelerator key", KeyStroke.getKeyStroke(KeyEvent.VK_F, InputEvent.META_MASK), newMenuItemAccelerator);
+		assertEquals("'new' accelerator key", KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.META_MASK), newMenuItemAccelerator);
 	}
 
 	@Test
@@ -72,10 +87,28 @@ public class _ApplicationFrameTest {
 	}
 
 	@Test
+	public void newWindow() {
+		int frameCount = Frame.getFrames().length;
+		ApplicationFrame.newWindow();
+
+		Frame[] allFrames = Frame.getFrames();
+		assertEquals("number of windows should increase by 1", frameCount + 1, allFrames.length);
+		assertTrue("new window should be visible", allFrames[allFrames.length - 1].isVisible());
+	}
+
+	@Test
 	public void newMenuItemShouldCreateANewWindow() throws Throwable {
 		int frameCount = Frame.getFrames().length;
-		// click
-		assertEquals("number of windows should increase by 1", frameCount + 1, Frame.getFrames().length);
+
+		// TODO: Clean up duplication with shouldHaveMenu()
+		JMenuBar menuBar = frame.getJMenuBar();
+		JMenu fileMenu = menuBar.getMenu(0);
+		JMenuItem newMenuItem = fileMenu.getItem(0);
+		newMenuItem.doClick();
+
+		Frame[] allFrames = Frame.getFrames();
+		assertEquals("number of windows should increase by 1", frameCount + 1, allFrames.length);
+		assertTrue("new window should be visible", allFrames[allFrames.length - 1].isVisible());
 	}
 
 }

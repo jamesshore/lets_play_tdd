@@ -13,6 +13,10 @@ public class ApplicationFrame extends JFrame {
 
 	private ApplicationModel model;
 
+	public static void newWindow() {
+		new ApplicationFrame(new ApplicationModel()).setVisible(true);
+	}
+
 	public ApplicationFrame(ApplicationModel applicationModel) {
 		super(TITLE);
 		this.model = applicationModel;
@@ -32,7 +36,12 @@ public class ApplicationFrame extends JFrame {
 		JMenu fileMenu = new JMenu("File");
 		JMenuItem newMenuItem = new JMenuItem("New");
 
-		newMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F, InputEvent.META_MASK));
+		newMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.META_MASK));
+		newMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				newWindow();
+			}
+		});
 
 		fileMenu.add(newMenuItem);
 		menuBar.add(fileMenu);
