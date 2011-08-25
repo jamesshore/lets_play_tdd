@@ -1,3 +1,7 @@
+Use a @Rule to enforce SwingUtilities.invokeAndWait on every Swing test?
+
+---
+
 Persistence!
 - values of fields
 - UI positioning

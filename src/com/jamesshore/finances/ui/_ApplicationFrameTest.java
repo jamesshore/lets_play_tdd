@@ -13,13 +13,13 @@ public class _ApplicationFrameTest {
 	private ApplicationModel model;
 
 	@Before
-	public void setup() {
+	public void setup() throws Exception {
 		model = new ApplicationModel();
 		frame = new ApplicationFrame(model);
 	}
 
 	@Test
-	public void shouldExitApplicationWhenWindowClosed() {
+	public void shouldExitApplicationWhenWindowClosed() throws Exception {
 		assertEquals("should exit on close", WindowConstants.EXIT_ON_CLOSE, frame.getDefaultCloseOperation());
 	}
 
@@ -50,7 +50,6 @@ public class _ApplicationFrameTest {
 		KeyStroke newMenuItemAccelerator = newMenuItem.getAccelerator();
 		assertNotNull("'new' menu item should have accelerator", newMenuItemAccelerator);
 		assertEquals("'new' accelerator key", KeyStroke.getKeyStroke(KeyEvent.VK_F, InputEvent.META_MASK), newMenuItemAccelerator);
-
 	}
 
 	@Test
@@ -70,6 +69,13 @@ public class _ApplicationFrameTest {
 		TableModel model = ((ForecastTable)scrollPane.getViewport().getView()).getModel();
 		assertEquals("forecast table model class", StockMarketTableModel.class, model.getClass());
 		assertEquals("# of rows in model", 41, model.getRowCount());
+	}
+
+	@Test
+	public void newMenuItemShouldCreateANewWindow() throws Throwable {
+		int frameCount = Frame.getFrames().length;
+		// click
+		assertEquals("number of windows should increase by 1", frameCount + 1, Frame.getFrames().length);
 	}
 
 }
