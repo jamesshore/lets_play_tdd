@@ -2,6 +2,7 @@ package com.jamesshore.finances.ui;
 
 import static org.junit.Assert.*;
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.table.*;
 import org.junit.*;
@@ -39,7 +40,17 @@ public class _ApplicationFrameTest {
 
 		assertNotNull("should have menu bar", menuBar);
 		assertEquals("# of menus", 1, menuBar.getMenuCount());
-		assertEquals("file menu title", "File", menuBar.getMenu(0).getText());
+
+		JMenu fileMenu = menuBar.getMenu(0);
+		assertEquals("file menu title", "File", fileMenu.getText());
+		assertEquals("# of menu items", 1, fileMenu.getItemCount());
+		JMenuItem newMenuItem = fileMenu.getItem(0);
+		assertEquals("'new' menu item", "New", newMenuItem.getText());
+
+		KeyStroke newMenuItemAccelerator = newMenuItem.getAccelerator();
+		assertNotNull("'new' menu item should have accelerator", newMenuItemAccelerator);
+		assertEquals("'new' accelerator key", KeyStroke.getKeyStroke(KeyEvent.VK_F, InputEvent.META_MASK), newMenuItemAccelerator);
+
 	}
 
 	@Test

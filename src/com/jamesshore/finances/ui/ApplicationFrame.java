@@ -1,6 +1,7 @@
 package com.jamesshore.finances.ui;
 
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 
 public class ApplicationFrame extends JFrame {
@@ -28,8 +29,13 @@ public class ApplicationFrame extends JFrame {
 
 	private void createMenu() {
 		JMenuBar menuBar = new JMenuBar();
-		menuBar.add(new JMenu("File"));
+		JMenu fileMenu = new JMenu("File");
+		JMenuItem newMenuItem = new JMenuItem("New");
 
+		newMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F, InputEvent.META_MASK));
+
+		fileMenu.add(newMenuItem);
+		menuBar.add(fileMenu);
 		setJMenuBar(menuBar);
 	}
 
