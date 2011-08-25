@@ -34,11 +34,19 @@ public class _ApplicationFrameTest {
 	}
 
 	@Test
+	public void shouldHaveMenu() {
+		JMenuBar menuBar = frame.getJMenuBar();
+
+		assertNotNull("should have menu bar", menuBar);
+		assertEquals("# of menus", 1, menuBar.getMenuCount());
+		assertEquals("file menu title", "File", menuBar.getMenu(0).getText());
+	}
+
+	@Test
 	public void shouldLayoutProperly() {
 		assertEquals("layout", BorderLayout.class, frame.getContentPane().getLayout().getClass());
 
 		Component[] components = frame.getContentPane().getComponents();
-
 		assertEquals("# of components", 2, components.length);
 		assertEquals("scroll pane", JScrollPane.class, components[0].getClass());
 		assertEquals("scroll pane should contain table", ForecastTable.class, ((JScrollPane)components[0]).getViewport().getView().getClass());

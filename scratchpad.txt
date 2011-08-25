@@ -35,6 +35,7 @@ Long term:
 - Cross-platform testing & support (Consider "Macify")
   - Cmd-W should close window on Mac
   - Does the DollarsTextField warning icon work properly in all look-and-feels that we use
+  - Mac needs to use Mac menu bar (currently configured with -D option in run.sh)
 - More realistic abstraction for capital gains tax (in StockMarketYear)
 
 

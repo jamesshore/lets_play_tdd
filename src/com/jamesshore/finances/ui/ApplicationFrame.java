@@ -16,6 +16,7 @@ public class ApplicationFrame extends JFrame {
 		super(TITLE);
 		this.model = applicationModel;
 		configureWindow();
+		createMenu();
 		addComponents();
 	}
 
@@ -23,6 +24,13 @@ public class ApplicationFrame extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocation(INITIAL_POSITION);
 		setSize(INITIAL_SIZE);
+	}
+
+	private void createMenu() {
+		JMenuBar menuBar = new JMenuBar();
+		menuBar.add(new JMenu("File"));
+
+		setJMenuBar(menuBar);
 	}
 
 	private void addComponents() {
