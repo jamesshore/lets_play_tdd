@@ -1,4 +1,4 @@
-Need 'Close' menu item
+Clicking 'close' button quits the app
 
 ---
 
@@ -44,6 +44,7 @@ Long term:
   - Cmd-W should close window on Mac
   - Does the DollarsTextField warning icon work properly in all look-and-feels that we use
   - Mac needs to use Mac menu bar (currently configured with -D option in run.sh)
+  - Should not close application when last window is closed on the Mac
 - More realistic abstraction for capital gains tax (in StockMarketYear)
 
 

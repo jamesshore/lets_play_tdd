@@ -21,7 +21,6 @@ public class ApplicationFrame extends JFrame {
 		super(TITLE);
 		this.model = applicationModel;
 		configureWindow();
-		createMenu();
 		addComponents();
 	}
 
@@ -31,30 +30,13 @@ public class ApplicationFrame extends JFrame {
 		setSize(INITIAL_SIZE);
 	}
 
-	private void createMenu() {
-		JMenuBar menuBar = new JMenuBar();
-		JMenu fileMenu = new JMenu("File");
-		JMenuItem newMenuItem = new JMenuItem("New");
-		JMenuItem closeMenuItem = new JMenuItem("Close");
-
-		newMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.META_MASK));
-		newMenuItem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				newWindow();
-			}
-		});
-
-		fileMenu.add(newMenuItem);
-		fileMenu.add(closeMenuItem);
-		menuBar.add(fileMenu);
-		setJMenuBar(menuBar);
-	}
-
 	private void addComponents() {
 		Container contentPane = getContentPane();
 		contentPane.setLayout(new BorderLayout());
 		contentPane.add(BorderLayout.CENTER, forecastTable());
 		contentPane.add(BorderLayout.NORTH, configurationPanel());
+
+		setJMenuBar(menuBar());
 	}
 
 	private Component forecastTable() {
@@ -65,4 +47,36 @@ public class ApplicationFrame extends JFrame {
 		return new ConfigurationPanel(model);
 	}
 
+	private JMenuBar menuBar() {
+		JMenuBar menuBar = new JMenuBar();
+		JMenu fileMenu = new JMenu("File");
+		fileMenu.add(newMenuItem());
+		fileMenu.add(closeMenuItem());
+		menuBar.add(fileMenu);
+		return menuBar;
+	}
+
+	private JMenuItem newMenuItem() {
+		JMenuItem newMenuItem = new JMenuItem("New");
+		newMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.META_MASK));
+		newMenuItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				newWindow();
+			}
+		});
+		return newMenuItem;
+	}
+
+	private JMenuItem closeMenuItem() {
+		JMenuItem closeMenuItem = new JMenuItem("Close");
+		closeMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W, InputEvent.META_MASK));
+		closeMenuItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		return closeMenuItem;
+	}
 }

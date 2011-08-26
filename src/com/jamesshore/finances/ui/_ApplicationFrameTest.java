@@ -44,6 +44,16 @@ public class _ApplicationFrameTest {
 	}
 
 	@Test
+	public void newWindow() {
+		int frameCount = Frame.getFrames().length;
+		ApplicationFrame.newWindow();
+
+		Frame[] allFrames = Frame.getFrames();
+		assertEquals("number of windows should increase by 1", frameCount + 1, allFrames.length);
+		assertTrue("new window should be visible", allFrames[allFrames.length - 1].isVisible());
+	}
+
+	@Test
 	public void shouldExitApplicationWhenWindowClosed() throws Exception {
 		assertEquals("should exit on close", WindowConstants.EXIT_ON_CLOSE, frame.getDefaultCloseOperation());
 	}
@@ -57,22 +67,6 @@ public class _ApplicationFrameTest {
 	public void shouldHaveHardcodedPositionAndSize() {
 		assertEquals("position", ApplicationFrame.INITIAL_POSITION, frame.getLocation());
 		assertEquals("size", ApplicationFrame.INITIAL_SIZE, frame.getSize());
-	}
-
-	@Test
-	public void shouldHaveMenu() {
-		assertNotNull("should have menu bar", menuBar);
-		assertEquals("# of menus", 1, menuBar.getMenuCount());
-
-		assertEquals("file menu title", "File", fileMenu.getText());
-		assertEquals("# of menu items", 2, fileMenu.getItemCount());
-
-		assertEquals("'new' menu item", "New", newMenuItem.getText());
-		KeyStroke newMenuItemAccelerator = newMenuItem.getAccelerator();
-		assertNotNull("'new' menu item should have accelerator", newMenuItemAccelerator);
-		assertEquals("'new' accelerator key", KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.META_MASK), newMenuItemAccelerator);
-
-		assertEquals("'close' menu item", "Close", closeMenuItem.getText());
 	}
 
 	@Test
@@ -95,13 +89,18 @@ public class _ApplicationFrameTest {
 	}
 
 	@Test
-	public void newWindow() {
-		int frameCount = Frame.getFrames().length;
-		ApplicationFrame.newWindow();
+	public void shouldHaveMenu() {
+		assertNotNull("should have menu bar", menuBar);
+		assertEquals("# of menus", 1, menuBar.getMenuCount());
 
-		Frame[] allFrames = Frame.getFrames();
-		assertEquals("number of windows should increase by 1", frameCount + 1, allFrames.length);
-		assertTrue("new window should be visible", allFrames[allFrames.length - 1].isVisible());
+		assertEquals("file menu title", "File", fileMenu.getText());
+		assertEquals("# of menu items", 2, fileMenu.getItemCount());
+
+		assertEquals("'new' menu item name", "New", newMenuItem.getText());
+		assertEquals("'new' accelerator key", KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.META_MASK), newMenuItem.getAccelerator());
+
+		assertEquals("'close' menu item name", "Close", closeMenuItem.getText());
+		assertEquals("'close' accelerator key", KeyStroke.getKeyStroke(KeyEvent.VK_W, InputEvent.META_MASK), closeMenuItem.getAccelerator());
 	}
 
 	@Test
@@ -117,17 +116,10 @@ public class _ApplicationFrameTest {
 
 	@Test
 	public void closeMenuItemShouldCloseTheWindow() throws Throwable {
-		// Technically, it should dispose() the frame, but there's no way to test that
-		// as far I as I know.
-
-		int frameCount = Frame.getFrames().length;
-
+		frame.setVisible(true);
+		assertTrue("before disposable, frame is displayable", frame.isDisplayable());
 		closeMenuItem.doClick();
-
-		Frame[] allFrames = Frame.getFrames();
-		boolean frameDisposed = allFrames.length == frameCount - 1;
-		boolean isDisplayable = allFrames[allFrames.length - 1].isDisplayable();
-		assertTrue("frame should have been disposed", frameDisposed || !isDisplayable);
+		assertTrue("frame should have been disposed", !frame.isDisplayable());
 	}
 
 }
