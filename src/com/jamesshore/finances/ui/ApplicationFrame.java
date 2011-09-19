@@ -25,7 +25,7 @@ public class ApplicationFrame extends JFrame {
 	}
 
 	private void configureWindow() {
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLocation(INITIAL_POSITION);
 		setSize(INITIAL_SIZE);
 	}

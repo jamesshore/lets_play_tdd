@@ -55,7 +55,7 @@ public class _ApplicationFrameTest {
 
 	@Test
 	public void shouldExitApplicationWhenWindowClosed() throws Exception {
-		assertEquals("should exit on close", WindowConstants.EXIT_ON_CLOSE, frame.getDefaultCloseOperation());
+		assertEquals("should exit on close", WindowConstants.DISPOSE_ON_CLOSE, frame.getDefaultCloseOperation());
 	}
 
 	@Test

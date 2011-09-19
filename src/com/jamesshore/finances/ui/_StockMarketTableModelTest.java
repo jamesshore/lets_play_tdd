@@ -31,26 +31,8 @@ public class _StockMarketTableModelTest {
 	}
 
 	@Test
-	public void columns() {
+	public void columnValues() {
 		assertEquals(7, model.getColumnCount());
-		assertEquals("Year", model.getColumnName(0));
-		assertEquals("Starting Balance", model.getColumnName(1));
-		assertEquals("Cost Basis", model.getColumnName(2));
-	}
-
-	@Test
-	public void columnClasses() {
-		for (int i = 0; i < model.getColumnCount(); i++) {
-			Class<?> actual = model.getValueAt(0, i).getClass();
-			Class<?> declared = model.getColumnClass(i);
-			String message = String.format("declared class for column %d (%s) is not compatible actual class (%s)", i, declared, actual);
-			assertTrue(message, declared.isAssignableFrom(actual));
-			assertFalse("declared class for column " + i + " can not be Object", declared.equals(Object.class));
-		}
-	}
-
-	@Test
-	public void oneRow() {
 		assertEquals("year", STARTING_YEAR, model.getValueAt(0, 0));
 		assertEquals("starting balance", STARTING_BALANCE, model.getValueAt(0, 1));
 		assertEquals("starting principal", STARTING_COST_BASIS, model.getValueAt(0, 2));
@@ -58,6 +40,24 @@ public class _StockMarketTableModelTest {
 		assertEquals("taxes", ValidDollars.create(-12), model.getValueAt(0, 4));
 		assertEquals("appreciation", ValidDollars.create(995), model.getValueAt(0, 5));
 		assertEquals("ending balance", ValidDollars.create(10947), model.getValueAt(0, 6));
+	}
+
+	@Test
+	public void columnNames() {
+		assertEquals("# of column names should match number of columns", model.getColumnCount(), StockMarketTableModel.COLUMN_TITLES.length);
+		assertEquals("should map column names to correct column", StockMarketTableModel.COLUMN_TITLES[2], model.getColumnName(2));
+	}
+
+	@Test
+	public void columnClasses() {
+		assertEquals("# of column classes should match number of columns", model.getColumnCount(), StockMarketTableModel.COLUMN_CLASSES.length);
+		for (int i = 0; i < model.getColumnCount(); i++) {
+			Class<?> actual = model.getValueAt(0, i).getClass();
+			Class<?> declared = model.getColumnClass(i);
+			String message = String.format("declared class for column %d (%s) is not compatible actual class (%s)", i, declared, actual);
+			assertTrue(message, declared.isAssignableFrom(actual));
+			assertFalse("declared class for column " + i + " can not be Object", declared.equals(Object.class));
+		}
 	}
 
 	@Test

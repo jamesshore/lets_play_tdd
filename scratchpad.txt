@@ -1,5 +1,3 @@
-Clicking 'close' button quits the app
-
 See comment about improving _StockMarketTableModelTests, http://jamesshore.com/Blog/Lets-Play/Episode-131.html
 
 Deal with opening same file twice (see episode 137 comments, Aleksi Niiranen)
