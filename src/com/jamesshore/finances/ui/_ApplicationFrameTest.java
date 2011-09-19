@@ -109,7 +109,7 @@ public class _ApplicationFrameTest {
 	}
 
 	@Test
-	public void newMenuItemShouldCreateANewWindow() throws Throwable {
+	public void newMenuItemShouldCreateANewWindow() {
 		int frameCount = Frame.getFrames().length;
 
 		newMenuItem.doClick();
@@ -120,11 +120,34 @@ public class _ApplicationFrameTest {
 	}
 
 	@Test
-	public void closeMenuItemShouldCloseTheWindow() throws Throwable {
+	public void closeMenuItemShouldCloseTheWindow() {
 		frame.setVisible(true);
 		assertTrue("before disposable, frame is displayable", frame.isDisplayable());
 		closeMenuItem.doClick();
 		assertTrue("frame should have been disposed", !frame.isDisplayable());
 	}
 
+	@Test
+	public void saveAsMenuItemShouldShowSaveDialog() throws Throwable {
+		SwingUtilities.invokeAndWait(new Runnable() {
+			@Override
+			public void run() {
+				frame.setVisible(true);
+				FileDialog dialog = new FileDialog(frame, "Save As", FileDialog.SAVE);
+				dialog.setVisible(true);
+			}
+		});
+
+		for (int i = 0; i < 5; i++) {
+			System.out.println(i + "...");
+			try {
+				Thread.sleep(1000);
+			}
+			catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		fail("boo! (yaarrrr)");
+	}
 }
