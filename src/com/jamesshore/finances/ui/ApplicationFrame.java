@@ -52,31 +52,42 @@ public class ApplicationFrame extends JFrame {
 		JMenu fileMenu = new JMenu("File");
 		fileMenu.add(newMenuItem());
 		fileMenu.add(closeMenuItem());
+		fileMenu.add(saveAsMenuItem());
 		menuBar.add(fileMenu);
 		return menuBar;
 	}
 
 	private JMenuItem newMenuItem() {
-		JMenuItem newMenuItem = new JMenuItem("New");
-		newMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.META_MASK));
-		newMenuItem.addActionListener(new ActionListener() {
+		return menuItem("New", KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.META_MASK), new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				newWindow();
 			}
 		});
-		return newMenuItem;
 	}
 
 	private JMenuItem closeMenuItem() {
-		JMenuItem closeMenuItem = new JMenuItem("Close");
-		closeMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W, InputEvent.META_MASK));
-		closeMenuItem.addActionListener(new ActionListener() {
+		return menuItem("Close", KeyStroke.getKeyStroke(KeyEvent.VK_W, InputEvent.META_MASK), new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 			}
 		});
-		return closeMenuItem;
+	}
+
+	private JMenuItem saveAsMenuItem() {
+		return menuItem("Save As...", KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.SHIFT_MASK | InputEvent.META_MASK), new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+			}
+		});
+	}
+
+	private JMenuItem menuItem(String name, KeyStroke accelerator, ActionListener action) {
+		JMenuItem newMenuItem = new JMenuItem(name);
+		newMenuItem.setAccelerator(accelerator);
+		newMenuItem.addActionListener(action);
+		return newMenuItem;
 	}
 }

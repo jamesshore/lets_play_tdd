@@ -15,6 +15,7 @@ public class _ApplicationFrameTest {
 	private JMenu fileMenu;
 	private JMenuItem newMenuItem;
 	private JMenuItem closeMenuItem;
+	private JMenuItem saveAsMenuItem;
 
 	@Before
 	public void setup() throws Exception {
@@ -24,6 +25,7 @@ public class _ApplicationFrameTest {
 		fileMenu = menuBar.getMenu(0);
 		newMenuItem = fileMenu.getItem(0);
 		closeMenuItem = fileMenu.getItem(1);
+		saveAsMenuItem = fileMenu.getItem(2);
 	}
 
 	@After
@@ -94,13 +96,16 @@ public class _ApplicationFrameTest {
 		assertEquals("# of menus", 1, menuBar.getMenuCount());
 
 		assertEquals("file menu title", "File", fileMenu.getText());
-		assertEquals("# of menu items", 2, fileMenu.getItemCount());
+		assertEquals("# of menu items", 3, fileMenu.getItemCount());
 
-		assertEquals("'new' menu item name", "New", newMenuItem.getText());
-		assertEquals("'new' accelerator key", KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.META_MASK), newMenuItem.getAccelerator());
+		assertMenuItemEquals(newMenuItem, "New", KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.META_MASK));
+		assertMenuItemEquals(closeMenuItem, "Close", KeyStroke.getKeyStroke(KeyEvent.VK_W, InputEvent.META_MASK));
+		assertMenuItemEquals(saveAsMenuItem, "Save As...", KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.SHIFT_MASK | InputEvent.META_MASK));
+	}
 
-		assertEquals("'close' menu item name", "Close", closeMenuItem.getText());
-		assertEquals("'close' accelerator key", KeyStroke.getKeyStroke(KeyEvent.VK_W, InputEvent.META_MASK), closeMenuItem.getAccelerator());
+	private void assertMenuItemEquals(JMenuItem menuItem, String expectedName, KeyStroke expectedAccelerator) {
+		assertEquals(expectedName + " menu item name", expectedName, menuItem.getText());
+		assertEquals(expectedName + " accelerator key", expectedAccelerator, menuItem.getAccelerator());
 	}
 
 	@Test
