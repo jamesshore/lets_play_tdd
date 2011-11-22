@@ -3,6 +3,7 @@ package com.jamesshore.finances.ui;
 import static org.junit.Assert.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.lang.reflect.*;
 import javax.swing.*;
 import javax.swing.table.*;
 import org.junit.*;
@@ -29,8 +30,8 @@ public class _ApplicationFrameTest {
 	}
 
 	@After
-	public void teardown() {
-		frame.setVisible(false);
+	public void teardown() throws InterruptedException, InvocationTargetException {
+		frame.setVisible(false); // This doesn't appear to do what it's supposed to!??
 
 		// POTENTIAL GOTCHA:
 		//
@@ -129,25 +130,22 @@ public class _ApplicationFrameTest {
 
 	@Test
 	public void saveAsMenuItemShouldShowSaveDialog() throws Throwable {
-		SwingUtilities.invokeAndWait(new Runnable() {
-			@Override
-			public void run() {
-				frame.setVisible(true);
-				FileDialog dialog = new FileDialog(frame, "Save As", FileDialog.SAVE);
-				dialog.setVisible(true);
-			}
-		});
+		final FileDialog dialog = new FileDialog(frame, "Save As", FileDialog.SAVE);
 
-		for (int i = 0; i < 5; i++) {
-			System.out.println(i + "...");
-			try {
-				Thread.sleep(1000);
-			}
-			catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		try {
+			SwingUtilities.invokeLater(new Runnable() {
+				@Override
+				public void run() {
+					dialog.setVisible(true);
+				}
+			});
+
+			Thread.sleep(1000);
+			assertTrue("race condition?", dialog.isVisible());
+
 		}
-		fail("boo! (yaarrrr)");
+		finally {
+			dialog.setVisible(false);
+		}
 	}
 }
