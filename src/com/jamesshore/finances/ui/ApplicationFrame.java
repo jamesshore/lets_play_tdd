@@ -79,8 +79,8 @@ public class ApplicationFrame extends JFrame {
 		return menuItem("Save As...", KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.SHIFT_MASK | InputEvent.META_MASK), new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// final FileDialog dialog = new FileDialog(ApplicationFrame.this, "Save As", FileDialog.SAVE);
-				// dialog.setVisible(true);
+				final FileDialog dialog = new FileDialog(ApplicationFrame.this, "Save As", FileDialog.SAVE);
+				dialog.setVisible(true);
 			}
 		});
 	}

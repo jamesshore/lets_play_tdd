@@ -137,9 +137,7 @@ public class _ApplicationFrameTest {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				final FileDialog dialog = new FileDialog(frame, "Save As", FileDialog.SAVE);
-				dialog.setVisible(true);
-				// saveAsMenuItem.doClick();
+				saveAsMenuItem.doClick();
 			}
 		});
 
@@ -157,6 +155,9 @@ public class _ApplicationFrameTest {
 				return saveAsDialog.isVisible();
 			}
 		});
+
+		assertEquals("Save As dialog mode should be 'save'", FileDialog.SAVE, saveAsDialog.getMode());
+		assertEquals("Save As dialog title", "Save As", saveAsDialog.getTitle());
 	}
 
 	abstract class AsynchronousAssertion {

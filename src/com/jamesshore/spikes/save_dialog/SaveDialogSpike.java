@@ -30,6 +30,9 @@ public class SaveDialogSpike extends JFrame {
 	private void showSaveDialog() {
 		FileDialog dialog = new FileDialog(this, "Save As", FileDialog.SAVE);
 		dialog.setVisible(true);
+		String fileSelected = dialog.getFile();
+		if (fileSelected == null) JOptionPane.showMessageDialog(this, "Cancel button pushed");
+		else JOptionPane.showMessageDialog(this, "Save button pushed: " + fileSelected);
 	}
 
 	public static void main(String[] args) {
