@@ -131,43 +131,50 @@ public class _ApplicationFrameTest {
 
 	@Test
 	public void saveAsMenuItemShouldShowSaveDialog() throws Throwable {
-		int initialNumberOfWindows = frame.getOwnedWindows().length;
+		final int initialNumberOfWindows = frame.getOwnedWindows().length;
+		assertTrue("initial number of windows assumed to be zero", initialNumberOfWindows == 0);
 
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
 				final FileDialog dialog = new FileDialog(frame, "Save As", FileDialog.SAVE);
-				// dialog.setVisible(true);
+				dialog.setVisible(true);
 				// saveAsMenuItem.doClick();
 			}
 		});
 
-		long startTime = new Date().getTime();
-		boolean notPassedYet = true;
-		while (notPassedYet) {
-			Thread.sleep(10);
-			long elapsedMilliseconds = new Date().getTime() - startTime;
-			if (elapsedMilliseconds > 1000) fail("dialog should be created");
-			int numberOfWindows = frame.getOwnedWindows().length;
-			boolean passed = numberOfWindows > initialNumberOfWindows;
-			notPassedYet = !passed;
+		assertEventuallyTrue("Save As dialog should be created", 10, 1000, new AsynchronousAssertion() {
+			@Override
+			public boolean assertTrue() {
+				return frame.getOwnedWindows().length == 1;
+			}
+		});
+
+		final FileDialog saveAsDialog = (FileDialog)frame.getOwnedWindows()[0];
+		assertEventuallyTrue("Save As dialog should be visible", 10, 1000, new AsynchronousAssertion() {
+			@Override
+			public boolean assertTrue() {
+				return saveAsDialog.isVisible();
+			}
+		});
+	}
+
+	abstract class AsynchronousAssertion {
+		abstract boolean assertTrue();
+	}
+
+	private void assertEventuallyTrue(String message, int checkFrequency, int timeout, AsynchronousAssertion check) {
+		try {
+			long startTime = new Date().getTime();
+			while (!check.assertTrue()) {
+				Thread.sleep(checkFrequency);
+				long elapsedMilliseconds = new Date().getTime() - startTime;
+				if (elapsedMilliseconds > timeout) fail(message + " within " + timeout + " milliseconds");
+			}
+			// we passed the test when we reach this point
 		}
-
-		// long startTime = new Date().getTime();
-		// boolean notPassedYet = true;
-		// while (notPassedYet) {
-		// Thread.sleep(10);
-		// long elapsedMilliseconds = new Date().getTime() - startTime;
-		// if (elapsedMilliseconds > 1000) fail("dialog should be displayed");
-		// notPassedYet = !dialog.isVisible();
-		// }
-
-		Thread.sleep(1000);
-		Window[] ownedWindows = frame.getOwnedWindows();
-		int after = ownedWindows.length;
-		FileDialog dialog = (FileDialog)ownedWindows[after - 1];
-		assertTrue("dialog should be displayed", dialog.isVisible());
-		// fail("before: " + before + "; after: " + after);
-		// dialog is visible, test passed
+		catch (InterruptedException e) {
+			fail("sleep interrupted; that should never happen");
+		}
 	}
 }
