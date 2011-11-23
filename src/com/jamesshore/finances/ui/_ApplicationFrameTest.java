@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.lang.reflect.*;
+import java.util.*;
 import javax.swing.*;
 import javax.swing.table.*;
 import org.junit.*;
@@ -136,13 +137,17 @@ public class _ApplicationFrameTest {
 			SwingUtilities.invokeLater(new Runnable() {
 				@Override
 				public void run() {
-					dialog.setVisible(true);
+					saveAsMenuItem.doClick();
 				}
 			});
 
-			Thread.sleep(1000);
-			assertTrue("race condition?", dialog.isVisible());
-
+			long startTime = new Date().getTime();
+			do {
+				Thread.sleep(10);
+				long elapsedMilliseconds = new Date().getTime() - startTime;
+				if (elapsedMilliseconds > 1000) fail("dialog should be displayed");
+			} while (!dialog.isVisible());
+			// dialog is visible, test passed
 		}
 		finally {
 			dialog.setVisible(false);
