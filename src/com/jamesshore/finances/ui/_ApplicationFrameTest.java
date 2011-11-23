@@ -131,26 +131,43 @@ public class _ApplicationFrameTest {
 
 	@Test
 	public void saveAsMenuItemShouldShowSaveDialog() throws Throwable {
-		final FileDialog dialog = new FileDialog(frame, "Save As", FileDialog.SAVE);
+		int initialNumberOfWindows = frame.getOwnedWindows().length;
 
-		try {
-			SwingUtilities.invokeLater(new Runnable() {
-				@Override
-				public void run() {
-					saveAsMenuItem.doClick();
-				}
-			});
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				final FileDialog dialog = new FileDialog(frame, "Save As", FileDialog.SAVE);
+				// dialog.setVisible(true);
+				// saveAsMenuItem.doClick();
+			}
+		});
 
-			long startTime = new Date().getTime();
-			do {
-				Thread.sleep(10);
-				long elapsedMilliseconds = new Date().getTime() - startTime;
-				if (elapsedMilliseconds > 1000) fail("dialog should be displayed");
-			} while (!dialog.isVisible());
-			// dialog is visible, test passed
+		long startTime = new Date().getTime();
+		boolean notPassedYet = true;
+		while (notPassedYet) {
+			Thread.sleep(10);
+			long elapsedMilliseconds = new Date().getTime() - startTime;
+			if (elapsedMilliseconds > 1000) fail("dialog should be created");
+			int numberOfWindows = frame.getOwnedWindows().length;
+			boolean passed = numberOfWindows > initialNumberOfWindows;
+			notPassedYet = !passed;
 		}
-		finally {
-			dialog.setVisible(false);
-		}
+
+		// long startTime = new Date().getTime();
+		// boolean notPassedYet = true;
+		// while (notPassedYet) {
+		// Thread.sleep(10);
+		// long elapsedMilliseconds = new Date().getTime() - startTime;
+		// if (elapsedMilliseconds > 1000) fail("dialog should be displayed");
+		// notPassedYet = !dialog.isVisible();
+		// }
+
+		Thread.sleep(1000);
+		Window[] ownedWindows = frame.getOwnedWindows();
+		int after = ownedWindows.length;
+		FileDialog dialog = (FileDialog)ownedWindows[after - 1];
+		assertTrue("dialog should be displayed", dialog.isVisible());
+		// fail("before: " + before + "; after: " + after);
+		// dialog is visible, test passed
 	}
 }
