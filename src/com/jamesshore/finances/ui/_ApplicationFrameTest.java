@@ -130,7 +130,7 @@ public class _ApplicationFrameTest {
 	}
 
 	@Test
-	public void saveAsMenuItemShouldShowSaveDialog() throws Throwable {
+	public void saveAsMenuItemShouldShowSaveAsDialog() throws Throwable {
 		final int initialNumberOfWindows = frame.getOwnedWindows().length;
 		assertTrue("initial number of windows assumed to be zero", initialNumberOfWindows == 0);
 
@@ -158,6 +158,11 @@ public class _ApplicationFrameTest {
 
 		assertEquals("Save As dialog mode should be 'save'", FileDialog.SAVE, saveAsDialog.getMode());
 		assertEquals("Save As dialog title", "Save As", saveAsDialog.getTitle());
+	}
+
+	@Test
+	public void saveAsDialogShouldTellApplicationModelToSave() {
+		// todo: delete me? finish me?
 	}
 
 	abstract class AsynchronousAssertion {

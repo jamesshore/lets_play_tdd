@@ -8,5 +8,6 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/finances/lib/miglayout-3.7.4-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="lib/mockito-all-1.8.5.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

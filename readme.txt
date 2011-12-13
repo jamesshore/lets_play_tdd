@@ -4,8 +4,10 @@ Let's Play: Test-Driven Development
 
 This git repository contains the source code developed during the series. For the screencasts, see http://jamesshore.com/Blog/Lets-Play/ .
 
-The icons in the icons/ folder are Copyright © Yusuke Kamiyamane. All rights reserved. Licensed under a Creative Commons Attribution 3.0 license.
+The icons in the icons/ folder are Copyright Yusuke Kamiyamane. All rights reserved. Licensed under a Creative Commons Attribution 3.0 license.
 Find the icons at http://p.yusukekamiyamane.com/. Used in this application: the Diagona Icons set.
 
 This project uses the MiGLayout library, which may be found at http://www.miglayout.com/ and is licensed
 under the BSD and GPL licenses.
+
+This project uses the Mockito library, which may be found at http://mockito.org/ and is licensed under the MIT license.
