@@ -1,7 +1,6 @@
 package com.jamesshore.finances.ui;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 import java.awt.*;
 import javax.swing.*;
 import net.miginfocom.swing.*;
@@ -61,18 +60,16 @@ public class _ConfigurationPanelTest {
 
 	@Test
 	public void startingBalanceFieldUpdatesApplicationModel() {
-		ApplicationModel mockModel = mock(ApplicationModel.class);
+		__ApplicationModelSpy mockModel = new __ApplicationModelSpy();
 		panel = new ConfigurationPanel(mockModel);
 
 		startingBalanceField().setText("668");
-		// verify(mockModel).setStartingBalance(ValidDollars.create(668));
-		// assertEquals("applicationModel should be updated", ValidDollars.create(668),
-		// mockModel.setStartingBalanceCalledWith);
+		assertEquals("applicationModel should be updated", ValidDollars.create(668), mockModel.setStartingBalanceCalledWith);
 	}
 
 	@Test
 	public void costBasisFieldUpdatesApplicationModel() {
-		MockApplicationModel mockModel = new MockApplicationModel();
+		__ApplicationModelSpy mockModel = new __ApplicationModelSpy();
 		panel = new ConfigurationPanel(mockModel);
 
 		costBasisField().setText("670");
@@ -81,33 +78,12 @@ public class _ConfigurationPanelTest {
 
 	@Test
 	public void yearlySpendingFieldUpdatesApplicationModel() {
-		MockApplicationModel mockModel = new MockApplicationModel();
+		__ApplicationModelSpy mockModel = new __ApplicationModelSpy();
 		panel = new ConfigurationPanel(mockModel);
 
 		yearlySpendingField().setText("672");
 		assertEquals("applicationModel should be updated", ValidDollars.create(672), mockModel.setYearlySpendingCalledWith);
 
-	}
-
-	private static class MockApplicationModel extends ApplicationModel {
-		public Dollars setStartingBalanceCalledWith;
-		public Dollars setStartingCostBasisCalledWith;
-		public Dollars setYearlySpendingCalledWith;
-
-		@Override
-		public void setStartingBalance(Dollars startingBalance) {
-			setStartingBalanceCalledWith = startingBalance;
-		}
-
-		@Override
-		public void setStartingCostBasis(Dollars startingCostBasis) {
-			setStartingCostBasisCalledWith = startingCostBasis;
-		}
-
-		@Override
-		public void setYearlySpending(Dollars yearlySpending) {
-			setYearlySpendingCalledWith = yearlySpending;
-		}
 	}
 
 }

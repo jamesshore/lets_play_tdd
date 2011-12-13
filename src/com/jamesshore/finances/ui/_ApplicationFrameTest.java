@@ -162,7 +162,9 @@ public class _ApplicationFrameTest {
 
 	@Test
 	public void saveAsDialogShouldTellApplicationModelToSave() {
-		// todo: delete me? finish me?
+		__ApplicationModelSpy mockModel = new __ApplicationModelSpy();
+		// do something that pushes the save button (sort of)
+		assertTrue("applicationModel should be told to save", "/example/pathname", mockModel.saveCalledWith);
 	}
 
 	abstract class AsynchronousAssertion {
