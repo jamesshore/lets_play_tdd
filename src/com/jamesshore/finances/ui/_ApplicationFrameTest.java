@@ -141,7 +141,7 @@ public class _ApplicationFrameTest {
 			}
 		});
 
-		assertEventuallyTrue("Save As dialog should be created", 10, 1000, new AsynchronousAssertion() {
+		assertEventuallyTrue("Save As dialog should be created", 1000, new AsynchronousAssertion() {
 			@Override
 			public boolean assertTrue() {
 				return frame.getOwnedWindows().length == 1;
@@ -149,7 +149,7 @@ public class _ApplicationFrameTest {
 		});
 
 		final FileDialog saveAsDialog = (FileDialog)frame.getOwnedWindows()[0];
-		assertEventuallyTrue("Save As dialog should be visible", 10, 1000, new AsynchronousAssertion() {
+		assertEventuallyTrue("Save As dialog should be visible", 1000, new AsynchronousAssertion() {
 			@Override
 			public boolean assertTrue() {
 				return saveAsDialog.isVisible();
@@ -164,18 +164,12 @@ public class _ApplicationFrameTest {
 		abstract boolean assertTrue();
 	}
 
-	private void assertEventuallyTrue(String message, int checkFrequency, int timeout, AsynchronousAssertion check) {
-		try {
-			long startTime = new Date().getTime();
-			while (!check.assertTrue()) {
-				Thread.sleep(checkFrequency);
-				long elapsedMilliseconds = new Date().getTime() - startTime;
-				if (elapsedMilliseconds > timeout) fail(message + " within " + timeout + " milliseconds");
-			}
-			// we passed the test when we reach this point
-		}
-		catch (InterruptedException e) {
-			fail("sleep interrupted; that should never happen");
+	private void assertEventuallyTrue(String message, int timeout, AsynchronousAssertion check) {
+		long startTime = new Date().getTime();
+		while (!check.assertTrue()) {
+			Thread.yield();
+			long elapsedMilliseconds = new Date().getTime() - startTime;
+			if (elapsedMilliseconds > timeout) fail(message + " within " + timeout + " milliseconds");
 		}
 	}
 }

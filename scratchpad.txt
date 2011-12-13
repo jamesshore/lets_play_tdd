@@ -32,6 +32,8 @@ Error handling for exceptions within Swing components--how?
 
 Tip for running Swing tests: http://blog.schauderhaft.de/2010/08/15/use-cases-for-junit-rules/ (via Esko Luontola)
 
+Tool for Swing testing: Consider 'WindowLicker' (suggested by Tony in email)
+
 ---
 Polish:
 
