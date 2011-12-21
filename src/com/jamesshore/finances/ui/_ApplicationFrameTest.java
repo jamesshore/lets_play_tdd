@@ -3,6 +3,7 @@ package com.jamesshore.finances.ui;
 import static org.junit.Assert.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.*;
 import java.lang.reflect.*;
 import java.util.*;
 import javax.swing.*;
@@ -153,12 +154,24 @@ public class _ApplicationFrameTest {
 	}
 
 	@Test
-	public void saveAsDialogShouldTellApplicationModelToSave() {
+	public void saveAsDialogShouldTellApplicationModelToSaveWhenSaveButtonPushed() {
 		__ApplicationModelSpy mockModel = new __ApplicationModelSpy();
 		frame = new ApplicationFrame(mockModel);
-		saveAsDialog().setFile("/example/pathname");
+		saveAsDialog().setDirectory("/example");
+		saveAsDialog().setFile("filename");
 		frame.doSave();
-		assertEquals("applicationModel should be told to save", "/example/pathname", mockModel.saveCalledWith);
+		assertEquals("applicationModel should be told to save", new File("/example/filename"), mockModel.saveCalledWith);
+	}
+
+	@Test
+	public void saveAsDialogShouldDoNothingWhenCancelButtonPushed() {
+		// TODO: factor out common setup?
+		__ApplicationModelSpy mockModel = new __ApplicationModelSpy();
+		frame = new ApplicationFrame(mockModel);
+		saveAsDialog().setDirectory(null);
+		saveAsDialog().setFile(null);
+		frame.doSave();
+		assertNull("applicationModel should not have been told to save", mockModel.saveCalledWith);
 	}
 
 	private FileDialog saveAsDialog() {

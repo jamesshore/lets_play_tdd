@@ -1,5 +1,9 @@
 Deal with opening same file twice (see episode 137 comments, Aleksi Niiranen)
 
+Deal with FileDialog returning invalid directory/filename. (It can happen, according to the Java docs)
+
+Deal with FileDialog returning null directory and valid filename.
+
 ---
 
 Use a @Rule to enforce SwingUtilities.invokeAndWait on every Swing test?

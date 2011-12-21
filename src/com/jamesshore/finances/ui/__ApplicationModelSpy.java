@@ -23,4 +23,9 @@ public class __ApplicationModelSpy extends ApplicationModel {
 	public void setYearlySpending(Dollars yearlySpending) {
 		setYearlySpendingCalledWith = yearlySpending;
 	}
+
+	@Override
+	public void save(File saveFile) {
+		saveCalledWith = saveFile;
+	}
 }

@@ -1,5 +1,6 @@
 package com.jamesshore.finances.ui;
 
+import java.io.*;
 import com.jamesshore.finances.domain.*;
 
 public class ApplicationModel {
@@ -56,6 +57,11 @@ public class ApplicationModel {
 	public StockMarketProjection stockMarketProjection() {
 		StockMarketYear firstYear = new StockMarketYear(startingYear, startingBalance, startingCostBasis, growthRate, capitalGainsTaxRate);
 		return new StockMarketProjection(firstYear, endingYear, yearlySpending);
+	}
+
+	public void save(File saveFile) {
+		System.out.println("save called: " + saveFile);
+		// TODO Auto-generated method stub
 	}
 
 }

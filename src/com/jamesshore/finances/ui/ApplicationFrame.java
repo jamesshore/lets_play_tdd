@@ -2,6 +2,7 @@ package com.jamesshore.finances.ui;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.*;
 import javax.swing.*;
 
 public class ApplicationFrame extends JFrame {
@@ -82,16 +83,17 @@ public class ApplicationFrame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				saveAsDialog.setVisible(true);
-
-				// String filename = dialog.getFile();
-				// if (filename != null) model.save(new File(dialog.getFile()));
+				doSave(); // this line of code is untested
 			}
 		});
 	}
 
 	// non-private for testing purposes
 	void doSave() {
+		String directory = saveAsDialog.getDirectory();
+		String file = saveAsDialog.getFile();
 
+		if (file != null) model.save(new File(directory, file));
 	}
 
 	private JMenuItem menuItem(String name, KeyStroke accelerator, ActionListener action) {
