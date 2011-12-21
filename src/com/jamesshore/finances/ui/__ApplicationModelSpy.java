@@ -1,11 +1,13 @@
 package com.jamesshore.finances.ui;
 
+import java.io.*;
 import com.jamesshore.finances.domain.*;
 
 public class __ApplicationModelSpy extends ApplicationModel {
 	public Dollars setStartingBalanceCalledWith;
 	public Dollars setStartingCostBasisCalledWith;
 	public Dollars setYearlySpendingCalledWith;
+	public File saveCalledWith;
 
 	@Override
 	public void setStartingBalance(Dollars startingBalance) {

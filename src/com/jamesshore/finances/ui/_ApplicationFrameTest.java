@@ -131,8 +131,8 @@ public class _ApplicationFrameTest {
 
 	@Test
 	public void saveAsMenuItemShouldShowSaveAsDialog() throws Throwable {
-		final int initialNumberOfWindows = frame.getOwnedWindows().length;
-		assertTrue("initial number of windows assumed to be zero", initialNumberOfWindows == 0);
+		final FileDialog saveAsDialog = saveAsDialog();
+		assertNotNull("Save As dialog should be created");
 
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
@@ -141,14 +141,6 @@ public class _ApplicationFrameTest {
 			}
 		});
 
-		assertEventuallyTrue("Save As dialog should be created", 1000, new AsynchronousAssertion() {
-			@Override
-			public boolean assertTrue() {
-				return frame.getOwnedWindows().length == 1;
-			}
-		});
-
-		final FileDialog saveAsDialog = (FileDialog)frame.getOwnedWindows()[0];
 		assertEventuallyTrue("Save As dialog should be visible", 1000, new AsynchronousAssertion() {
 			@Override
 			public boolean assertTrue() {
@@ -163,8 +155,14 @@ public class _ApplicationFrameTest {
 	@Test
 	public void saveAsDialogShouldTellApplicationModelToSave() {
 		__ApplicationModelSpy mockModel = new __ApplicationModelSpy();
-		// do something that pushes the save button (sort of)
-		assertTrue("applicationModel should be told to save", "/example/pathname", mockModel.saveCalledWith);
+		frame = new ApplicationFrame(mockModel);
+		saveAsDialog().setFile("/example/pathname");
+		frame.doSave();
+		assertEquals("applicationModel should be told to save", "/example/pathname", mockModel.saveCalledWith);
+	}
+
+	private FileDialog saveAsDialog() {
+		return (FileDialog)frame.getOwnedWindows()[0];
 	}
 
 	abstract class AsynchronousAssertion {

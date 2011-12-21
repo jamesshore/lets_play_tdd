@@ -12,6 +12,7 @@ public class ApplicationFrame extends JFrame {
 	public static final Dimension INITIAL_SIZE = new Dimension(900, 400);
 
 	private ApplicationModel model;
+	private FileDialog saveAsDialog;
 
 	public static void newWindow() {
 		new ApplicationFrame(new ApplicationModel()).setVisible(true);
@@ -37,6 +38,7 @@ public class ApplicationFrame extends JFrame {
 		contentPane.add(BorderLayout.NORTH, configurationPanel());
 
 		setJMenuBar(menuBar());
+		saveAsDialog = new FileDialog(ApplicationFrame.this, "Save As", FileDialog.SAVE);
 	}
 
 	private Component forecastTable() {
@@ -79,10 +81,17 @@ public class ApplicationFrame extends JFrame {
 		return menuItem("Save As...", KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.SHIFT_MASK | InputEvent.META_MASK), new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				final FileDialog dialog = new FileDialog(ApplicationFrame.this, "Save As", FileDialog.SAVE);
-				dialog.setVisible(true);
+				saveAsDialog.setVisible(true);
+
+				// String filename = dialog.getFile();
+				// if (filename != null) model.save(new File(dialog.getFile()));
 			}
 		});
+	}
+
+	// non-private for testing purposes
+	void doSave() {
+
 	}
 
 	private JMenuItem menuItem(String name, KeyStroke accelerator, ActionListener action) {
