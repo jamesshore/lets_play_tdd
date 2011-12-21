@@ -13,7 +13,7 @@ import org.junit.*;
 public class _ApplicationFrameTest {
 
 	private ApplicationFrame frame;
-	private ApplicationModel model;
+	private __ApplicationModelSpy mockModel;
 	private JMenuBar menuBar;
 	private JMenu fileMenu;
 	private JMenuItem newMenuItem;
@@ -22,8 +22,8 @@ public class _ApplicationFrameTest {
 
 	@Before
 	public void setup() throws Exception {
-		model = new ApplicationModel();
-		frame = new ApplicationFrame(model);
+		mockModel = new __ApplicationModelSpy();
+		frame = new ApplicationFrame(mockModel);
 		menuBar = frame.getJMenuBar();
 		fileMenu = menuBar.getMenu(0);
 		newMenuItem = fileMenu.getItem(0);
@@ -155,8 +155,6 @@ public class _ApplicationFrameTest {
 
 	@Test
 	public void saveAsDialogShouldTellApplicationModelToSaveWhenSaveButtonPushed() {
-		__ApplicationModelSpy mockModel = new __ApplicationModelSpy();
-		frame = new ApplicationFrame(mockModel);
 		saveAsDialog().setDirectory("/example");
 		saveAsDialog().setFile("filename");
 		frame.doSave();
@@ -165,9 +163,6 @@ public class _ApplicationFrameTest {
 
 	@Test
 	public void saveAsDialogShouldDoNothingWhenCancelButtonPushed() {
-		// TODO: factor out common setup?
-		__ApplicationModelSpy mockModel = new __ApplicationModelSpy();
-		frame = new ApplicationFrame(mockModel);
 		saveAsDialog().setDirectory(null);
 		saveAsDialog().setFile(null);
 		frame.doSave();

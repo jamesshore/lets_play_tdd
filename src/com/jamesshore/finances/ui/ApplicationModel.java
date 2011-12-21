@@ -61,7 +61,7 @@ public class ApplicationModel {
 
 	public void save(File saveFile) {
 		System.out.println("save called: " + saveFile);
-		// TODO Auto-generated method stub
+		// TODO: finish me
 	}
 
 }

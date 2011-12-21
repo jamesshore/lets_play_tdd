@@ -1,3 +1,5 @@
+Consider eliminating __ApplicationModelSpy entirely
+
 Deal with opening same file twice (see episode 137 comments, Aleksi Niiranen)
 
 Deal with FileDialog returning invalid directory/filename. (It can happen, according to the Java docs)
