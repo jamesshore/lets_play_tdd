@@ -6,6 +6,8 @@ Deal with FileDialog returning invalid directory/filename. (It can happen, accor
 
 Deal with FileDialog returning null directory and valid filename.
 
+Handle IOExceptions
+
 ---
 
 Use a @Rule to enforce SwingUtilities.invokeAndWait on every Swing test?
