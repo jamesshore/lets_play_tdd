@@ -32,11 +32,38 @@ public class _SaveFileTest {
 	public void saveOverwritesAnExistingFile() throws IOException {
 		FileWriter writer = new FileWriter(path);
 		writer.write("test");
-		writer.close();
+		writer.close(); // TODO: exception handling
 		assertEquals("file size setup assumption", 4, path.length());
 
 		saveFile.save();
 		assertEquals("file should have been overwritten", 0, path.length());
 	}
 
+	@Test
+	public void saveWritesFingerprint() throws IOException {
+		saveFile.save();
+
+		assertEquals("com.jamesshore.finances,1", saveFileContents());
+	}
+
+	@Test
+	public void saveRecordsStartingBalance() {
+		// saveFile.save(startingBalance);
+		//
+		// assertEquals("10000", saveFile.contents())
+	}
+
+	private String saveFileContents() throws IOException {
+		BufferedReader input = new BufferedReader(new FileReader(path));
+		try {
+			StringBuffer result = new StringBuffer();
+			for (int c = input.read(); c != -1; c = input.read()) {
+				result.append((char)c);
+			}
+			return result.toString();
+		}
+		finally {
+			input.close();
+		}
+	}
 }

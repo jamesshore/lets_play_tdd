@@ -1,3 +1,5 @@
+Bogus assertion in ApplicationFrame.saveAsMenuItemShouldShowSaveAsDialog() -- ref Kim Gräsman, ep 153 comments
+
 Consider eliminating __ApplicationModelSpy entirely
 
 Deal with opening same file twice (see episode 137 comments, Aleksi Niiranen)
@@ -5,6 +7,8 @@ Deal with opening same file twice (see episode 137 comments, Aleksi Niiranen)
 Deal with FileDialog returning invalid directory/filename. (It can happen, according to the Java docs)
 
 Deal with FileDialog returning null directory and valid filename.
+
+Deal with loading excessively large file
 
 Handle IOExceptions
 
