@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 import java.io.*;
 import org.junit.*;
 import org.junit.rules.*;
+import com.jamesshore.finances.domain.*;
 
 public class _SaveFileTest {
 
@@ -23,37 +24,36 @@ public class _SaveFileTest {
 	public void saveCreatesAFile() throws IOException {
 		assertFalse("assume test file does not exist", path.exists());
 
-		saveFile.save();
+		saveFile.save(new InvalidDollars());
 		assertTrue("file should now exist", path.exists());
-		assertEquals("file size", 0, path.length());
 	}
 
 	@Test
 	public void saveOverwritesAnExistingFile() throws IOException {
-		FileWriter writer = new FileWriter(path);
-		writer.write("test");
-		writer.close(); // TODO: exception handling
+		writeFile("test");
 		assertEquals("file size setup assumption", 4, path.length());
 
-		saveFile.save();
-		assertEquals("file should have been overwritten", 0, path.length());
+		saveFile.save(new InvalidDollars());
+		String fileContents = readFile();
+		assertFalse("file should have been overwritten", fileContents.startsWith("test"));
 	}
 
 	@Test
-	public void saveWritesFingerprint() throws IOException {
-		saveFile.save();
+	public void saveWritesFileContents() throws IOException {
+		saveFile.save(ValidDollars.create(1.23));// , ValidDollars.create(10.24), ValidDollars.create(100.25));
 
-		assertEquals("com.jamesshore.finances,1", saveFileContents());
+		String expected = "com.jamesshore.finances,1\n$1.23\n";
+		assertEquals(expected, readFile());
 	}
 
 	@Test
-	public void saveRecordsStartingBalance() {
+	public void saveWritesStartingBalance() {
 		// saveFile.save(startingBalance);
 		//
 		// assertEquals("10000", saveFile.contents())
 	}
 
-	private String saveFileContents() throws IOException {
+	private String readFile() throws IOException {
 		BufferedReader input = new BufferedReader(new FileReader(path));
 		try {
 			StringBuffer result = new StringBuffer();
@@ -64,6 +64,16 @@ public class _SaveFileTest {
 		}
 		finally {
 			input.close();
+		}
+	}
+
+	private void writeFile(String text) throws IOException {
+		Writer writer = new BufferedWriter(new FileWriter(path));
+		try {
+			writer.write(text);
+		}
+		finally {
+			writer.close();
 		}
 	}
 }
