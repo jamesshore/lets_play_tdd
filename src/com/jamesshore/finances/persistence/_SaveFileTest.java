@@ -46,13 +46,6 @@ public class _SaveFileTest {
 		assertEquals(expected, readFile());
 	}
 
-	@Test
-	public void saveWritesStartingBalance() {
-		// saveFile.save(startingBalance);
-		//
-		// assertEquals("10000", saveFile.contents())
-	}
-
 	private String readFile() throws IOException {
 		BufferedReader input = new BufferedReader(new FileReader(path));
 		try {

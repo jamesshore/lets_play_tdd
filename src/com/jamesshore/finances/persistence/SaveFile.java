@@ -15,7 +15,7 @@ public class SaveFile {
 		Writer writer = new BufferedWriter(new FileWriter(path));
 		try {
 			writer.write("com.jamesshore.finances,1\n");
-			writer.write(startingBalance + "\n");
+			writer.write(startingBalance.toCoreDataType() + "\n");
 		}
 		finally {
 			writer.close();

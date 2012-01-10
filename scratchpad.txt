@@ -1,3 +1,7 @@
+Need to decide what to do with original user-entered values. 
+ - Reformat them when moving away from field? What about invalid values?
+
+
 Bogus assertion in ApplicationFrame.saveAsMenuItemShouldShowSaveAsDialog() -- ref Kim Gräsman, ep 153 comments
 
 Consider eliminating __ApplicationModelSpy entirely

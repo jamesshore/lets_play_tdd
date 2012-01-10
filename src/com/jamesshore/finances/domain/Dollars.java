@@ -1,6 +1,5 @@
 package com.jamesshore.finances.domain;
 
-
 public abstract class Dollars implements SelfRenderable {
 
 	public static Dollars parse(String text) {
