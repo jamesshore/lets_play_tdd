@@ -86,8 +86,11 @@ public class _InvalidDollarsTest {
 	@Test
 	public void valueObject() {
 		assertEquals("$???", invalidA.toString());
-		assertTrue("invalid dollars are always equal", invalidA.equals(invalidB));
-		assertFalse("invalid dollars don't equal anything else", invalidA.equals(valid));
+		assertTrue("invalid dollars should always be equal", invalidA.equals(invalidB));
+		assertFalse("invalid dollars shouldn't equal valid dollars", invalidA.equals(valid));
+		assertFalse("invalid dollars shouldn't equal valid user-entered dollars", invalidA.equals(new UserEnteredDollars("1")));
+		assertTrue("invalid dollars should equal invalid user-entered dollars", invalidA.equals(new UserEnteredDollars("xxx")));
+
 		assertFalse("shouldn't blow up when comparing to null", invalidA.equals(null));
 		assertTrue("equal dollars should have same hash code", invalidA.hashCode() == invalidB.hashCode());
 	}

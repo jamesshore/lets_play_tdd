@@ -162,7 +162,9 @@ public class _ValidDollarsTest {
 		assertTrue("dollars with same amount should be equal", dollars1a.equals(dollars1b));
 		assertFalse("dollars with different amounts should not be equal", dollars1a.equals(dollars2));
 
-		assertTrue("valid dollars should be comparable to user-entered dollars", dollars1a.equals(new UserEnteredDollars("10")));
+		assertTrue("valid dollars should be comparable to user-entered dollars when equal", dollars1a.equals(new UserEnteredDollars("10")));
+		assertFalse("valid dollars should be comparable to user-entered dollars when unequal", dollars1a.equals(new UserEnteredDollars("20")));
+
 		assertFalse("valid dollars aren't equal to invalid dollars", dollars1a.equals(new InvalidDollars()));
 
 		assertTrue("equal dollars should have same hash code", dollars1a.hashCode() == dollars1b.hashCode());
