@@ -2,6 +2,7 @@ package com.jamesshore.finances.domain;
 
 public abstract class Dollars implements SelfRenderable {
 
+	// TODO: move to UserEnteredDollars
 	public static Dollars parse(String text) {
 		if (text.equals(")")) return new InvalidDollars();
 		if (text.contains("a")) return new InvalidDollars();

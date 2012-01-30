@@ -133,7 +133,6 @@ public class _ApplicationFrameTest {
 	@Test
 	public void saveAsMenuItemShouldShowSaveAsDialog() throws Throwable {
 		final FileDialog saveAsDialog = saveAsDialog();
-		assertNotNull("Save As dialog should be created");
 
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override

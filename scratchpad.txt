@@ -2,8 +2,6 @@ Need to decide what to do with original user-entered values.
  - Reformat them when moving away from field? What about invalid values?
 
 
-Bogus assertion in ApplicationFrame.saveAsMenuItemShouldShowSaveAsDialog() -- ref Kim Gräsman, ep 153 comments
-
 Consider eliminating __ApplicationModelSpy entirely
 
 Deal with opening same file twice (see episode 137 comments, Aleksi Niiranen)
