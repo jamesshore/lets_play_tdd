@@ -54,20 +54,20 @@ public class _UserEnteredDollars {
 	public void valueObject() {
 		UserEnteredDollars dollars1a = new UserEnteredDollars("1");
 		UserEnteredDollars dollars1b = new UserEnteredDollars("1");
+		UserEnteredDollars dollars1c = new UserEnteredDollars(" 1 ");
 		UserEnteredDollars dollars2 = new UserEnteredDollars("2");
 
 		assertEquals("$1", dollars1a.toString());
 
-		// Dollars dollars1a = ValidDollars.create(10);
-		// Dollars dollars1b = ValidDollars.create(10);
-		// Dollars dollars2 = ValidDollars.create(20);
-		//
-		// assertEquals("$10", dollars1a.toString());
+		assertTrue("dollars with same string should be equal", dollars1a.equals(dollars1b));
+		assertTrue("dollars with different string but same value should be equal", dollars1a.equals(dollars1c));
+
+		assertTrue("user-entered dollars should be comparable to valid dollars", dollars1c.equals(ValidDollars.create(1)));
+
 		// assertTrue("dollars with same amount should be equal", dollars1a.equals(dollars1b));
 		// assertFalse("dollars with different amounts should not be equal", dollars1a.equals(dollars2));
 		// assertFalse("valid dollars aren't equal to invalid dollars", dollars1a.equals(new InvalidDollars()));
 		// assertTrue("equal dollars should have same hash code", dollars1a.hashCode() == dollars1b.hashCode());
 		// assertFalse("shouldn't blow up when comparing to null", dollars1a.equals(null));
 	}
-
 }

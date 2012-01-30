@@ -4,8 +4,12 @@ import com.jamesshore.finances.ui.*;
 
 public class UserEnteredDollars extends Dollars {
 
+	private String userText;
+	private Dollars backingDollars;
+
 	public UserEnteredDollars(String userText) {
-		// TODO Auto-generated constructor stub
+		this.userText = userText;
+		this.backingDollars = Dollars.parse(userText); // TODO: move parse method into this class
 	}
 
 	@Override
@@ -50,4 +54,22 @@ public class UserEnteredDollars extends Dollars {
 		return null;
 	}
 
+	@Override
+	public String toString() {
+		return backingDollars.toString();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) return false;
+
+		if (obj instanceof UserEnteredDollars) {
+			UserEnteredDollars that = (UserEnteredDollars)obj;
+			return this.backingDollars.equals(that.backingDollars);
+		}
+		else {
+			Dollars that = (Dollars)obj;
+			return this.backingDollars.equals(that);
+		}
+	}
 }

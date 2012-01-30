@@ -97,6 +97,8 @@ public class ValidDollars extends Dollars {
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == null || obj instanceof InvalidDollars) return false;
+		if (obj instanceof UserEnteredDollars) return obj.equals(this);
+
 		ValidDollars that = (ValidDollars)obj;
 		return this.roundOffPennies() == that.roundOffPennies();
 	}
