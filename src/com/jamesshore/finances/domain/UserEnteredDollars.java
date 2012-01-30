@@ -84,14 +84,13 @@ public class UserEnteredDollars extends Dollars {
 
 	@Override
 	public boolean isValid() {
-		// TODO Auto-generated method stub
-		return false;
+		return backingDollars.isValid();
 	}
 
 	@Override
 	public Dollars plus(Dollars dollars) {
-		// TODO Auto-generated method stub
-		return null;
+		if (dollars instanceof UserEnteredDollars) return backingDollars.plus(((UserEnteredDollars)dollars).backingDollars);
+		else return backingDollars.plus(dollars);
 	}
 
 	@Override

@@ -3,7 +3,13 @@ package com.jamesshore.finances.domain;
 import static org.junit.Assert.*;
 import org.junit.*;
 
-public class _UserEnteredDollars {
+public class _UserEnteredDollarsTest {
+
+	private UserEnteredDollars dollars1a = new UserEnteredDollars("1");
+	private UserEnteredDollars dollars1b = new UserEnteredDollars("1");
+	private UserEnteredDollars dollars1Spaces = new UserEnteredDollars(" 1 ");
+	private UserEnteredDollars dollars2 = new UserEnteredDollars("2");
+	private UserEnteredDollars invalid = new UserEnteredDollars("xxx");
 
 	@Test
 	public void parseNumbersAndDollarsAndNegativeSigns() {
@@ -51,12 +57,20 @@ public class _UserEnteredDollars {
 	}
 
 	@Test
-	public void valueObject() {
-		UserEnteredDollars dollars1a = new UserEnteredDollars("1");
-		UserEnteredDollars dollars1b = new UserEnteredDollars("1");
-		UserEnteredDollars dollars1Spaces = new UserEnteredDollars(" 1 ");
-		UserEnteredDollars invalid = new UserEnteredDollars("xxx");
+	public void isValid() {
+		assertTrue(dollars1a.isValid());
+	}
 
+	@Test
+	public void plus() {
+		assertEquals("should be able to add two user-entered dollars", ValidDollars.create(3), dollars1a.plus(dollars2));
+		assertEquals("should be able to add user-entered dollars to valid dollars", ValidDollars.create(4), dollars1a.plus(ValidDollars.create(3)));
+		assertEquals("should be able to add user-entered dollars to invalid dollars", new InvalidDollars(), dollars1a.plus(new InvalidDollars()));
+
+	}
+
+	@Test
+	public void valueObject() {
 		assertEquals("$1", dollars1a.toString());
 
 		assertTrue("dollars with same string should be equal", dollars1a.equals(dollars1b));

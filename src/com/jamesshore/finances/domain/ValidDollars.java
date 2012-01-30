@@ -35,6 +35,7 @@ public class ValidDollars extends Dollars {
 
 	public Dollars plus(Dollars dollars) {
 		if (!dollars.isValid()) return new InvalidDollars();
+		if (dollars instanceof UserEnteredDollars) return dollars.plus(this);
 		return create(this.amount + amount(dollars));
 	}
 
