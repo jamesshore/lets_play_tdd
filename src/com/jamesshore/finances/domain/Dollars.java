@@ -12,6 +12,8 @@ public abstract class Dollars implements SelfRenderable {
 
 	public abstract boolean isValid();
 
+	protected abstract double toCoreDataType();
+
 	public abstract Dollars plus(Dollars dollars);
 
 	public abstract Dollars minus(Dollars dollars);
@@ -21,4 +23,5 @@ public abstract class Dollars implements SelfRenderable {
 	public abstract Dollars percentage(double percent);
 
 	public abstract Dollars min(Dollars value2);
+
 }

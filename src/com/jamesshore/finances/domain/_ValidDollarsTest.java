@@ -28,6 +28,12 @@ public class _ValidDollarsTest {
 	}
 
 	@Test
+	// Resist the temptation to make this public! That's a design smell.
+	public void toCoreDataType() {
+		assertEquals(12.34567891, ((ValidDollars)ValidDollars.create(12.34567891)).toCoreDataType(), 0);
+	}
+
+	@Test
 	public void addition() {
 		assertEquals("addition", ValidDollars.create(40), ValidDollars.create(10).plus(ValidDollars.create(30)));
 		assertEquals("overflow", new InvalidDollars(), MAX_VALID.plus(ValidDollars.create(1)));

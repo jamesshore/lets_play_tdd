@@ -25,6 +25,11 @@ public class ValidDollars extends Dollars {
 		return true;
 	}
 
+	@Override
+	protected double toCoreDataType() {
+		return amount;
+	}
+
 	private double amount(Dollars dollars) {
 		return ((ValidDollars)dollars).amount;
 	}

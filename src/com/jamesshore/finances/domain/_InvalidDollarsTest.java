@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 import javax.swing.*;
 import org.junit.*;
 import com.jamesshore.finances.ui.*;
+import com.jamesshore.finances.util.*;
 
 public class _InvalidDollarsTest {
 
@@ -21,6 +22,11 @@ public class _InvalidDollarsTest {
 	@Test
 	public void isValid() {
 		assertFalse(invalidA.isValid());
+	}
+
+	@Test(expected = UnreachableCodeException.class)
+	public void toCoreDataType_IsAnError() {
+		invalidA.toCoreDataType();
 	}
 
 	@Test

@@ -62,6 +62,11 @@ public class _UserEnteredDollarsTest {
 	}
 
 	@Test
+	public void toCoreDataType() {
+		assertEquals(1.234, new UserEnteredDollars("1.234").toCoreDataType(), 0);
+	}
+
+	@Test
 	public void plus() {
 		assertEquals("should be able to add two user-entered dollars", ValidDollars.create(3), dollars1a.plus(dollars2));
 		assertEquals("should be able to add user-entered dollars to valid dollars", ValidDollars.create(4), dollars1a.plus(ValidDollars.create(3)));

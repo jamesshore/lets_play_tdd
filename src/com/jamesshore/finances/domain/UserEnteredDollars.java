@@ -88,6 +88,11 @@ public class UserEnteredDollars extends Dollars {
 	}
 
 	@Override
+	public double toCoreDataType() {
+		return backingDollars.toCoreDataType();
+	}
+
+	@Override
 	public Dollars plus(Dollars dollars) {
 		if (dollars instanceof UserEnteredDollars) return backingDollars.plus(((UserEnteredDollars)dollars).backingDollars);
 		else return backingDollars.plus(dollars);

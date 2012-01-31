@@ -1,12 +1,18 @@
 package com.jamesshore.finances.domain;
 
 import com.jamesshore.finances.ui.*;
+import com.jamesshore.finances.util.*;
 
 public class InvalidDollars extends Dollars {
 
 	@Override
 	public boolean isValid() {
 		return false;
+	}
+
+	@Override
+	protected double toCoreDataType() {
+		throw new UnreachableCodeException();
 	}
 
 	@Override
