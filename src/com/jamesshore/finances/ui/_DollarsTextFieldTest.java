@@ -15,7 +15,7 @@ public class _DollarsTextFieldTest {
 
 	@Before
 	public void setup() {
-		field = new DollarsTextField(ValidDollars.create(42));
+		field = new DollarsTextField(new ValidDollars(42));
 
 		// Note: for overlay layout to work properly, icon must be first. If you change
 		// the way components are added to the container, be sure to do a visual check.
@@ -82,13 +82,13 @@ public class _DollarsTextFieldTest {
 
 	@Test
 	public void canRetrieveAmount() {
-		assertEquals(ValidDollars.create(42), field.getDollars());
+		assertEquals(new ValidDollars(42), field.getDollars());
 	}
 
 	@Test
 	public void changingTextChangesDollarAmount() {
 		field.setText("1024");
-		assertEquals(ValidDollars.create(1024), field.getDollars());
+		assertEquals(new ValidDollars(1024), field.getDollars());
 	}
 
 	@Test

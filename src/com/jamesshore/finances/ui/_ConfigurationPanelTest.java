@@ -64,7 +64,7 @@ public class _ConfigurationPanelTest {
 		panel = new ConfigurationPanel(mockModel);
 
 		startingBalanceField().setText("668");
-		assertEquals("applicationModel should be updated", ValidDollars.create(668), mockModel.setStartingBalanceCalledWith);
+		assertEquals("applicationModel should be updated", new ValidDollars(668), mockModel.setStartingBalanceCalledWith);
 	}
 
 	@Test
@@ -73,7 +73,7 @@ public class _ConfigurationPanelTest {
 		panel = new ConfigurationPanel(mockModel);
 
 		costBasisField().setText("670");
-		assertEquals("applicationModel should be updated", ValidDollars.create(670), mockModel.setStartingCostBasisCalledWith);
+		assertEquals("applicationModel should be updated", new ValidDollars(670), mockModel.setStartingCostBasisCalledWith);
 	}
 
 	@Test
@@ -82,7 +82,7 @@ public class _ConfigurationPanelTest {
 		panel = new ConfigurationPanel(mockModel);
 
 		yearlySpendingField().setText("672");
-		assertEquals("applicationModel should be updated", ValidDollars.create(672), mockModel.setYearlySpendingCalledWith);
+		assertEquals("applicationModel should be updated", new ValidDollars(672), mockModel.setYearlySpendingCalledWith);
 
 	}
 

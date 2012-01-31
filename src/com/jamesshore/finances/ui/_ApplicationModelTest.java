@@ -35,20 +35,20 @@ public class _ApplicationModelTest {
 
 	@Test
 	public void changingStartingBalanceShouldChangeStockMarketTableModel() {
-		model.setStartingBalance(ValidDollars.create(123));
-		assertEquals(ValidDollars.create(123), model.stockMarketTableModel().startingBalance());
+		model.setStartingBalance(new ValidDollars(123));
+		assertEquals(new ValidDollars(123), model.stockMarketTableModel().startingBalance());
 	}
 
 	@Test
 	public void changingStartingCostBasisShouldChangeStockMarketTableModel() {
-		model.setStartingCostBasis(ValidDollars.create(39));
-		assertEquals(ValidDollars.create(39), model.stockMarketTableModel().startingCostBasis());
+		model.setStartingCostBasis(new ValidDollars(39));
+		assertEquals(new ValidDollars(39), model.stockMarketTableModel().startingCostBasis());
 	}
 
 	@Test
 	public void changingYearlySpendingShouldChangeStockMarketTableModel() {
-		model.setYearlySpending(ValidDollars.create(423));
-		assertEquals(ValidDollars.create(423), model.stockMarketTableModel().yearlySpending());
+		model.setYearlySpending(new ValidDollars(423));
+		assertEquals(new ValidDollars(423), model.stockMarketTableModel().yearlySpending());
 	}
 
 }

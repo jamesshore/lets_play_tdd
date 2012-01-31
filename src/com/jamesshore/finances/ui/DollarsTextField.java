@@ -74,7 +74,7 @@ public final class DollarsTextField extends JPanel {
 	}
 
 	public Dollars getDollars() {
-		return UserEnteredDollars.parse(textField.getText());
+		return new UserEnteredDollars(textField.getText());
 	}
 
 	public void addTextChangeListener(final ChangeListener listener) {

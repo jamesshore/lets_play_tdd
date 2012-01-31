@@ -7,11 +7,11 @@ public class ApplicationModel {
 
 	public static final Year DEFAULT_STARTING_YEAR = new Year(2010);
 	public static final Year DEFAULT_ENDING_YEAR = new Year(2050);
-	public static final Dollars DEFAULT_STARTING_BALANCE = ValidDollars.create(10000);
-	public static final Dollars DEFAULT_STARTING_COST_BASIS = ValidDollars.create(7000);
+	public static final Dollars DEFAULT_STARTING_BALANCE = new ValidDollars(10000);
+	public static final Dollars DEFAULT_STARTING_COST_BASIS = new ValidDollars(7000);
 	public static final GrowthRate DEFAULT_GROWTH_RATE = new GrowthRate(10);
 	public static final TaxRate DEFAULT_CAPITAL_GAINS_TAX_RATE = new TaxRate(25);
-	public static final Dollars DEFAULT_YEARLY_SPENDING = ValidDollars.create(695);
+	public static final Dollars DEFAULT_YEARLY_SPENDING = new ValidDollars(695);
 
 	private Year startingYear = DEFAULT_STARTING_YEAR;
 	private Year endingYear = DEFAULT_ENDING_YEAR;

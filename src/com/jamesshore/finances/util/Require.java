@@ -8,12 +8,3 @@ public class Require {
 	}
 
 }
-
-class RequireException extends RuntimeException {
-	private static final long serialVersionUID = 1L;
-
-	public RequireException(String message) {
-		super(message);
-	}
-	
-}

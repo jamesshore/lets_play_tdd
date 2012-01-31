@@ -15,7 +15,7 @@ public class StockMarketYear {
 		this.costBasis = costBasis;
 		this.growthRate = growthRate;
 		this.capitalGainsTaxRate = capitalGainsTaxRate;
-		this.totalSellOrders = ValidDollars.create(0);
+		this.totalSellOrders = new ValidDollars(0);
 	}
 
 	public Year year() {

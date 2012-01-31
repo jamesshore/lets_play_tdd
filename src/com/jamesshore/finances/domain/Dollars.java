@@ -7,7 +7,7 @@ public abstract class Dollars implements SelfRenderable {
 	}
 
 	public Dollars flipSign() {
-		return ValidDollars.create(0).minus(this);
+		return new ValidDollars(0).minus(this);
 	}
 
 	public abstract boolean isValid();

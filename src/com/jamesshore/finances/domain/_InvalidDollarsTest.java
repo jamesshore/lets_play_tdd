@@ -16,7 +16,7 @@ public class _InvalidDollarsTest {
 	public void setup() {
 		invalidA = new InvalidDollars();
 		invalidB = new InvalidDollars();
-		valid = (ValidDollars)ValidDollars.create(13);
+		valid = (ValidDollars)new ValidDollars(13);
 	}
 
 	@Test

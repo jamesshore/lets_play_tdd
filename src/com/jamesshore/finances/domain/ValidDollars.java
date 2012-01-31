@@ -4,6 +4,7 @@ import java.awt.*;
 import java.text.*;
 import java.util.*;
 import com.jamesshore.finances.ui.*;
+import com.jamesshore.finances.util.*;
 
 public class ValidDollars extends Dollars {
 
@@ -12,12 +13,13 @@ public class ValidDollars extends Dollars {
 
 	private double amount;
 
-	public static Dollars create(double amount) {
+	private static Dollars create(double amount) {
 		if (inRange(amount)) return new ValidDollars(amount);
 		else return new InvalidDollars();
 	}
 
-	private ValidDollars(double amount) {
+	public ValidDollars(double amount) {
+		Require.that(inRange(amount), "dollar amount [" + amount + "] outside valid range");
 		this.amount = amount;
 	}
 

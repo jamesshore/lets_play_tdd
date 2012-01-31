@@ -41,7 +41,7 @@ public class _SaveFileTest {
 	// TODO: finish this test
 	// @Test
 	// public void saveWritesFileContents() throws IOException {
-	// saveFile.save(ValidDollars.create(1.23));// , ValidDollars.create(10.24), ValidDollars.create(100.25));
+	// saveFile.save(new ValidDollars(1.23));// , new ValidDollars(10.24), new ValidDollars(100.25));
 	//
 	// String expected = "com.jamesshore.finances,1\n$1.23\n";
 	// assertEquals(expected, readFile());
