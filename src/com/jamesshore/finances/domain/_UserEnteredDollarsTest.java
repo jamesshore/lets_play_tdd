@@ -71,7 +71,13 @@ public class _UserEnteredDollarsTest {
 		assertEquals("should be able to add two user-entered dollars", ValidDollars.create(3), dollars1a.plus(dollars2));
 		assertEquals("should be able to add user-entered dollars to valid dollars", ValidDollars.create(4), dollars1a.plus(ValidDollars.create(3)));
 		assertEquals("should be able to add user-entered dollars to invalid dollars", new InvalidDollars(), dollars1a.plus(new InvalidDollars()));
+	}
 
+	@Test
+	public void minus() {
+		assertEquals("should to able to subtract two user-entered dollars", ValidDollars.create(-1), dollars1a.minus(dollars2));
+		assertEquals("should be able to minus user-entered dollars to valid dollars", ValidDollars.create(-2), dollars1a.minus(ValidDollars.create(3)));
+		assertEquals("should be able to minus user-entered dollars to invalid dollars", new InvalidDollars(), dollars1a.minus(new InvalidDollars()));
 	}
 
 	@Test

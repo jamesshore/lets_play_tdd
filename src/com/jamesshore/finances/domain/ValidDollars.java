@@ -30,28 +30,23 @@ public class ValidDollars extends Dollars {
 		return amount;
 	}
 
-	private double amount(Dollars dollars) {
-		return ((ValidDollars)dollars).amount;
-	}
-
 	private static boolean inRange(double value) {
 		return (value >= MIN_VALUE) && (value <= MAX_VALUE);
 	}
 
 	public Dollars plus(Dollars dollars) {
 		if (!dollars.isValid()) return new InvalidDollars();
-		if (dollars instanceof UserEnteredDollars) return dollars.plus(this);
-		return create(this.amount + amount(dollars));
+		return create(this.amount + dollars.toCoreDataType());
 	}
 
 	public Dollars minus(Dollars dollars) {
 		if (!dollars.isValid()) return new InvalidDollars();
-		return create(this.amount - amount(dollars));
+		return create(this.amount - dollars.toCoreDataType());
 	}
 
 	public Dollars subtractToZero(Dollars dollars) {
 		if (!dollars.isValid()) return new InvalidDollars();
-		double result = this.amount - amount(dollars);
+		double result = this.amount - dollars.toCoreDataType();
 		return create(Math.max(0, result));
 	}
 
@@ -61,7 +56,7 @@ public class ValidDollars extends Dollars {
 
 	public Dollars min(Dollars value2) {
 		if (!value2.isValid()) return new InvalidDollars();
-		return create(Math.min(this.amount, amount(value2)));
+		return create(Math.min(this.amount, value2.toCoreDataType()));
 	}
 
 	private boolean isNegative() {
@@ -69,7 +64,11 @@ public class ValidDollars extends Dollars {
 	}
 
 	private long roundOffPennies() {
-		return Math.round(this.amount);
+		return roundOffPennies(this.amount);
+	}
+
+	private long roundOffPennies(double amount) {
+		return Math.round(amount);
 	}
 
 	public void render(Resources resources, RenderTarget target) {
@@ -102,10 +101,10 @@ public class ValidDollars extends Dollars {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null || obj instanceof InvalidDollars) return false;
-		if (obj instanceof UserEnteredDollars) return obj.equals(this);
+		if (obj == null) return false;
+		Dollars that = (Dollars)obj;
 
-		ValidDollars that = (ValidDollars)obj;
-		return this.roundOffPennies() == that.roundOffPennies();
+		if (!that.isValid()) return false;
+		return roundOffPennies(this.toCoreDataType()) == roundOffPennies(that.toCoreDataType());
 	}
 }

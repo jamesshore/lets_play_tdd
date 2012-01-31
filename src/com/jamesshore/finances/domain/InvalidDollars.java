@@ -52,8 +52,10 @@ public class InvalidDollars extends Dollars {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof UserEnteredDollars) return obj.equals(this);
-		else return (obj instanceof InvalidDollars);
+		if (obj == null) return false;
+		Dollars that = (Dollars)obj;
+
+		return !that.isValid();
 	}
 
 	@Override

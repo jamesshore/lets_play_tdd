@@ -88,20 +88,18 @@ public class UserEnteredDollars extends Dollars {
 	}
 
 	@Override
-	public double toCoreDataType() {
+	protected double toCoreDataType() {
 		return backingDollars.toCoreDataType();
 	}
 
 	@Override
 	public Dollars plus(Dollars dollars) {
-		if (dollars instanceof UserEnteredDollars) return backingDollars.plus(((UserEnteredDollars)dollars).backingDollars);
-		else return backingDollars.plus(dollars);
+		return backingDollars.plus(dollars);
 	}
 
 	@Override
 	public Dollars minus(Dollars dollars) {
-		// TODO Auto-generated method stub
-		return null;
+		return backingDollars.minus(dollars);
 	}
 
 	@Override
@@ -136,13 +134,7 @@ public class UserEnteredDollars extends Dollars {
 	public boolean equals(Object obj) {
 		if (obj == null) return false;
 
-		if (obj instanceof UserEnteredDollars) {
-			UserEnteredDollars that = (UserEnteredDollars)obj;
-			return this.backingDollars.equals(that.backingDollars);
-		}
-		else {
-			Dollars that = (Dollars)obj;
-			return this.backingDollars.equals(that);
-		}
+		Dollars that = (Dollars)obj;
+		return this.backingDollars.equals(that);
 	}
 }
