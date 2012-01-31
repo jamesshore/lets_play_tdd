@@ -34,7 +34,6 @@ public class _InvalidDollarsTest {
 		assertEquals(new InvalidDollars(), invalidA.plus(invalidB));
 		assertEquals(new InvalidDollars(), invalidA.plus(valid));
 		assertEquals(new InvalidDollars(), valid.plus(invalidA));
-		assertEquals("should be able to add invalid dollars to user-entered dollars", new InvalidDollars(), invalidA.plus(new UserEnteredDollars("1")));
 	}
 
 	@Test

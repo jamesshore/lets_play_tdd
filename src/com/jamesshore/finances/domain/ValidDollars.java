@@ -34,19 +34,19 @@ public class ValidDollars extends Dollars {
 		return (value >= MIN_VALUE) && (value <= MAX_VALUE);
 	}
 
-	public Dollars plus(Dollars dollars) {
-		if (!dollars.isValid()) return new InvalidDollars();
-		return create(this.amount + dollars.toCoreDataType());
+	public Dollars plus(Dollars operand) {
+		if (!operand.isValid()) return new InvalidDollars();
+		return create(this.amount + operand.toCoreDataType());
 	}
 
-	public Dollars minus(Dollars dollars) {
-		if (!dollars.isValid()) return new InvalidDollars();
-		return create(this.amount - dollars.toCoreDataType());
+	public Dollars minus(Dollars operand) {
+		if (!operand.isValid()) return new InvalidDollars();
+		return create(this.amount - operand.toCoreDataType());
 	}
 
-	public Dollars subtractToZero(Dollars dollars) {
-		if (!dollars.isValid()) return new InvalidDollars();
-		double result = this.amount - dollars.toCoreDataType();
+	public Dollars subtractToZero(Dollars operand) {
+		if (!operand.isValid()) return new InvalidDollars();
+		double result = this.amount - operand.toCoreDataType();
 		return create(Math.max(0, result));
 	}
 
@@ -54,9 +54,9 @@ public class ValidDollars extends Dollars {
 		return create(amount * percent / 100.0);
 	}
 
-	public Dollars min(Dollars value2) {
-		if (!value2.isValid()) return new InvalidDollars();
-		return create(Math.min(this.amount, value2.toCoreDataType()));
+	public Dollars min(Dollars operand) {
+		if (!operand.isValid()) return new InvalidDollars();
+		return create(Math.min(this.amount, operand.toCoreDataType()));
 	}
 
 	private boolean isNegative() {

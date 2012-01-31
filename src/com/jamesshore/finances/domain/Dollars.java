@@ -14,14 +14,14 @@ public abstract class Dollars implements SelfRenderable {
 
 	protected abstract double toCoreDataType();
 
-	public abstract Dollars plus(Dollars dollars);
+	public abstract Dollars plus(Dollars operand);
 
-	public abstract Dollars minus(Dollars dollars);
+	public abstract Dollars minus(Dollars operand);
 
-	public abstract Dollars subtractToZero(Dollars dollars);
+	public abstract Dollars subtractToZero(Dollars operand);
 
 	public abstract Dollars percentage(double percent);
 
-	public abstract Dollars min(Dollars value2);
+	public abstract Dollars min(Dollars operand);
 
 }

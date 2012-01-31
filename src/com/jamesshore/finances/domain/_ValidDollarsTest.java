@@ -38,8 +38,6 @@ public class _ValidDollarsTest {
 		assertEquals("addition", ValidDollars.create(40), ValidDollars.create(10).plus(ValidDollars.create(30)));
 		assertEquals("overflow", new InvalidDollars(), MAX_VALID.plus(ValidDollars.create(1)));
 		assertEquals("underflow", new InvalidDollars(), MIN_VALID.plus(ValidDollars.create(-1)));
-
-		assertEquals("should be able to add valid dollars to user-entered dollars", ValidDollars.create(5), ValidDollars.create(4).plus(new UserEnteredDollars("1")));
 	}
 
 	@Test

@@ -93,31 +93,28 @@ public class UserEnteredDollars extends Dollars {
 	}
 
 	@Override
-	public Dollars plus(Dollars dollars) {
-		return backingDollars.plus(dollars);
+	public Dollars plus(Dollars operand) {
+		return backingDollars.plus(operand);
 	}
 
 	@Override
-	public Dollars minus(Dollars dollars) {
-		return backingDollars.minus(dollars);
+	public Dollars minus(Dollars operand) {
+		return backingDollars.minus(operand);
 	}
 
 	@Override
-	public Dollars subtractToZero(Dollars dollars) {
-		// TODO Auto-generated method stub
-		return null;
+	public Dollars subtractToZero(Dollars operand) {
+		return backingDollars.subtractToZero(operand);
 	}
 
 	@Override
 	public Dollars percentage(double percent) {
-		// TODO Auto-generated method stub
-		return null;
+		return backingDollars.percentage(percent);
 	}
 
 	@Override
-	public Dollars min(Dollars value2) {
-		// TODO Auto-generated method stub
-		return null;
+	public Dollars min(Dollars operand) {
+		return backingDollars.min(operand);
 	}
 
 	@Override

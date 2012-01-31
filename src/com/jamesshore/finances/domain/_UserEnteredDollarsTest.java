@@ -2,6 +2,7 @@ package com.jamesshore.finances.domain;
 
 import static org.junit.Assert.*;
 import org.junit.*;
+import com.jamesshore.finances.ui.*;
 
 public class _UserEnteredDollarsTest {
 
@@ -67,10 +68,19 @@ public class _UserEnteredDollarsTest {
 	}
 
 	@Test
+	public void rendersItself() {
+		__RenderTargetStub target = new __RenderTargetStub();
+		twentyDollars.render(new Resources(), target);
+		assertEquals("label text should be toString() value", twentyDollars.toString(), target.text);
+	}
+
+	@Test
 	public void plus() {
 		assertEquals("should be able to add two user-entered dollars", ValidDollars.create(3), dollars1a.plus(dollars2));
 		assertEquals("should be able to add user-entered dollars to valid dollars", ValidDollars.create(4), dollars1a.plus(ValidDollars.create(3)));
 		assertEquals("should be able to add user-entered dollars to invalid dollars", new InvalidDollars(), dollars1a.plus(new InvalidDollars()));
+		assertEquals("should be able to add valid dollars to user-entered dollars", ValidDollars.create(5), ValidDollars.create(4).plus(dollars1a));
+		assertEquals("should be able to add invalid dollars to user-entered dollars", new InvalidDollars(), new InvalidDollars().plus(dollars1a));
 	}
 
 	@Test
@@ -78,6 +88,31 @@ public class _UserEnteredDollarsTest {
 		assertEquals("should to able to subtract two user-entered dollars", ValidDollars.create(-1), dollars1a.minus(dollars2));
 		assertEquals("should be able to minus user-entered dollars to valid dollars", ValidDollars.create(-2), dollars1a.minus(ValidDollars.create(3)));
 		assertEquals("should be able to minus user-entered dollars to invalid dollars", new InvalidDollars(), dollars1a.minus(new InvalidDollars()));
+		assertEquals("should be able to minus valid dollars to user-entered dollars", ValidDollars.create(3), ValidDollars.create(4).minus(dollars1a));
+		assertEquals("should be able to minus invalid dollars to user-entered dollars", new InvalidDollars(), new InvalidDollars().minus(dollars1a));
+	}
+
+	@Test
+	public void subtractToZero() {
+		assertEquals("should to able to subtract-to-zero two user-entered dollars", ValidDollars.create(0), dollars1a.subtractToZero(dollars2));
+		assertEquals("should be able to subtract-to-zero user-entered dollars to valid dollars", ValidDollars.create(0), dollars1a.subtractToZero(ValidDollars.create(3)));
+		assertEquals("should be able to subtract-to-zero user-entered dollars to invalid dollars", new InvalidDollars(), dollars1a.subtractToZero(new InvalidDollars()));
+		assertEquals("should be able to subtract-to-zero valid dollars to user-entered dollars", ValidDollars.create(3), ValidDollars.create(4).subtractToZero(dollars1a));
+		assertEquals("should be able to subtract-to-zero invalid dollars to user-entered dollars", new InvalidDollars(), new InvalidDollars().subtractToZero(dollars1a));
+	}
+
+	@Test
+	public void percentage() {
+		assertEquals("should to able to percentage user-entered dollars", ValidDollars.create(5), new UserEnteredDollars("50").percentage(10));
+	}
+
+	@Test
+	public void min() {
+		assertEquals("should to able to min two user-entered dollars", ValidDollars.create(1), dollars1a.min(dollars2));
+		assertEquals("should be able to min user-entered dollars to valid dollars", ValidDollars.create(1), dollars1a.min(ValidDollars.create(3)));
+		assertEquals("should be able to min user-entered dollars to invalid dollars", new InvalidDollars(), dollars1a.min(new InvalidDollars()));
+		assertEquals("should be able to min valid dollars to user-entered dollars", ValidDollars.create(1), ValidDollars.create(4).min(dollars1a));
+		assertEquals("should be able to min invalid dollars to user-entered dollars", new InvalidDollars(), new InvalidDollars().min(dollars1a));
 	}
 
 	@Test
