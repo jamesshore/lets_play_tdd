@@ -13,20 +13,20 @@ public class _ValidDollarsTest {
 	private Dollars zeroDollars = new ValidDollars(0);
 	private Dollars twentyDollars = new ValidDollars(20);
 	private Dollars minusTwentyDollars = new ValidDollars(-20);
-	private Dollars MAX_VALID = new ValidDollars(ValidDollars.MAX_VALUE);
-	private Dollars MIN_VALID = new ValidDollars(ValidDollars.MIN_VALUE);
+	private Dollars MAX_VALID = new ValidDollars(Dollars.MAX_VALUE);
+	private Dollars MIN_VALID = new ValidDollars(Dollars.MIN_VALUE);
 
 	@Test
 	public void cannotConstructDollarsOutsideValidRange() {
 		try {
-			new ValidDollars(ValidDollars.MAX_VALUE + 1);
+			new ValidDollars(Dollars.MAX_VALUE + 1);
 			fail("expected overflow");
 		}
 		catch (RequireException e) {
 			// expected
 		}
 		try {
-			new ValidDollars(ValidDollars.MIN_VALUE - 1);
+			new ValidDollars(Dollars.MIN_VALUE - 1);
 			fail("expected underflow");
 		}
 		catch (RequireException e) {

@@ -8,15 +8,7 @@ import com.jamesshore.finances.util.*;
 
 public class ValidDollars extends Dollars {
 
-	public static final double MAX_VALUE = 1000000000d; // one beeeellion dollars!
-	public static final double MIN_VALUE = -1000000000d;
-
 	private double amount;
-
-	private static Dollars create(double amount) {
-		if (inRange(amount)) return new ValidDollars(amount);
-		else return new InvalidDollars();
-	}
 
 	public ValidDollars(double amount) {
 		Require.that(inRange(amount), "dollar amount [" + amount + "] outside valid range");
@@ -30,10 +22,6 @@ public class ValidDollars extends Dollars {
 	@Override
 	protected double toCoreDataType() {
 		return amount;
-	}
-
-	private static boolean inRange(double value) {
-		return (value >= MIN_VALUE) && (value <= MAX_VALUE);
 	}
 
 	public Dollars plus(Dollars operand) {

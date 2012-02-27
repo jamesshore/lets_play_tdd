@@ -50,6 +50,14 @@ public class _UserEnteredDollarsTest {
 	}
 
 	@Test
+	public void parseOutOfRangeAmount() {
+		double tooLarge = Dollars.MAX_VALUE + 1;
+		double tooSmall = Dollars.MIN_VALUE - 1;
+		assertEquals("too large", invalid, new UserEnteredDollars("" + tooLarge));
+		assertEquals("too small", invalid, new UserEnteredDollars("" + tooSmall));
+	}
+
+	@Test
 	// This test handles the special case where the core Java library hangs when
 	// parsing a magic number
 	public void parsingTheDoubleOfDeathDoesntHangMachine() {

@@ -1,3 +1,7 @@
+Bug? UserEnteredDollars that are outside of valid range. (See Esko Luontola, ep 167)
+
+File format: consider java.util.Properties (suggested by Esko Luontola in ep 159)
+
 Need to decide what to do with original user-entered values. 
  - Reformat them when moving away from field? What about invalid values?
 

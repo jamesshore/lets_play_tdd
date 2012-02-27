@@ -37,7 +37,7 @@ public class UserEnteredDollars extends Dollars {
 		text = text.replace(",", "");
 
 		try {
-			return new ValidDollars(Double.parseDouble(text));
+			return Dollars.create(Double.parseDouble(text));
 		}
 		catch (NumberFormatException e) {
 			return new InvalidDollars();
