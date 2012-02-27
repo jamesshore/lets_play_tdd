@@ -10,9 +10,9 @@ public class ValidDollars extends Dollars {
 
 	private double amount;
 
-	public ValidDollars(double amount) {
-		Require.that(inRange(amount), "dollar amount [" + amount + "] outside valid range");
-		this.amount = amount;
+	public ValidDollars(double rangeLimitedAmount) {
+		Require.that(inRange(rangeLimitedAmount), "dollar amount [" + rangeLimitedAmount + "] outside valid range");
+		this.amount = rangeLimitedAmount;
 	}
 
 	public boolean isValid() {

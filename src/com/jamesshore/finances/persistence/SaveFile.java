@@ -11,11 +11,11 @@ public class SaveFile {
 		this.path = path;
 	}
 
-	public void save(Dollars startingBalance) throws IOException {
+	public void save(UserEnteredDollars startingBalance) throws IOException {
 		Writer writer = new BufferedWriter(new FileWriter(path));
 		try {
 			writer.write("com.jamesshore.finances,1\n");
-			writer.write(startingBalance.toString() + "\n");
+			writer.write(startingBalance.getUserText() + "\n");
 		}
 		finally {
 			writer.close();

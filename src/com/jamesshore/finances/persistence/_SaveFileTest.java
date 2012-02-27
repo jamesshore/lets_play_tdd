@@ -38,14 +38,15 @@ public class _SaveFileTest {
 		assertFalse("file should have been overwritten", fileContents.startsWith("test"));
 	}
 
-	// TODO: finish this test
-	// @Test
-	// public void saveWritesFileContents() throws IOException {
-	// saveFile.save(new ValidDollars(1.23));// , new ValidDollars(10.24), new ValidDollars(100.25));
-	//
-	// String expected = "com.jamesshore.finances,1\n$1.23\n";
-	// assertEquals(expected, readFile());
-	// }
+	@Test
+	public void saveWritesFileContents() throws IOException {
+		saveFile.save(new UserEnteredDollars("1.23"));// , new ValidDollars(10.24), new ValidDollars(100.25));
+
+		String expected = "com.jamesshore.finances,1\n1.23\n";
+		assertEquals(expected, readFile());
+	}
+
+	// TODO: saveWritesOriginalDataRegardlessOfValidity
 
 	private String readFile() throws IOException {
 		BufferedReader input = new BufferedReader(new FileReader(path));

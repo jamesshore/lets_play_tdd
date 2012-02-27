@@ -84,6 +84,10 @@ public class UserEnteredDollars extends Dollars {
 		backingDollars.render(resources, target);
 	}
 
+	public String getUserText() {
+		return userText;
+	}
+
 	@Override
 	public String toString() {
 		return backingDollars.toString();

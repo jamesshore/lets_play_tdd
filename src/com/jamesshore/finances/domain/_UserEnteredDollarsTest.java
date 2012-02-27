@@ -71,6 +71,11 @@ public class _UserEnteredDollarsTest {
 	}
 
 	@Test
+	public void getUserText() {
+		assertEquals("   x y z  ", new UserEnteredDollars("   x y z  ").getUserText());
+	}
+
+	@Test
 	public void toCoreDataType() {
 		assertEquals(1.234, new UserEnteredDollars("1.234").toCoreDataType(), 0);
 	}

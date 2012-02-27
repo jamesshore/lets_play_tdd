@@ -1,5 +1,3 @@
-Bug? UserEnteredDollars that are outside of valid range. (See Esko Luontola, ep 167)
-
 File format: consider java.util.Properties (suggested by Esko Luontola in ep 159)
 
 Need to decide what to do with original user-entered values. 
@@ -71,3 +69,6 @@ ROOT CAUSE CHECKLIST:
 ---
 Swing semantics change even when interface doesn't
 Therefore... when refactoring from one Swing class to another, check usage of all Swing APIs.
+
+When changing a test, you could break the expected behavior of the application
+Therefore... go a little slower when taking out or changing expectations of tests
