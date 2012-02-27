@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 import java.awt.*;
 import javax.swing.*;
 import org.junit.*;
-import com.jamesshore.finances.domain.*;
+import com.jamesshore.finances.values.*;
 
 public class _DollarsTextFieldTest {
 

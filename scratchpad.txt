@@ -1,3 +1,7 @@
+Move value types to their own package
+
+Move save file data clump into a "configuration" object? 
+
 File format: consider java.util.Properties (suggested by Esko Luontola in ep 159)
 
 Need to decide what to do with original user-entered values. 

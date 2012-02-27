@@ -1,5 +1,7 @@
 package com.jamesshore.finances.domain;
 
+import com.jamesshore.finances.values.*;
+
 public class StockMarketYear {
 
 	private Year year;

@@ -1,28 +1,23 @@
-package com.jamesshore.finances.domain;
+package com.jamesshore.finances.values;
 
 import com.jamesshore.finances.util.*;
 
-public class TaxRate {
+public class GrowthRate {
 
 	private double rateAsPercentage;
 	
-	public TaxRate(double rateAsPercentage) {
-		Require.that(rateAsPercentage > 0, "tax rate must be positive (and not zero); was " + rateAsPercentage);
+	public GrowthRate(double rateAsPercentage) {
+		Require.that(rateAsPercentage > 0, "interest rate must be positive (and not zero); was " + rateAsPercentage);
 		this.rateAsPercentage = rateAsPercentage;
 	}
-	
-	public Dollars simpleTaxFor(Dollars amount) {
-		return amount.percentage(rateAsPercentage);
-	}
 
-	public Dollars compoundTaxFor(Dollars amount) {
-		double compoundRate = (100.0 / (100.0 - rateAsPercentage)) - 1;
-		return amount.percentage(compoundRate * 100);
+	public Dollars growthFor(Dollars amount) {
+		return amount.percentage(rateAsPercentage);
 	}
 	
 	@Override
 	public String toString() {
-		return (rateAsPercentage) + "%";
+		return rateAsPercentage + "%";
 	}
 
 	@Override
@@ -40,7 +35,7 @@ public class TaxRate {
 		if (this == obj) return true;
 		if (obj == null) return false;
 		if (getClass() != obj.getClass()) return false;
-		TaxRate other = (TaxRate) obj;
+		GrowthRate other = (GrowthRate) obj;
 		if (Double.doubleToLongBits(rateAsPercentage) != Double.doubleToLongBits(other.rateAsPercentage)) return false;
 		return true;
 	}

@@ -1,6 +1,7 @@
 package com.jamesshore.finances.domain;
 
 import com.jamesshore.finances.util.*;
+import com.jamesshore.finances.values.*;
 
 public class StockMarketProjection {
 

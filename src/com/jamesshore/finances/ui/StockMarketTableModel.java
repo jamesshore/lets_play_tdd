@@ -3,6 +3,7 @@ package com.jamesshore.finances.ui;
 import javax.swing.table.*;
 import com.jamesshore.finances.domain.*;
 import com.jamesshore.finances.util.*;
+import com.jamesshore.finances.values.*;
 
 public class StockMarketTableModel extends AbstractTableModel {
 	private static final long serialVersionUID = 1L;

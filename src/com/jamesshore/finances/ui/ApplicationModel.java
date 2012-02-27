@@ -2,6 +2,7 @@ package com.jamesshore.finances.ui;
 
 import java.io.*;
 import com.jamesshore.finances.domain.*;
+import com.jamesshore.finances.values.*;
 
 public class ApplicationModel {
 

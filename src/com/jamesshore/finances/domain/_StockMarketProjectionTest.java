@@ -2,6 +2,7 @@ package com.jamesshore.finances.domain;
 
 import static org.junit.Assert.*;
 import org.junit.*;
+import com.jamesshore.finances.values.*;
 
 public class _StockMarketProjectionTest {
 

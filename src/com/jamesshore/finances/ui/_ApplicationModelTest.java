@@ -3,6 +3,7 @@ package com.jamesshore.finances.ui;
 import static org.junit.Assert.*;
 import org.junit.*;
 import com.jamesshore.finances.domain.*;
+import com.jamesshore.finances.values.*;
 
 public class _ApplicationModelTest {
 

@@ -3,7 +3,7 @@ package com.jamesshore.finances.ui;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.event.*;
-import com.jamesshore.finances.domain.*;
+import com.jamesshore.finances.values.*;
 
 // If you want to subclass this class, it's okay to remove the 'final' designator, but be careful of race 
 // conditions with the event handler in the constructor. It could execute before the subclass constructor.
