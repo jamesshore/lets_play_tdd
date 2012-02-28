@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.table.*;
-import com.apple.eawt.*;
 
 @SuppressWarnings("unused")
 public class MacSpike extends JFrame {
