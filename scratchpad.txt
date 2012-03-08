@@ -19,6 +19,8 @@ Deal with loading excessively large file
 
 Handle IOExceptions
 
+Application menu still works when modal dialog is up -- so you can "Save As" twice in a row, for example. Fix this.
+
 ---
 
 Use a @Rule to enforce SwingUtilities.invokeAndWait on every Swing test?

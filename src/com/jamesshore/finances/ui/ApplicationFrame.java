@@ -90,10 +90,17 @@ public class ApplicationFrame extends JFrame {
 
 	// non-private for testing purposes
 	void doSave() {
-		String directory = saveAsDialog.getDirectory();
-		String file = saveAsDialog.getFile();
+		// TODO: remove spike exception-handling code
+		try {
+			String directory = saveAsDialog.getDirectory();
+			String file = saveAsDialog.getFile();
 
-		if (file != null) model.save(new File(directory, file));
+			if (file != null) model.save(new File(directory, file));
+		}
+		catch (IOException e) {
+			JDialog dialog = new JDialog(this, "title");
+			dialog.setVisible(true);
+		}
 	}
 
 	private JMenuItem menuItem(String name, KeyStroke accelerator, ActionListener action) {

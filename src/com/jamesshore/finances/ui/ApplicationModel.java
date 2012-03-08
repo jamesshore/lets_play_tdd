@@ -61,17 +61,11 @@ public class ApplicationModel {
 		return new StockMarketProjection(firstYear, endingYear, yearlySpending);
 	}
 
-	public void save(File saveFile) {
+	public void save(File saveFile) throws IOException {
 		System.out.println("save called: " + saveFile);
 		// TODO: resolve spike
 
-		try {
-			new SaveFile(saveFile).save(startingBalance, startingCostBasis, yearlySpending);
-		}
-		catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		new SaveFile(saveFile).save(startingBalance, startingCostBasis, yearlySpending);
 	}
 
 }
