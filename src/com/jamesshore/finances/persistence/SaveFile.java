@@ -14,15 +14,19 @@ public class SaveFile {
 	public void save(UserEnteredDollars startingBalance, UserEnteredDollars costBasis, UserEnteredDollars yearlySpending) throws IOException {
 		Writer writer = new BufferedWriter(new FileWriter(path));
 		try {
-			writer.write("com.jamesshore.finances,1\n");
-			writer.write(startingBalance.getUserText() + "\n");
-			writer.write(costBasis.getUserText() + "\n");
-			writer.write(yearlySpending.getUserText() + "\n");
+			writeLine(writer, "com.jamesshore.finances,1");
+			writeLine(writer, startingBalance.getUserText());
+			writeLine(writer, costBasis.getUserText());
+			writeLine(writer, yearlySpending.getUserText());
 		}
 		finally {
 			writer.close();
 		}
-
 	}
 
+	public void writeLine(Writer writer, String line) throws IOException {
+		line = line.replace("\\", "\\\\");
+		line = line.replace("\n", "\\n");
+		writer.write(line + "\n");
+	}
 }

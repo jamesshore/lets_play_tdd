@@ -1,7 +1,6 @@
 package com.jamesshore.finances.persistence;
 
 import static org.junit.Assert.*;
-import com.jamesshore.finances.util.*;
 import java.io.*;
 import org.junit.*;
 import org.junit.rules.*;
@@ -43,24 +42,30 @@ public class _SaveFileTest {
 	@Test
 	public void saveWritesFileContents() throws IOException {
 		saveFile.save(new UserEnteredDollars("1.23"), new UserEnteredDollars("10.24"), new UserEnteredDollars("100.25"));
-
-		String expected = "com.jamesshore.finances,1\n1.23\n10.24\n100.25\n";
-		assertEquals(expected, readFile());
+		assertFileMatches("file", "1.23", "10.24", "100.25");
 	}
 
 	@Test
 	public void saveWritesOutUserEnteredValuesExactlyAsEntered() throws IOException {
 		saveFile.save(new UserEnteredDollars("foo"), new UserEnteredDollars("  bar"), new UserEnteredDollars("baz\t"));
-
-		String expected = "com.jamesshore.finances,1\nfoo\n  bar\nbaz\t\n";
-		assertEquals(expected, readFile());
+		assertFileMatches("file", "foo", "  bar", "baz\t");
 	}
 
-	@Test(expected = RequireException.class);
-	public void lineFeedInUserDataIsAProgrammingError() throws IOException {
-		saveFile.save(new UserEnteredDollars("\n"), anyValue, anyValue);
+	@Test
+	public void saveHandlesDelimitersInUserInput() throws IOException {
+		saveFile.save(new UserEnteredDollars("\n\n\n \\n"), anyValue, anyValue);
+		assertFileMatches("file", "\\n\\n\\n \\\\n", "any", "any");
 	}
-	
+
+	private void assertFileMatches(String message, String expectedStartingBalance, String expectedCostBasis, String expectedYearlySpending) throws IOException {
+		String expected = "com.jamesshore.finances,1\n";
+		expected += expectedStartingBalance + "\n";
+		expected += expectedCostBasis + "\n";
+		expected += expectedYearlySpending + "\n";
+		assertEquals(message, expected, readFile());
+
+	}
+
 	private String readFile() throws IOException {
 		BufferedReader input = new BufferedReader(new FileReader(path));
 		try {
