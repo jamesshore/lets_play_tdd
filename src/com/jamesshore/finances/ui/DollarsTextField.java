@@ -73,7 +73,7 @@ public final class DollarsTextField extends JPanel {
 		if (textField != null) textField.setForeground(color);
 	}
 
-	public Dollars getDollars() {
+	public UserEnteredDollars getDollars() {
 		return new UserEnteredDollars(textField.getText());
 	}
 

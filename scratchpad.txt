@@ -1,4 +1,4 @@
-Move value types to their own package - including SelfRenderable
+Resolve "ignored" test
 
 Move save file data clump into a "configuration" object? 
 

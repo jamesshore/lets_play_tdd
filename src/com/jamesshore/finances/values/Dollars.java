@@ -1,6 +1,5 @@
 package com.jamesshore.finances.values;
 
-import com.jamesshore.finances.domain.*;
 
 public abstract class Dollars implements SelfRenderable {
 

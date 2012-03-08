@@ -5,7 +5,7 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.*;
 import org.junit.*;
-import com.jamesshore.finances.domain.*;
+import com.jamesshore.finances.values.*;
 
 public class _ForecastTableTest {
 

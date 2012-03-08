@@ -42,19 +42,23 @@ public class _SaveFileTest {
 	@Test
 	public void saveWritesFileContents() throws IOException {
 		saveFile.save(new UserEnteredDollars("1.23"), new UserEnteredDollars("10.24"), new UserEnteredDollars("100.25"));
-		assertFileMatches("file", "1.23", "10.24", "100.25");
+		assertFileMatches("1.23", "10.24", "100.25");
 	}
 
 	@Test
 	public void saveWritesOutUserEnteredValuesExactlyAsEntered() throws IOException {
 		saveFile.save(new UserEnteredDollars("foo"), new UserEnteredDollars("  bar"), new UserEnteredDollars("baz\t"));
-		assertFileMatches("file", "foo", "  bar", "baz\t");
+		assertFileMatches("foo", "  bar", "baz\t");
 	}
 
 	@Test
 	public void saveHandlesDelimitersInUserInput() throws IOException {
 		saveFile.save(new UserEnteredDollars("\n\n\n \\n"), anyValue, anyValue);
-		assertFileMatches("file", "\\n\\n\\n \\\\n", "any", "any");
+		assertFileMatches("\\n\\n\\n \\\\n", "any", "any");
+	}
+
+	private void assertFileMatches(String expectedStartingBalance, String expectedCostBasis, String expectedYearlySpending) throws IOException {
+		assertFileMatches("file", expectedStartingBalance, expectedCostBasis, expectedYearlySpending);
 	}
 
 	private void assertFileMatches(String message, String expectedStartingBalance, String expectedCostBasis, String expectedYearlySpending) throws IOException {
