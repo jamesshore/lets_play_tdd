@@ -98,8 +98,7 @@ public class ApplicationFrame extends JFrame {
 			if (file != null) model.save(new File(directory, file));
 		}
 		catch (IOException e) {
-			JDialog dialog = new JDialog(this, "title");
-			dialog.setVisible(true);
+			JOptionPane.showMessageDialog(this, "Could not save file: " + e.getLocalizedMessage(), "Save File", JOptionPane.WARNING_MESSAGE);
 		}
 	}
 
