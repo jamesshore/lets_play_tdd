@@ -1,7 +1,5 @@
 package com.jamesshore.spikes.alert_dialog;
 
-import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
 
 public class AlertDialogSpike extends JFrame {
@@ -10,25 +8,18 @@ public class AlertDialogSpike extends JFrame {
 	public AlertDialogSpike() {
 		setTitle("Save Dialog Spike");
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-		addComponents();
 		pack();
-		this.setLocation(400, 200);
-	}
-
-	private void addComponents() {
-		Container content = this.getContentPane();
-		JButton button = new JButton("Alert Dialog...");
-		button.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				showAlertDialog();
-			}
-		});
-		content.add(button);
+		this.setLocation(500, 300);
+		showAlertDialog();
+		System.exit(0);
 	}
 
 	private void showAlertDialog() {
-		JOptionPane.showMessageDialog(this, "Could not frobble the wizzits.", "Error", JOptionPane.WARNING_MESSAGE);
+		String message = "Could not frobble the wizzits. We need this dialog to automatically wrap really long lines so that we don't look like we're trapped in the 80's with programmer UI's but instead actually care about the quality of our application, or at least the quality that we convey to our customers, few in number though they may be.";
+		JTextPane textPane = new JTextPane();
+		textPane.setText(message);
+		textPane.setOpaque(false);
+		JOptionPane.showMessageDialog(this, textPane, "Error", JOptionPane.WARNING_MESSAGE);
 	}
 
 	public static void main(String[] args) {
