@@ -168,6 +168,24 @@ public class _ApplicationFrameTest {
 		assertNull("applicationModel should not have been told to save", mockModel.saveCalledWith);
 	}
 
+	@Test
+	public void saveAsDialogShouldHandleSaveExceptionsGracefully() {
+		class ExceptionThrowingApplicationModel extends __ApplicationModelSpy {
+			@Override
+			public void save(File saveFile) throws IOException {
+				throw new IOException("generic exception");
+			}
+		}
+
+		frame = new ApplicationFrame(new ExceptionThrowingApplicationModel());
+		saveAsDialog().setDirectory("/example");
+		saveAsDialog().setFile("filename");
+		frame.doSave();
+		// expect no exception
+
+		// TODO: Assert that we're getting a clean dialog on IOException
+	}
+
 	private FileDialog saveAsDialog() {
 		return (FileDialog)frame.getOwnedWindows()[0];
 	}

@@ -25,7 +25,7 @@ public class __ApplicationModelSpy extends ApplicationModel {
 	}
 
 	@Override
-	public void save(File saveFile) {
+	public void save(File saveFile) throws IOException {
 		saveCalledWith = saveFile;
 	}
 }
