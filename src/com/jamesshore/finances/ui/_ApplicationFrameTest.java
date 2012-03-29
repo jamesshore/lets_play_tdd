@@ -170,24 +170,45 @@ public class _ApplicationFrameTest {
 
 	@Test
 	public void saveAsDialogShouldHandleSaveExceptionsGracefully() {
+		// TODO: Clean up this method
+
+		// Set up frame to throw exception on save
 		class ExceptionThrowingApplicationModel extends __ApplicationModelSpy {
 			@Override
 			public void save(File saveFile) throws IOException {
 				throw new IOException("generic exception");
 			}
 		}
-
 		frame = new ApplicationFrame(new ExceptionThrowingApplicationModel());
+
+		// Make the save happen (which will throw exception)
 		saveAsDialog().setDirectory("/example");
 		saveAsDialog().setFile("filename");
-		frame.doSave();
-		// expect no exception
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				frame.doSave();
+			}
+		});
 
-		// TODO: Assert that we're getting a clean dialog on IOException
+		// Assert that error dialog is visible and has correct error message
+		assertEventuallyTrue("Warning dialog should be visible", 1000, new AsynchronousAssertion() {
+			@Override
+			public boolean assertTrue() {
+				Dialog dialog = warningDialog();
+				return dialog != null && dialog.isVisible();
+			}
+		});
+		// assertEquals("Save As dialog mode should be 'save'", FileDialog.SAVE, saveAsDialog.getMode());
+		// assertEquals("Save As dialog title", "Save As", saveAsDialog.getTitle());
 	}
 
 	private FileDialog saveAsDialog() {
 		return (FileDialog)frame.getOwnedWindows()[0];
+	}
+
+	private Dialog warningDialog() {
+		return (Dialog)frame.getOwnedWindows()[1];
 	}
 
 	abstract class AsynchronousAssertion {
