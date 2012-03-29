@@ -195,11 +195,13 @@ public class _ApplicationFrameTest {
 		assertEventuallyTrue("Warning dialog should be visible", 1000, new AsynchronousAssertion() {
 			@Override
 			public boolean assertTrue() {
-				Dialog dialog = warningDialog();
+				Dialog dialog = warningDialogOrNullIfNotFound();
 				return dialog != null && dialog.isVisible();
 			}
 		});
-		// assertEquals("Save As dialog mode should be 'save'", FileDialog.SAVE, saveAsDialog.getMode());
+		Dialog dialog = warningDialogOrNullIfNotFound();
+		assertEquals("Warning dialog parent", frame, dialog.getParent());
+		assertEquals("Warning dialog title", "Save File", dialog.getTitle());
 		// assertEquals("Save As dialog title", "Save As", saveAsDialog.getTitle());
 	}
 
@@ -207,8 +209,10 @@ public class _ApplicationFrameTest {
 		return (FileDialog)frame.getOwnedWindows()[0];
 	}
 
-	private Dialog warningDialog() {
-		return (Dialog)frame.getOwnedWindows()[1];
+	private Dialog warningDialogOrNullIfNotFound() {
+		Window[] childWindows = frame.getOwnedWindows();
+		if (childWindows.length < 2) return null;
+		return (Dialog)childWindows[1];
 	}
 
 	abstract class AsynchronousAssertion {
