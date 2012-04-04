@@ -13,7 +13,7 @@ public class ApplicationFrame extends JFrame {
 	public static final Dimension INITIAL_SIZE = new Dimension(900, 400);
 
 	private ApplicationModel model;
-	private FileDialog saveAsDialog;
+	private SaveAsDialog saveAsDialog;
 
 	public static void newWindow() {
 		new ApplicationFrame(new ApplicationModel()).setVisible(true);
@@ -39,7 +39,7 @@ public class ApplicationFrame extends JFrame {
 		contentPane.add(BorderLayout.NORTH, configurationPanel());
 
 		setJMenuBar(menuBar());
-		saveAsDialog = new FileDialog(ApplicationFrame.this, "Save As", FileDialog.SAVE);
+		saveAsDialog = new SaveAsDialog(ApplicationFrame.this, model);
 	}
 
 	private Component forecastTable() {
@@ -82,13 +82,13 @@ public class ApplicationFrame extends JFrame {
 		return menuItem("Save As...", KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.SHIFT_MASK | InputEvent.META_MASK), new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				saveAsDialog.setVisible(true);
-				doSave(); // this line of code is untested
+				saveAsDialog.display();
 			}
 		});
 	}
 
 	// non-private for testing purposes
+	// TODO: delete me (moved to SaveAsDialog)
 	void doSave() {
 		try {
 			String directory = saveAsDialog.getDirectory();

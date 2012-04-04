@@ -127,12 +127,18 @@ public class _ApplicationFrameTest {
 		// This test sometimes fails saying frame isn't disposed. Can't reliably reproduce; seems to be race condition
 		// that appears when Swing tests are running slow.
 		// Tried: invokeAndWait around doClick (did not work)
-		// Try next? Run whole test on event handler thread using invokeAndWait?
-
-		frame.setVisible(true);
-		assertTrue("before disposable, frame is displayable", frame.isDisplayable());
-		closeMenuItem.doClick();
-		assertTrue("frame should have been disposed", !frame.isDisplayable());
+		// Currently trying: run whole test on event handler thread using invokeAndWait - put in place in episode 183;
+		// if it hasn't recurred by episode 200, assume it's fixed. (And if it is, that's a really good sign that we
+		// need to put something similar in place for all Swing tests.
+		SwingUtilities.invokeAndWait(new Runnable() {
+			@Override
+			public void run() {
+				frame.setVisible(true);
+				assertTrue("before disposable, frame is displayable", frame.isDisplayable());
+				closeMenuItem.doClick();
+				assertTrue("frame should have been disposed", !frame.isDisplayable());
+			}
+		});
 	}
 
 	@Test
