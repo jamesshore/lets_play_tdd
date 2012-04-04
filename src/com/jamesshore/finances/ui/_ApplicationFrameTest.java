@@ -199,10 +199,12 @@ public class _ApplicationFrameTest {
 				return dialog != null && dialog.isVisible();
 			}
 		});
-		Dialog dialog = warningDialogOrNullIfNotFound();
-		assertEquals("Warning dialog parent", frame, dialog.getParent());
-		assertEquals("Warning dialog title", "Save File", dialog.getTitle());
-		// assertEquals("Save As dialog title", "Save As", saveAsDialog.getTitle());
+		JDialog dialogWindow = (JDialog)warningDialogOrNullIfNotFound();
+		JOptionPane dialogPane = (JOptionPane)dialogWindow.getContentPane().getComponent(0);
+		assertEquals("Warning dialog parent", frame, dialogWindow.getParent());
+		assertEquals("Warning dialog title", "Save File", dialogWindow.getTitle());
+		assertEquals("Warning dialog message", "Could not save file: generic exception", dialogPane.getMessage());
+		assertEquals("Warning dialog type should be 'warning'", JOptionPane.WARNING_MESSAGE, dialogPane.getMessageType());
 	}
 
 	private FileDialog saveAsDialog() {
