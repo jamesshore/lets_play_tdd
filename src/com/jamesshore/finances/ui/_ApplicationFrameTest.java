@@ -136,14 +136,12 @@ public class _ApplicationFrameTest {
 	public void saveAsMenuItemShouldShowSaveAsDialog() throws Throwable {
 		final FileDialog saveAsDialog = saveAsDialog();
 
-		SwingUtilities.invokeLater(new Runnable() {
+		invokeAndwaitFor("Save As dialog", 1000, new Invocation() {
 			@Override
-			public void run() {
+			public void invoke() {
 				saveAsMenuItem.doClick();
 			}
-		});
 
-		waitFor("Save As dialog should be visible", 1000, new WaitForCheck() {
 			@Override
 			public boolean waitConditionFulfilled() {
 				return saveAsDialog.isVisible();
@@ -172,15 +170,19 @@ public class _ApplicationFrameTest {
 
 	@Test
 	public void saveAsDialogShouldHandleSaveExceptionsGracefully() {
-		causeSaveException(new IOException("generic exception"));
+		invokeAndwaitFor("Warning dialog", 1000, new Invocation() {
+			@Override
+			public void invoke() {
+				causeSaveException(new IOException("generic exception"));
+			}
 
-		waitFor("Warning dialog should be visible", 1000, new WaitForCheck() {
 			@Override
 			public boolean waitConditionFulfilled() {
 				Dialog dialog = warningDialogOrNullIfNotFound();
 				return dialog != null && dialog.isVisible();
 			}
 		});
+
 		JDialog dialogWindow = (JDialog)warningDialogOrNullIfNotFound();
 		JOptionPane dialogPane = (JOptionPane)dialogWindow.getContentPane().getComponent(0);
 		assertEquals("Warning dialog parent", frame, dialogWindow.getParent());
@@ -190,25 +192,17 @@ public class _ApplicationFrameTest {
 	}
 
 	private void causeSaveException(final IOException exception) {
-		// Set up frame to throw exception on save
-		class ExceptionThrowingApplicationModel extends __ApplicationModelSpy {
+		ApplicationModel exceptionThrower = new __ApplicationModelSpy() {
 			@Override
 			public void save(File saveFile) throws IOException {
 				throw exception;
 			}
-		}
-		frame = new ApplicationFrame(new ExceptionThrowingApplicationModel());
+		};
+		frame = new ApplicationFrame(exceptionThrower);
 
-		// Make the save happen (which will throw exception)
 		saveAsDialog().setDirectory("/example");
 		saveAsDialog().setFile("filename");
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				frame.doSave();
-			}
-		});
-
+		frame.doSave();
 	}
 
 	private FileDialog saveAsDialog() {
@@ -221,12 +215,20 @@ public class _ApplicationFrameTest {
 		return (Dialog)childWindows[1];
 	}
 
-	// TODO: rename me to match 'waitFor' style?
-	abstract class WaitForCheck {
+	abstract class Invocation {
+		abstract public void invoke();
+
 		abstract boolean waitConditionFulfilled();
 	}
 
-	private void waitFor(String message, int timeout, WaitForCheck check) {
+	private void invokeAndwaitFor(String message, int timeout, final Invocation check) {
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void invoke() {
+				check.invoke();
+			}
+		});
+
 		long startTime = new Date().getTime();
 		while (!check.waitConditionFulfilled()) {
 			Thread.yield();
