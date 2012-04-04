@@ -123,9 +123,11 @@ public class _ApplicationFrameTest {
 	}
 
 	@Test
-	public void closeMenuItemShouldCloseTheWindow() {
+	public void closeMenuItemShouldCloseTheWindow() throws Throwable {
 		frame.setVisible(true);
 		assertTrue("before disposable, frame is displayable", frame.isDisplayable());
+		// TODO: intermittent test failure where frame is not being disposed; tried invokeAndWait, did not work
+		// try next: run on event handler thread?
 		closeMenuItem.doClick();
 		assertTrue("frame should have been disposed", !frame.isDisplayable());
 	}
@@ -141,9 +143,9 @@ public class _ApplicationFrameTest {
 			}
 		});
 
-		assertEventuallyTrue("Save As dialog should be visible", 1000, new AsynchronousAssertion() {
+		waitFor("Save As dialog should be visible", 1000, new WaitForCheck() {
 			@Override
-			public boolean assertTrue() {
+			public boolean waitConditionFulfilled() {
 				return saveAsDialog.isVisible();
 			}
 		});
@@ -170,13 +172,29 @@ public class _ApplicationFrameTest {
 
 	@Test
 	public void saveAsDialogShouldHandleSaveExceptionsGracefully() {
-		// TODO: Clean up this method
+		causeSaveException(new IOException("generic exception"));
 
+		waitFor("Warning dialog should be visible", 1000, new WaitForCheck() {
+			@Override
+			public boolean waitConditionFulfilled() {
+				Dialog dialog = warningDialogOrNullIfNotFound();
+				return dialog != null && dialog.isVisible();
+			}
+		});
+		JDialog dialogWindow = (JDialog)warningDialogOrNullIfNotFound();
+		JOptionPane dialogPane = (JOptionPane)dialogWindow.getContentPane().getComponent(0);
+		assertEquals("Warning dialog parent", frame, dialogWindow.getParent());
+		assertEquals("Warning dialog title", "Save File", dialogWindow.getTitle());
+		assertEquals("Warning dialog message", "Could not save file: generic exception", dialogPane.getMessage());
+		assertEquals("Warning dialog type should be 'warning'", JOptionPane.WARNING_MESSAGE, dialogPane.getMessageType());
+	}
+
+	private void causeSaveException(final IOException exception) {
 		// Set up frame to throw exception on save
 		class ExceptionThrowingApplicationModel extends __ApplicationModelSpy {
 			@Override
 			public void save(File saveFile) throws IOException {
-				throw new IOException("generic exception");
+				throw exception;
 			}
 		}
 		frame = new ApplicationFrame(new ExceptionThrowingApplicationModel());
@@ -191,20 +209,6 @@ public class _ApplicationFrameTest {
 			}
 		});
 
-		// Assert that error dialog is visible and has correct error message
-		assertEventuallyTrue("Warning dialog should be visible", 1000, new AsynchronousAssertion() {
-			@Override
-			public boolean assertTrue() {
-				Dialog dialog = warningDialogOrNullIfNotFound();
-				return dialog != null && dialog.isVisible();
-			}
-		});
-		JDialog dialogWindow = (JDialog)warningDialogOrNullIfNotFound();
-		JOptionPane dialogPane = (JOptionPane)dialogWindow.getContentPane().getComponent(0);
-		assertEquals("Warning dialog parent", frame, dialogWindow.getParent());
-		assertEquals("Warning dialog title", "Save File", dialogWindow.getTitle());
-		assertEquals("Warning dialog message", "Could not save file: generic exception", dialogPane.getMessage());
-		assertEquals("Warning dialog type should be 'warning'", JOptionPane.WARNING_MESSAGE, dialogPane.getMessageType());
 	}
 
 	private FileDialog saveAsDialog() {
@@ -217,13 +221,14 @@ public class _ApplicationFrameTest {
 		return (Dialog)childWindows[1];
 	}
 
-	abstract class AsynchronousAssertion {
-		abstract boolean assertTrue();
+	// TODO: rename me to match 'waitFor' style?
+	abstract class WaitForCheck {
+		abstract boolean waitConditionFulfilled();
 	}
 
-	private void assertEventuallyTrue(String message, int timeout, AsynchronousAssertion check) {
+	private void waitFor(String message, int timeout, WaitForCheck check) {
 		long startTime = new Date().getTime();
-		while (!check.assertTrue()) {
+		while (!check.waitConditionFulfilled()) {
 			Thread.yield();
 			long elapsedMilliseconds = new Date().getTime() - startTime;
 			if (elapsedMilliseconds > timeout) fail(message + " within " + timeout + " milliseconds");
