@@ -162,22 +162,6 @@ public class _ApplicationFrameTest {
 	}
 
 	@Test
-	public void saveAsDialogShouldTellApplicationModelToSaveWhenSaveButtonPushed() {
-		saveAsDialog().setDirectory("/example");
-		saveAsDialog().setFile("filename");
-		frame.doSave();
-		assertEquals("applicationModel should be told to save", new File("/example/filename"), mockModel.saveCalledWith);
-	}
-
-	@Test
-	public void saveAsDialogShouldDoNothingWhenCancelButtonPushed() {
-		saveAsDialog().setDirectory(null);
-		saveAsDialog().setFile(null);
-		frame.doSave();
-		assertNull("applicationModel should not have been told to save", mockModel.saveCalledWith);
-	}
-
-	@Test
 	public void saveAsDialogShouldHandleSaveExceptionsGracefully() {
 		invokeAndWaitFor("warning dialog", 1000, new Invocation() {
 			@Override

@@ -81,8 +81,8 @@ public class ApplicationFrame extends JFrame {
 	private JMenuItem saveAsMenuItem() {
 		return menuItem("Save As...", KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.SHIFT_MASK | InputEvent.META_MASK), new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				saveAsDialog.display();
+			public void actionPerformed(ActionEvent e) {
+				saveAsDialog.displayModally();
 			}
 		});
 	}

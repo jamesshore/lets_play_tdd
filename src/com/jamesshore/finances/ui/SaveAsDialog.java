@@ -14,7 +14,7 @@ public class SaveAsDialog extends FileDialog {
 		this.model = model;
 	}
 
-	public void display() {
+	public void displayModally() {
 		this.setVisible(true);
 		this.doSave(); // this line of code is untested
 	}
