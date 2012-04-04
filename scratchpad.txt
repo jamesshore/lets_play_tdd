@@ -1,4 +1,4 @@
-Resolve "ignored" test
+Factor out save dialog class from ApplicationFrame?
 
 Move save file data clump into a "configuration" object? 
 
@@ -17,7 +17,7 @@ Deal with FileDialog returning null directory and valid filename.
 
 Deal with loading excessively large file
 
-Handle IOExceptions
+Handle IOExceptions -- are there other cases to handle?
 
 Application menu still works when modal dialog is up -- so you can "Save As" twice in a row, for example. Fix this.
 

@@ -124,10 +124,13 @@ public class _ApplicationFrameTest {
 
 	@Test
 	public void closeMenuItemShouldCloseTheWindow() throws Throwable {
+		// This test sometimes fails saying frame isn't disposed. Can't reliably reproduce; seems to be race condition
+		// that appears when Swing tests are running slow.
+		// Tried: invokeAndWait around doClick (did not work)
+		// Try next? Run whole test on event handler thread using invokeAndWait?
+
 		frame.setVisible(true);
 		assertTrue("before disposable, frame is displayable", frame.isDisplayable());
-		// TODO: intermittent test failure where frame is not being disposed; tried invokeAndWait, did not work
-		// try next: run on event handler thread?
 		closeMenuItem.doClick();
 		assertTrue("frame should have been disposed", !frame.isDisplayable());
 	}
@@ -136,14 +139,14 @@ public class _ApplicationFrameTest {
 	public void saveAsMenuItemShouldShowSaveAsDialog() throws Throwable {
 		final FileDialog saveAsDialog = saveAsDialog();
 
-		invokeAndwaitFor("Save As dialog", 1000, new Invocation() {
+		invokeAndWaitFor("Save As dialog", 1000, new Invocation() {
 			@Override
 			public void invoke() {
 				saveAsMenuItem.doClick();
 			}
 
 			@Override
-			public boolean waitConditionFulfilled() {
+			public boolean stopWaitingWhen() {
 				return saveAsDialog.isVisible();
 			}
 		});
@@ -170,14 +173,14 @@ public class _ApplicationFrameTest {
 
 	@Test
 	public void saveAsDialogShouldHandleSaveExceptionsGracefully() {
-		invokeAndwaitFor("Warning dialog", 1000, new Invocation() {
+		invokeAndWaitFor("warning dialog", 1000, new Invocation() {
 			@Override
 			public void invoke() {
 				causeSaveException(new IOException("generic exception"));
 			}
 
 			@Override
-			public boolean waitConditionFulfilled() {
+			public boolean stopWaitingWhen() {
 				Dialog dialog = warningDialogOrNullIfNotFound();
 				return dialog != null && dialog.isVisible();
 			}
@@ -218,22 +221,22 @@ public class _ApplicationFrameTest {
 	abstract class Invocation {
 		abstract public void invoke();
 
-		abstract boolean waitConditionFulfilled();
+		abstract boolean stopWaitingWhen();
 	}
 
-	private void invokeAndwaitFor(String message, int timeout, final Invocation check) {
+	private void invokeAndWaitFor(String message, int timeout, final Invocation check) {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
-			public void invoke() {
+			public void run() {
 				check.invoke();
 			}
 		});
 
 		long startTime = new Date().getTime();
-		while (!check.waitConditionFulfilled()) {
+		while (!check.stopWaitingWhen()) {
 			Thread.yield();
 			long elapsedMilliseconds = new Date().getTime() - startTime;
-			if (elapsedMilliseconds > timeout) fail(message + " within " + timeout + " milliseconds");
+			if (elapsedMilliseconds > timeout) fail("expected " + message + " within " + timeout + " milliseconds");
 		}
 	}
 }
