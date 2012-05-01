@@ -1,3 +1,7 @@
+Work in progress: make _ApplicationFrameTest.saveAsDialogShouldHandleSaveExceptionsGracefully use 
+SaveAsDialog rather than ApplicationFrame, then move test to _SaveAsDialogTest.
+
+
 Factor out save dialog class from ApplicationFrame?
 
 Move save file data clump into a "configuration" object? 

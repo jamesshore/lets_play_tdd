@@ -161,12 +161,28 @@ public class _ApplicationFrameTest {
 		assertEquals("Save As dialog title", "Save As", saveAsDialog.getTitle());
 	}
 
+	private SaveAsDialog saveAsDialog() {
+		return (SaveAsDialog)frame.getOwnedWindows()[0];
+	}
+
 	@Test
 	public void saveAsDialogShouldHandleSaveExceptionsGracefully() {
+		final ApplicationModel exceptionThrower = new __ApplicationModelSpy() {
+			@Override
+			public void save(File saveFile) throws IOException {
+				throw new IOException("generic exception");
+			}
+		};
+		Frame dummyFrame = new Frame();
+
+		final SaveAsDialog saveAsDialog = new SaveAsDialog(dummyFrame, exceptionThrower);
+
 		invokeAndWaitFor("warning dialog", 1000, new Invocation() {
 			@Override
 			public void invoke() {
-				causeSaveException(new IOException("generic exception"));
+				saveAsDialog.setDirectory("/example");
+				saveAsDialog.setFile("filename");
+				saveAsDialog.doSave();
 			}
 
 			@Override
@@ -178,28 +194,10 @@ public class _ApplicationFrameTest {
 
 		JDialog dialogWindow = (JDialog)warningDialogOrNullIfNotFound();
 		JOptionPane dialogPane = (JOptionPane)dialogWindow.getContentPane().getComponent(0);
-		assertEquals("Warning dialog parent", frame, dialogWindow.getParent());
+		assertEquals("Warning dialog parent", dummyFrame, dialogWindow.getParent());
 		assertEquals("Warning dialog title", "Save File", dialogWindow.getTitle());
 		assertEquals("Warning dialog message", "Could not save file: generic exception", dialogPane.getMessage());
 		assertEquals("Warning dialog type should be 'warning'", JOptionPane.WARNING_MESSAGE, dialogPane.getMessageType());
-	}
-
-	private void causeSaveException(final IOException exception) {
-		ApplicationModel exceptionThrower = new __ApplicationModelSpy() {
-			@Override
-			public void save(File saveFile) throws IOException {
-				throw exception;
-			}
-		};
-		frame = new ApplicationFrame(exceptionThrower);
-
-		saveAsDialog().setDirectory("/example");
-		saveAsDialog().setFile("filename");
-		frame.doSave();
-	}
-
-	private FileDialog saveAsDialog() {
-		return (FileDialog)frame.getOwnedWindows()[0];
 	}
 
 	private Dialog warningDialogOrNullIfNotFound() {

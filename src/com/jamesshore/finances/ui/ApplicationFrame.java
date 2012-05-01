@@ -2,7 +2,6 @@ package com.jamesshore.finances.ui;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.io.*;
 import javax.swing.*;
 
 public class ApplicationFrame extends JFrame {
@@ -85,20 +84,6 @@ public class ApplicationFrame extends JFrame {
 				saveAsDialog.displayModally();
 			}
 		});
-	}
-
-	// non-private for testing purposes
-	// TODO: delete me (moved to SaveAsDialog)
-	void doSave() {
-		try {
-			String directory = saveAsDialog.getDirectory();
-			String file = saveAsDialog.getFile();
-
-			if (file != null) model.save(new File(directory, file));
-		}
-		catch (IOException e) {
-			JOptionPane.showMessageDialog(this, "Could not save file: " + e.getLocalizedMessage(), "Save File", JOptionPane.WARNING_MESSAGE);
-		}
 	}
 
 	private JMenuItem menuItem(String name, KeyStroke accelerator, ActionListener action) {

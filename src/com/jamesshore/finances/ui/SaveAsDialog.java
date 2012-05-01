@@ -28,7 +28,7 @@ public class SaveAsDialog extends FileDialog {
 			if (file != null) model.save(new File(directory, file));
 		}
 		catch (IOException e) {
-			JOptionPane.showMessageDialog(this, "Could not save file: " + e.getLocalizedMessage(), "Save File", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(this.getParent(), "Could not save file: " + e.getLocalizedMessage(), "Save File", JOptionPane.WARNING_MESSAGE);
 		}
 	}
 
