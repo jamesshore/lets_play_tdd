@@ -3,7 +3,6 @@ package com.jamesshore.finances.ui;
 import static org.junit.Assert.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.*;
 import java.lang.reflect.*;
 import java.util.*;
 import javax.swing.*;
@@ -143,7 +142,7 @@ public class _ApplicationFrameTest {
 
 	@Test
 	public void saveAsMenuItemShouldShowSaveAsDialog() throws Throwable {
-		final FileDialog saveAsDialog = saveAsDialog();
+		final FileDialog saveAsDialog = (SaveAsDialog)frame.getOwnedWindows()[0];
 
 		invokeAndWaitFor("Save As dialog", 1000, new Invocation() {
 			@Override
@@ -163,47 +162,6 @@ public class _ApplicationFrameTest {
 
 	private SaveAsDialog saveAsDialog() {
 		return (SaveAsDialog)frame.getOwnedWindows()[0];
-	}
-
-	@Test
-	public void saveAsDialogShouldHandleSaveExceptionsGracefully() {
-		final ApplicationModel exceptionThrower = new __ApplicationModelSpy() {
-			@Override
-			public void save(File saveFile) throws IOException {
-				throw new IOException("generic exception");
-			}
-		};
-		Frame dummyFrame = new Frame();
-
-		final SaveAsDialog saveAsDialog = new SaveAsDialog(dummyFrame, exceptionThrower);
-
-		invokeAndWaitFor("warning dialog", 1000, new Invocation() {
-			@Override
-			public void invoke() {
-				saveAsDialog.setDirectory("/example");
-				saveAsDialog.setFile("filename");
-				saveAsDialog.doSave();
-			}
-
-			@Override
-			public boolean stopWaitingWhen() {
-				Dialog dialog = warningDialogOrNullIfNotFound();
-				return dialog != null && dialog.isVisible();
-			}
-		});
-
-		JDialog dialogWindow = (JDialog)warningDialogOrNullIfNotFound();
-		JOptionPane dialogPane = (JOptionPane)dialogWindow.getContentPane().getComponent(0);
-		assertEquals("Warning dialog parent", dummyFrame, dialogWindow.getParent());
-		assertEquals("Warning dialog title", "Save File", dialogWindow.getTitle());
-		assertEquals("Warning dialog message", "Could not save file: generic exception", dialogPane.getMessage());
-		assertEquals("Warning dialog type should be 'warning'", JOptionPane.WARNING_MESSAGE, dialogPane.getMessageType());
-	}
-
-	private Dialog warningDialogOrNullIfNotFound() {
-		Window[] childWindows = frame.getOwnedWindows();
-		if (childWindows.length < 2) return null;
-		return (Dialog)childWindows[1];
 	}
 
 	abstract class Invocation {
