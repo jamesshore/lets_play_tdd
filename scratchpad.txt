@@ -1,14 +1,8 @@
-Work in progress: make _ApplicationFrameTest.saveAsDialogShouldHandleSaveExceptionsGracefully use 
-SaveAsDialog rather than ApplicationFrame, then move test to _SaveAsDialogTest.
-
-
-Factor out save dialog class from ApplicationFrame?
-
 Move save file data clump into a "configuration" object? 
 
 File format: consider java.util.Properties (suggested by Esko Luontola in ep 159)
 
-Need to decide what to do with original user-entered values. 
+Need to decide what to do with original user-entered values in UI. 
  - Reformat them when moving away from field? What about invalid values?
 
 Consider eliminating __ApplicationModelSpy entirely

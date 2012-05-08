@@ -2,7 +2,6 @@ package com.jamesshore.finances.ui;
 
 import java.io.*;
 import com.jamesshore.finances.domain.*;
-import com.jamesshore.finances.persistence.*;
 import com.jamesshore.finances.values.*;
 
 public class ApplicationModel {
@@ -65,7 +64,7 @@ public class ApplicationModel {
 		System.out.println("save called: " + saveFile);
 		// TODO: resolve spike
 
-		new SaveFile(saveFile).save(startingBalance, startingCostBasis, yearlySpending);
+		// new SaveFile(saveFile).save(startingBalance, startingCostBasis, yearlySpending);
 	}
 
 }

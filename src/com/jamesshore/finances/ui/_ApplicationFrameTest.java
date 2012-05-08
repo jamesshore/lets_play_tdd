@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.lang.reflect.*;
-import java.util.*;
 import javax.swing.*;
 import javax.swing.table.*;
 import org.junit.*;
@@ -144,7 +143,7 @@ public class _ApplicationFrameTest {
 	public void saveAsMenuItemShouldShowSaveAsDialog() throws Throwable {
 		final FileDialog saveAsDialog = (SaveAsDialog)frame.getOwnedWindows()[0];
 
-		invokeAndWaitFor("Save As dialog", 1000, new Invocation() {
+		__Invocation.invokeAndWaitFor("Save As dialog", 1000, new __Invocation() {
 			@Override
 			public void invoke() {
 				saveAsMenuItem.doClick();
@@ -155,34 +154,5 @@ public class _ApplicationFrameTest {
 				return saveAsDialog.isVisible();
 			}
 		});
-
-		assertEquals("Save As dialog mode should be 'save'", FileDialog.SAVE, saveAsDialog.getMode());
-		assertEquals("Save As dialog title", "Save As", saveAsDialog.getTitle());
-	}
-
-	private SaveAsDialog saveAsDialog() {
-		return (SaveAsDialog)frame.getOwnedWindows()[0];
-	}
-
-	abstract class Invocation {
-		abstract public void invoke();
-
-		abstract boolean stopWaitingWhen();
-	}
-
-	private void invokeAndWaitFor(String message, int timeout, final Invocation check) {
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				check.invoke();
-			}
-		});
-
-		long startTime = new Date().getTime();
-		while (!check.stopWaitingWhen()) {
-			Thread.yield();
-			long elapsedMilliseconds = new Date().getTime() - startTime;
-			if (elapsedMilliseconds > timeout) fail("expected " + message + " within " + timeout + " milliseconds");
-		}
 	}
 }

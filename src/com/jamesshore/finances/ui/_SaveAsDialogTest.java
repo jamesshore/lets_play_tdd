@@ -3,7 +3,6 @@ package com.jamesshore.finances.ui;
 import static org.junit.Assert.*;
 import java.awt.*;
 import java.io.*;
-import java.util.*;
 import javax.swing.*;
 import org.junit.*;
 
@@ -15,6 +14,12 @@ public class _SaveAsDialogTest {
 	@After
 	public void teardown() {
 		dialog.dispose();
+	}
+
+	@Test
+	public void layout() {
+		assertEquals("Save As dialog mode should be 'save'", FileDialog.SAVE, dialog.getMode());
+		assertEquals("Save As dialog title", "Save As", dialog.getTitle());
 	}
 
 	@Test
@@ -34,7 +39,7 @@ public class _SaveAsDialogTest {
 		final Frame frame = new Frame();
 		final SaveAsDialog exceptionThrowingDialog = createExceptionThrowingSaveAsDialog(frame);
 
-		invokeAndWaitFor("warning dialog", 1000, new Invocation() {
+		__Invocation.invokeAndWaitFor("warning dialog", 1000, new __Invocation() {
 			@Override
 			public void invoke() {
 				doSave(exceptionThrowingDialog, "/example", "filename");
@@ -76,29 +81,6 @@ public class _SaveAsDialogTest {
 		exceptionThrowingDialog.setDirectory(directory);
 		exceptionThrowingDialog.setFile(filename);
 		exceptionThrowingDialog.doSave();
-	}
-
-	// TODO: Eliminate Invocation/invokeAndWaitFor() duplication between SaveAsDialogTest & ApplicationFrameTest
-	abstract class Invocation {
-		abstract public void invoke();
-
-		abstract boolean stopWaitingWhen();
-	}
-
-	private void invokeAndWaitFor(String message, int timeout, final Invocation check) {
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				check.invoke();
-			}
-		});
-
-		long startTime = new Date().getTime();
-		while (!check.stopWaitingWhen()) {
-			Thread.yield();
-			long elapsedMilliseconds = new Date().getTime() - startTime;
-			if (elapsedMilliseconds > timeout) fail("expected " + message + " within " + timeout + " milliseconds");
-		}
 	}
 
 }
