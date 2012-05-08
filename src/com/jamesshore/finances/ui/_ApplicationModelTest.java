@@ -1,8 +1,10 @@
 package com.jamesshore.finances.ui;
 
 import static org.junit.Assert.*;
+import java.io.*;
 import org.junit.*;
 import com.jamesshore.finances.domain.*;
+import com.jamesshore.finances.persistence.*;
 import com.jamesshore.finances.values.*;
 
 public class _ApplicationModelTest {
@@ -50,6 +52,28 @@ public class _ApplicationModelTest {
 	public void changingYearlySpendingShouldChangeStockMarketTableModel() {
 		model.setYearlySpending(new UserEnteredDollars("423"));
 		assertEquals(new ValidDollars(423), model.stockMarketTableModel().yearlySpending());
+	}
+
+	@Test
+	public void save() throws IOException {
+		class SaveFileSpy extends SaveFile {
+			public boolean saveCalled = false;
+
+			public SaveFileSpy() {
+				super(null);
+			}
+
+			public void save(UserEnteredDollars startingBalance, UserEnteredDollars costBasis, UserEnteredDollars yearlySpending) {
+				this.saveCalled = true;
+			}
+		}
+
+		SaveFileSpy mockSaveFile = new SaveFileSpy();
+
+		model = new ApplicationModel(mockSaveFile);
+		model.save(null);
+		assertTrue("saveFile.save() should have been called", mockSaveFile.saveCalled);
+		// TODO: assert that the correct filename is used
 	}
 
 }

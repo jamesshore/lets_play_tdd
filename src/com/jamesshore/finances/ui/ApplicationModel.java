@@ -2,6 +2,7 @@ package com.jamesshore.finances.ui;
 
 import java.io.*;
 import com.jamesshore.finances.domain.*;
+import com.jamesshore.finances.persistence.*;
 import com.jamesshore.finances.values.*;
 
 public class ApplicationModel {
@@ -23,6 +24,14 @@ public class ApplicationModel {
 	private UserEnteredDollars yearlySpending = DEFAULT_YEARLY_SPENDING;
 
 	private StockMarketTableModel stockMarketTableModel = new StockMarketTableModel(stockMarketProjection());
+
+	public ApplicationModel() {
+	}
+
+	// TODO: for testing only; delete?
+	public ApplicationModel(SaveFile mockSaveFile) {
+
+	}
 
 	public StockMarketTableModel stockMarketTableModel() {
 		return stockMarketTableModel;
@@ -61,7 +70,7 @@ public class ApplicationModel {
 	}
 
 	public void save(File saveFile) throws IOException {
-		System.out.println("save called: " + saveFile);
+		// System.out.println("save called: " + saveFile);
 		// TODO: resolve spike
 
 		// new SaveFile(saveFile).save(startingBalance, startingCostBasis, yearlySpending);
