@@ -55,6 +55,16 @@ public class _ApplicationModelTest {
 	}
 
 	@Test
+	public void nameOfSaveFile() throws IOException {
+		assertNull("should not have save file if save not called", model.saveFilePathOrNullIfNotSaved());
+		File expectedFile = new File("foo");
+		model.save(expectedFile);
+		assertEquals("should have file after save called", expectedFile, model.saveFilePathOrNullIfNotSaved());
+	}
+
+	@Test
+	@Ignore
+	// TODO
 	public void save() throws IOException {
 		class SaveFileSpy extends SaveFile {
 			public boolean saveCalled = false;

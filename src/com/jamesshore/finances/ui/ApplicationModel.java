@@ -24,6 +24,7 @@ public class ApplicationModel {
 	private UserEnteredDollars yearlySpending = DEFAULT_YEARLY_SPENDING;
 
 	private StockMarketTableModel stockMarketTableModel = new StockMarketTableModel(stockMarketProjection());
+	private SaveFile saveFile;
 
 	public ApplicationModel() {
 	}
@@ -70,10 +71,17 @@ public class ApplicationModel {
 	}
 
 	public void save(File saveFile) throws IOException {
+		this.saveFile = new SaveFile(saveFile);
+
 		// System.out.println("save called: " + saveFile);
 		// TODO: resolve spike
 
 		// new SaveFile(saveFile).save(startingBalance, startingCostBasis, yearlySpending);
+	}
+
+	public File saveFilePathOrNullIfNotSaved() {
+		if (saveFile == null) return null;
+		else return saveFile.path();
 	}
 
 }

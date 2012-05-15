@@ -11,6 +11,10 @@ public class SaveFile {
 		this.path = path;
 	}
 
+	public File path() {
+		return path;
+	}
+
 	public void save(UserEnteredDollars startingBalance, UserEnteredDollars costBasis, UserEnteredDollars yearlySpending) throws IOException {
 		Writer writer = new BufferedWriter(new FileWriter(path));
 		try {
@@ -28,5 +32,9 @@ public class SaveFile {
 		line = line.replace("\\", "\\\\");
 		line = line.replace("\n", "\\n");
 		writer.write(line + "\n");
+	}
+
+	public boolean hasSaved() {
+		return false;
 	}
 }

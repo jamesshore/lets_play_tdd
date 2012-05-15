@@ -22,6 +22,16 @@ public class _SaveFileTest {
 	}
 
 	@Test
+	public void canRetrieveFileObject() {
+		assertEquals(path, saveFile.path());
+	}
+
+	@Test
+	public void hasSaved() {
+		assertFalse("should not be saved before save() called", saveFile.hasSaved());
+	}
+
+	@Test
 	public void saveCreatesAFile() throws IOException {
 		assertFalse("assume test file does not exist", path.exists());
 
