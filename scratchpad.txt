@@ -1,3 +1,5 @@
+Handle SaveFile stub-out-file-system cheat more generically (not just in ApplicationModelTest)
+
 Move save file data clump into a "configuration" object? 
 
 File format: consider java.util.Properties (suggested by Esko Luontola in ep 159)

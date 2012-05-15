@@ -24,13 +24,13 @@ public class ApplicationModel {
 	private UserEnteredDollars yearlySpending = DEFAULT_YEARLY_SPENDING;
 
 	private StockMarketTableModel stockMarketTableModel = new StockMarketTableModel(stockMarketProjection());
-	private SaveFile saveFile;
+	private UserConfiguration saveFile;
 
 	public ApplicationModel() {
 	}
 
 	// TODO: for testing only; delete?
-	public ApplicationModel(SaveFile mockSaveFile) {
+	public ApplicationModel(UserConfiguration mockSaveFile) {
 
 	}
 
@@ -71,8 +71,8 @@ public class ApplicationModel {
 	}
 
 	public void save(File path) throws IOException {
-		this.saveFile = new SaveFile(path);
-		saveFile.save(new UserEnteredDollars(""), new UserEnteredDollars(""), new UserEnteredDollars(""));
+		this.saveFile = new UserConfiguration(path);
+		saveFile.save(new UserEnteredDollars("foo"), new UserEnteredDollars("bar"), new UserEnteredDollars("baz"));
 	}
 
 	public File saveFilePathOrNullIfNotSaved() {

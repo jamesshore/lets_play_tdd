@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 import java.io.*;
 import org.junit.*;
 import com.jamesshore.finances.domain.*;
+import com.jamesshore.finances.persistence.*;
 import com.jamesshore.finances.values.*;
 
 public class _ApplicationModelTest {
@@ -12,7 +13,13 @@ public class _ApplicationModelTest {
 
 	@Before
 	public void setup() {
+		UserConfiguration.STUB_OUT_FILE_SYSTEM_FOR_TESTING_ONLY = true;
 		model = new ApplicationModel();
+	}
+
+	@After
+	public void teardown() {
+		UserConfiguration.STUB_OUT_FILE_SYSTEM_FOR_TESTING_ONLY = false;
 	}
 
 	@Test
@@ -65,6 +72,7 @@ public class _ApplicationModelTest {
 	public void save() throws IOException {
 		model.save(new File("foo"));
 		assertTrue("file should have been saved", model.fileHasEverBeenSaved());
+		// TODO: need to write the correct values
 	}
 
 	// @Test

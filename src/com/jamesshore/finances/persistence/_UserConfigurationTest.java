@@ -6,10 +6,10 @@ import org.junit.*;
 import org.junit.rules.*;
 import com.jamesshore.finances.values.*;
 
-public class _SaveFileTest {
+public class _UserConfigurationTest {
 
 	private File path;
-	private SaveFile saveFile;
+	private UserConfiguration saveFile;
 	private UserEnteredDollars anyValue = new UserEnteredDollars("any");
 
 	@Rule
@@ -18,7 +18,7 @@ public class _SaveFileTest {
 	@Before
 	public void setup() {
 		path = new File(tempDir.getRoot(), "testfile");
-		saveFile = new SaveFile(path);
+		saveFile = new UserConfiguration(path);
 	}
 
 	@Test
@@ -29,7 +29,7 @@ public class _SaveFileTest {
 	@Test
 	public void hasSaved() throws IOException {
 		assertFalse("should not be saved before save() called", saveFile.hasEverBeenSaved());
-		saveFile.save(anyValue, anyValue, anyValue);
+		doSave(anyValue, anyValue, anyValue);
 		assertTrue("should be saved after save() called", saveFile.hasEverBeenSaved());
 	}
 
@@ -38,7 +38,7 @@ public class _SaveFileTest {
 		try {
 			path.createNewFile();
 			path.setWritable(false);
-			saveFile.save(anyValue, anyValue, anyValue);
+			doSave(anyValue, anyValue, anyValue);
 			fail("expected IOException");
 		}
 		catch (IOException e) {
@@ -53,7 +53,7 @@ public class _SaveFileTest {
 	public void saveCreatesAFile() throws IOException {
 		assertFalse("assume test file does not exist", path.exists());
 
-		saveFile.save(anyValue, anyValue, anyValue);
+		doSave(anyValue, anyValue, anyValue);
 		assertTrue("file should now exist", path.exists());
 	}
 
@@ -62,27 +62,31 @@ public class _SaveFileTest {
 		writeFile("test");
 		assertEquals("file size setup assumption", 4, path.length());
 
-		saveFile.save(anyValue, anyValue, anyValue);
+		doSave(anyValue, anyValue, anyValue);
 		String fileContents = readFile();
 		assertFalse("file should have been overwritten", fileContents.startsWith("test"));
 	}
 
 	@Test
 	public void saveWritesFileContents() throws IOException {
-		saveFile.save(new UserEnteredDollars("1.23"), new UserEnteredDollars("10.24"), new UserEnteredDollars("100.25"));
+		doSave(new UserEnteredDollars("1.23"), new UserEnteredDollars("10.24"), new UserEnteredDollars("100.25"));
 		assertFileMatches("1.23", "10.24", "100.25");
 	}
 
 	@Test
 	public void saveWritesOutUserEnteredValuesExactlyAsEntered() throws IOException {
-		saveFile.save(new UserEnteredDollars("foo"), new UserEnteredDollars("  bar"), new UserEnteredDollars("baz\t"));
+		doSave(new UserEnteredDollars("foo"), new UserEnteredDollars("  bar"), new UserEnteredDollars("baz\t"));
 		assertFileMatches("foo", "  bar", "baz\t");
 	}
 
 	@Test
 	public void saveHandlesDelimitersInUserInput() throws IOException {
-		saveFile.save(new UserEnteredDollars("\n\n\n \\n"), anyValue, anyValue);
+		doSave(new UserEnteredDollars("\n\n\n \\n"), anyValue, anyValue);
 		assertFileMatches("\\n\\n\\n \\\\n", "any", "any");
+	}
+
+	private void doSave(UserEnteredDollars startingBalance, UserEnteredDollars costBasis, UserEnteredDollars yearlySpending) throws IOException {
+		saveFile.save(startingBalance, costBasis, yearlySpending);
 	}
 
 	private void assertFileMatches(String expectedStartingBalance, String expectedCostBasis, String expectedYearlySpending) throws IOException {
@@ -121,4 +125,5 @@ public class _SaveFileTest {
 			writer.close();
 		}
 	}
+
 }
