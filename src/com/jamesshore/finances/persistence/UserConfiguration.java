@@ -10,7 +10,7 @@ public class UserConfiguration {
 	private File path = null;
 
 	public UserEnteredDollars startingBalance;
-	public UserEnteredDollars costBasis;
+	public UserEnteredDollars startingCostBasis;
 	public UserEnteredDollars yearlySpending;
 
 	public File lastSavedPathOrNullIfNeverSaved() {
@@ -18,19 +18,18 @@ public class UserConfiguration {
 	}
 
 	public void save(File path) throws IOException {
-		writeFile(path, startingBalance, costBasis, yearlySpending);
+		writeFile(path);
 		this.path = path;
 	}
 
-	// TODO: change signature
-	private void writeFile(File path, UserEnteredDollars startingBalance, UserEnteredDollars costBasis, UserEnteredDollars yearlySpending) throws IOException {
+	private void writeFile(File path) throws IOException {
 		if (STUB_OUT_FILE_SYSTEM_FOR_TESTING_ONLY) return;
 
 		Writer writer = new BufferedWriter(new FileWriter(path));
 		try {
 			writeLine(writer, "com.jamesshore.finances,1");
 			writeLine(writer, startingBalance.getUserText());
-			writeLine(writer, costBasis.getUserText());
+			writeLine(writer, startingCostBasis.getUserText());
 			writeLine(writer, yearlySpending.getUserText());
 		}
 		finally {

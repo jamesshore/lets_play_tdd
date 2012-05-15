@@ -22,18 +22,18 @@ public class _UserConfigurationTest {
 	}
 
 	@Test
-	public void lastSavedTo() throws IOException {
+	public void lastSavedPath() throws IOException {
 		assertNull("should not have value before save() called", saveFile.lastSavedPathOrNullIfNeverSaved());
-		doSave(anyValue, anyValue, anyValue);
+		doSave();
 		assertEquals("file path", path, saveFile.lastSavedPathOrNullIfNeverSaved());
 	}
 
 	@Test
-	public void lastSavedTo_DoesNotChangeWhenExceptionOccurs() {
+	public void lastSavedPath_DoesNotChangeWhenExceptionOccurs() {
 		try {
 			path.createNewFile();
 			path.setWritable(false);
-			doSave(anyValue, anyValue, anyValue);
+			doSave();
 			fail("expected IOException");
 		}
 		catch (IOException e) {
@@ -47,8 +47,7 @@ public class _UserConfigurationTest {
 	@Test
 	public void saveCreatesAFile() throws IOException {
 		assertFalse("assume test file does not exist", path.exists());
-
-		doSave(anyValue, anyValue, anyValue);
+		doSave();
 		assertTrue("file should now exist", path.exists());
 	}
 
@@ -57,7 +56,7 @@ public class _UserConfigurationTest {
 		writeFile("test");
 		assertEquals("file size setup assumption", 4, path.length());
 
-		doSave(anyValue, anyValue, anyValue);
+		doSave();
 		String fileContents = readFile();
 		assertFalse("file should have been overwritten", fileContents.startsWith("test"));
 	}
@@ -80,9 +79,13 @@ public class _UserConfigurationTest {
 		assertFileMatches("\\n\\n\\n \\\\n", "any", "any");
 	}
 
+	private void doSave() throws IOException {
+		doSave(anyValue, anyValue, anyValue);
+	}
+
 	private void doSave(UserEnteredDollars startingBalance, UserEnteredDollars costBasis, UserEnteredDollars yearlySpending) throws IOException {
 		saveFile.startingBalance = startingBalance;
-		saveFile.costBasis = costBasis;
+		saveFile.startingCostBasis = costBasis;
 		saveFile.yearlySpending = yearlySpending;
 
 		saveFile.save(path);

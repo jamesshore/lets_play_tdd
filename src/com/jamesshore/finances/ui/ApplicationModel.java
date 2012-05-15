@@ -15,23 +15,22 @@ public class ApplicationModel {
 	public static final TaxRate DEFAULT_CAPITAL_GAINS_TAX_RATE = new TaxRate(25);
 	public static final UserEnteredDollars DEFAULT_YEARLY_SPENDING = new UserEnteredDollars("695");
 
-	private Year startingYear = DEFAULT_STARTING_YEAR;
-	private Year endingYear = DEFAULT_ENDING_YEAR;
-	private UserEnteredDollars startingBalance = DEFAULT_STARTING_BALANCE;
-	private UserEnteredDollars startingCostBasis = DEFAULT_STARTING_COST_BASIS;
-	private GrowthRate growthRate = DEFAULT_GROWTH_RATE;
-	private TaxRate capitalGainsTaxRate = DEFAULT_CAPITAL_GAINS_TAX_RATE;
 	private UserEnteredDollars yearlySpending = DEFAULT_YEARLY_SPENDING;
 
-	private StockMarketTableModel stockMarketTableModel = new StockMarketTableModel(stockMarketProjection());
-	private UserConfiguration saveFile;
+	private Year startingYear = DEFAULT_STARTING_YEAR;
+	private Year endingYear = DEFAULT_ENDING_YEAR;
+	private GrowthRate growthRate = DEFAULT_GROWTH_RATE;
+	private TaxRate capitalGainsTaxRate = DEFAULT_CAPITAL_GAINS_TAX_RATE;
+
+	private UserConfiguration configuration;
+	private StockMarketTableModel stockMarketTableModel;
 
 	public ApplicationModel() {
-	}
+		configuration = new UserConfiguration();
+		configuration.startingBalance = DEFAULT_STARTING_BALANCE; // TODO: Move to UserConfiguration
+		configuration.startingCostBasis = DEFAULT_STARTING_COST_BASIS;
 
-	// TODO: for testing only; delete?
-	public ApplicationModel(UserConfiguration mockSaveFile) {
-
+		stockMarketTableModel = new StockMarketTableModel(stockMarketProjection());
 	}
 
 	public StockMarketTableModel stockMarketTableModel() {
@@ -39,11 +38,11 @@ public class ApplicationModel {
 	}
 
 	public UserEnteredDollars startingBalance() {
-		return startingBalance;
+		return configuration.startingBalance;
 	}
 
 	public UserEnteredDollars startingCostBasis() {
-		return startingCostBasis;
+		return configuration.startingCostBasis;
 	}
 
 	public UserEnteredDollars yearlySpending() {
@@ -51,12 +50,12 @@ public class ApplicationModel {
 	}
 
 	public void setStartingBalance(UserEnteredDollars startingBalance) {
-		this.startingBalance = startingBalance;
+		configuration.startingBalance = startingBalance;
 		stockMarketTableModel.setProjection(stockMarketProjection());
 	}
 
 	public void setStartingCostBasis(UserEnteredDollars startingCostBasis) {
-		this.startingCostBasis = startingCostBasis;
+		configuration.startingCostBasis = startingCostBasis;
 		stockMarketTableModel.setProjection(stockMarketProjection());
 	}
 
@@ -66,21 +65,21 @@ public class ApplicationModel {
 	}
 
 	public StockMarketProjection stockMarketProjection() {
-		StockMarketYear firstYear = new StockMarketYear(startingYear, startingBalance, startingCostBasis, growthRate, capitalGainsTaxRate);
+		StockMarketYear firstYear = new StockMarketYear(startingYear, configuration.startingBalance, configuration.startingCostBasis, growthRate, capitalGainsTaxRate);
 		return new StockMarketProjection(firstYear, endingYear, yearlySpending);
 	}
 
 	public void save(File path) throws IOException {
-		this.saveFile = new UserConfiguration();
-		saveFile.costBasis = new UserEnteredDollars("foo");
-		saveFile.startingBalance = new UserEnteredDollars("bar");
-		saveFile.yearlySpending = new UserEnteredDollars("baz");
-		saveFile.save(path);
+		// this.configuration = new UserConfiguration();
+		// configuration.costBasis = new UserEnteredDollars("foo");
+		// configuration.startingBalance = new UserEnteredDollars("bar");
+		// configuration.yearlySpending = new UserEnteredDollars("baz");
+		// configuration.save(path);
 	}
 
 	public File lastSavedPathOrNullIfNeverSaved() {
-		if (saveFile == null) return null;
-		else return saveFile.lastSavedPathOrNullIfNeverSaved();
+		if (configuration == null) return null;
+		else return configuration.lastSavedPathOrNullIfNeverSaved();
 	}
 
 }
