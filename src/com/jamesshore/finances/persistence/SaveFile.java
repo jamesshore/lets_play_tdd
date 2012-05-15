@@ -6,6 +6,7 @@ import com.jamesshore.finances.values.*;
 public class SaveFile {
 
 	private File path;
+	private boolean hasSaved = false;
 
 	public SaveFile(File path) {
 		this.path = path;
@@ -22,6 +23,7 @@ public class SaveFile {
 			writeLine(writer, startingBalance.getUserText());
 			writeLine(writer, costBasis.getUserText());
 			writeLine(writer, yearlySpending.getUserText());
+			hasSaved = true;
 		}
 		finally {
 			writer.close();
@@ -34,7 +36,7 @@ public class SaveFile {
 		writer.write(line + "\n");
 	}
 
-	public boolean hasSaved() {
-		return false;
+	public boolean hasEverBeenSaved() {
+		return hasSaved;
 	}
 }

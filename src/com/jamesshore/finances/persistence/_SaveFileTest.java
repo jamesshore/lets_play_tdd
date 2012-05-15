@@ -27,8 +27,26 @@ public class _SaveFileTest {
 	}
 
 	@Test
-	public void hasSaved() {
-		assertFalse("should not be saved before save() called", saveFile.hasSaved());
+	public void hasSaved() throws IOException {
+		assertFalse("should not be saved before save() called", saveFile.hasEverBeenSaved());
+		saveFile.save(anyValue, anyValue, anyValue);
+		assertTrue("should be saved after save() called", saveFile.hasEverBeenSaved());
+	}
+
+	@Test
+	public void hasSavedIsNotTrueIfExceptionOccurredWhileSaving() {
+		try {
+			path.createNewFile();
+			path.setWritable(false);
+			saveFile.save(anyValue, anyValue, anyValue);
+			fail("expected IOException");
+		}
+		catch (IOException e) {
+			assertFalse("should not be saved", saveFile.hasEverBeenSaved());
+		}
+		finally {
+			path.setWritable(true);
+		}
 	}
 
 	@Test

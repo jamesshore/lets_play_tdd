@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 import java.io.*;
 import org.junit.*;
 import com.jamesshore.finances.domain.*;
-import com.jamesshore.finances.persistence.*;
 import com.jamesshore.finances.values.*;
 
 public class _ApplicationModelTest {
@@ -63,27 +62,34 @@ public class _ApplicationModelTest {
 	}
 
 	@Test
-	@Ignore
-	// TODO
 	public void save() throws IOException {
-		class SaveFileSpy extends SaveFile {
-			public boolean saveCalled = false;
-
-			public SaveFileSpy() {
-				super(null);
-			}
-
-			public void save(UserEnteredDollars startingBalance, UserEnteredDollars costBasis, UserEnteredDollars yearlySpending) {
-				this.saveCalled = true;
-			}
-		}
-
-		SaveFileSpy mockSaveFile = new SaveFileSpy();
-
-		model = new ApplicationModel(mockSaveFile);
-		model.save(null);
-		assertTrue("saveFile.save() should have been called", mockSaveFile.saveCalled);
-		// TODO: assert that the correct filename is used
+		model.save(new File("foo"));
+		assertTrue("file should have been saved", model.fileHasEverBeenSaved());
 	}
+
+	// @Test
+	// @Ignore
+	// // TODO
+	// public void save() throws IOException {
+	// class SaveFileSpy extends SaveFile {
+	// public boolean saveCalled = false;
+	//
+	// public SaveFileSpy() {
+	// super(null);
+	// }
+	//
+	// public void save(UserEnteredDollars startingBalance, UserEnteredDollars costBasis, UserEnteredDollars
+	// yearlySpending) {
+	// this.saveCalled = true;
+	// }
+	// }
+	//
+	// SaveFileSpy mockSaveFile = new SaveFileSpy();
+	//
+	// model = new ApplicationModel(mockSaveFile);
+	// model.save(null);
+	// assertTrue("saveFile.save() should have been called", mockSaveFile.saveCalled);
+	// // TODO: assert that the correct filename is used
+	// }
 
 }

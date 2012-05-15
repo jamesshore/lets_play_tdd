@@ -70,18 +70,18 @@ public class ApplicationModel {
 		return new StockMarketProjection(firstYear, endingYear, yearlySpending);
 	}
 
-	public void save(File saveFile) throws IOException {
-		this.saveFile = new SaveFile(saveFile);
-
-		// System.out.println("save called: " + saveFile);
-		// TODO: resolve spike
-
-		// new SaveFile(saveFile).save(startingBalance, startingCostBasis, yearlySpending);
+	public void save(File path) throws IOException {
+		this.saveFile = new SaveFile(path);
+		saveFile.save(new UserEnteredDollars(""), new UserEnteredDollars(""), new UserEnteredDollars(""));
 	}
 
 	public File saveFilePathOrNullIfNotSaved() {
 		if (saveFile == null) return null;
 		else return saveFile.path();
+	}
+
+	public boolean fileHasEverBeenSaved() {
+		return saveFile.hasEverBeenSaved();
 	}
 
 }
