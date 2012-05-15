@@ -71,17 +71,16 @@ public class ApplicationModel {
 	}
 
 	public void save(File path) throws IOException {
-		this.saveFile = new UserConfiguration(path);
-		saveFile.save(new UserEnteredDollars("foo"), new UserEnteredDollars("bar"), new UserEnteredDollars("baz"));
+		this.saveFile = new UserConfiguration();
+		saveFile.costBasis = new UserEnteredDollars("foo");
+		saveFile.startingBalance = new UserEnteredDollars("bar");
+		saveFile.yearlySpending = new UserEnteredDollars("baz");
+		saveFile.save(path);
 	}
 
-	public File saveFilePathOrNullIfNotSaved() {
+	public File lastSavedPathOrNullIfNeverSaved() {
 		if (saveFile == null) return null;
-		else return saveFile.path();
-	}
-
-	public boolean fileHasEverBeenSaved() {
-		return saveFile.hasEverBeenSaved();
+		else return saveFile.lastSavedPathOrNullIfNeverSaved();
 	}
 
 }

@@ -18,23 +18,18 @@ public class _UserConfigurationTest {
 	@Before
 	public void setup() {
 		path = new File(tempDir.getRoot(), "testfile");
-		saveFile = new UserConfiguration(path);
+		saveFile = new UserConfiguration();
 	}
 
 	@Test
-	public void canRetrieveFileObject() {
-		assertEquals(path, saveFile.path());
-	}
-
-	@Test
-	public void hasSaved() throws IOException {
-		assertFalse("should not be saved before save() called", saveFile.hasEverBeenSaved());
+	public void lastSavedTo() throws IOException {
+		assertNull("should not have value before save() called", saveFile.lastSavedPathOrNullIfNeverSaved());
 		doSave(anyValue, anyValue, anyValue);
-		assertTrue("should be saved after save() called", saveFile.hasEverBeenSaved());
+		assertEquals("file path", path, saveFile.lastSavedPathOrNullIfNeverSaved());
 	}
 
 	@Test
-	public void hasSavedIsNotTrueIfExceptionOccurredWhileSaving() {
+	public void lastSavedTo_DoesNotChangeWhenExceptionOccurs() {
 		try {
 			path.createNewFile();
 			path.setWritable(false);
@@ -42,7 +37,7 @@ public class _UserConfigurationTest {
 			fail("expected IOException");
 		}
 		catch (IOException e) {
-			assertFalse("should not be saved", saveFile.hasEverBeenSaved());
+			assertNull("should not have lastSavedTo path", saveFile.lastSavedPathOrNullIfNeverSaved());
 		}
 		finally {
 			path.setWritable(true);
@@ -86,7 +81,11 @@ public class _UserConfigurationTest {
 	}
 
 	private void doSave(UserEnteredDollars startingBalance, UserEnteredDollars costBasis, UserEnteredDollars yearlySpending) throws IOException {
-		saveFile.save(startingBalance, costBasis, yearlySpending);
+		saveFile.startingBalance = startingBalance;
+		saveFile.costBasis = costBasis;
+		saveFile.yearlySpending = yearlySpending;
+
+		saveFile.save(path);
 	}
 
 	private void assertFileMatches(String expectedStartingBalance, String expectedCostBasis, String expectedYearlySpending) throws IOException {
