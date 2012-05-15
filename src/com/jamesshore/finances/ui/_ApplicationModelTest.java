@@ -27,12 +27,13 @@ public class _ApplicationModelTest {
 		StockMarketProjection projection = model.stockMarketTableModel().stockMarketProjection();
 
 		StockMarketYear startingYear = projection.getYearOffset(0);
+		assertEquals(UserConfiguration.DEFAULT_STARTING_BALANCE, startingYear.startingBalance());
+		assertEquals(UserConfiguration.DEFAULT_STARTING_COST_BASIS, startingYear.startingCostBasis());
+		assertEquals(UserConfiguration.DEFAULT_YEARLY_SPENDING, startingYear.totalSellOrders());
+
 		assertEquals(ApplicationModel.DEFAULT_STARTING_YEAR, startingYear.year());
-		assertEquals(ApplicationModel.DEFAULT_STARTING_BALANCE, startingYear.startingBalance());
-		assertEquals(ApplicationModel.DEFAULT_STARTING_COST_BASIS, startingYear.startingCostBasis());
 		assertEquals(ApplicationModel.DEFAULT_GROWTH_RATE, startingYear.growthRate());
 		assertEquals(ApplicationModel.DEFAULT_CAPITAL_GAINS_TAX_RATE, startingYear.capitalGainsTaxRate());
-		assertEquals(ApplicationModel.DEFAULT_YEARLY_SPENDING, startingYear.totalSellOrders());
 
 		assertEquals(41, projection.numberOfYears());
 	}
@@ -43,9 +44,10 @@ public class _ApplicationModelTest {
 	}
 
 	@Test
-	public void changingStartingBalanceShouldChangeStockMarketTableModel() {
+	public void changingStartingBalanceShouldChangeModel() {
 		model.setStartingBalance(new UserEnteredDollars("123"));
-		assertEquals(new ValidDollars(123), model.stockMarketTableModel().startingBalance());
+		assertEquals("stock market table model", new ValidDollars(123), model.stockMarketTableModel().startingBalance());
+		assertEquals("configuration", new ValidDollars(123), model.startingBalance());
 	}
 
 	@Test
@@ -61,45 +63,11 @@ public class _ApplicationModelTest {
 	}
 
 	@Test
-	@Ignore
-	// TODO
-	public void nameOfSaveFile() throws IOException {
-		assertNull("should not have save file if save not called", model.lastSavedPathOrNullIfNeverSaved());
-		File expectedFile = new File("foo");
+	public void saveShouldSaveConfiguration() throws IOException {
+		assertNull("configuration should not be saved", model.lastSavedPathOrNullIfNeverSaved());
+		File expectedFile = new File("FOO");
 		model.save(expectedFile);
-		assertEquals("should have file after save called", expectedFile, model.lastSavedPathOrNullIfNeverSaved());
+		assertEquals("configuration save file", expectedFile, model.lastSavedPathOrNullIfNeverSaved());
 	}
-
-	@Test
-	public void save() throws IOException {
-		// model.save(new File("foo"));
-		// assertTrue("file should have been saved", model.fileHasEverBeenSaved());
-		// TODO: need to write the correct values
-	}
-
-	// @Test
-	// @Ignore
-	// // TODO
-	// public void save() throws IOException {
-	// class SaveFileSpy extends SaveFile {
-	// public boolean saveCalled = false;
-	//
-	// public SaveFileSpy() {
-	// super(null);
-	// }
-	//
-	// public void save(UserEnteredDollars startingBalance, UserEnteredDollars costBasis, UserEnteredDollars
-	// yearlySpending) {
-	// this.saveCalled = true;
-	// }
-	// }
-	//
-	// SaveFileSpy mockSaveFile = new SaveFileSpy();
-	//
-	// model = new ApplicationModel(mockSaveFile);
-	// model.save(null);
-	// assertTrue("saveFile.save() should have been called", mockSaveFile.saveCalled);
-	// // TODO: assert that the correct filename is used
-	// }
 
 }

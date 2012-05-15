@@ -9,7 +9,7 @@ import com.jamesshore.finances.values.*;
 public class _UserConfigurationTest {
 
 	private File path;
-	private UserConfiguration saveFile;
+	private UserConfiguration saveFile; // TODO: rename me
 	private UserEnteredDollars anyValue = new UserEnteredDollars("any");
 
 	@Rule
@@ -19,6 +19,13 @@ public class _UserConfigurationTest {
 	public void setup() {
 		path = new File(tempDir.getRoot(), "testfile");
 		saveFile = new UserConfiguration();
+	}
+
+	@Test
+	public void shouldHaveDefaults() {
+		assertEquals("starting balance", UserConfiguration.DEFAULT_STARTING_BALANCE, saveFile.startingBalance);
+		assertEquals("starting cost basis", UserConfiguration.DEFAULT_STARTING_COST_BASIS, saveFile.startingCostBasis);
+		assertEquals("yearly spending", UserConfiguration.DEFAULT_YEARLY_SPENDING, saveFile.yearlySpending);
 	}
 
 	@Test
