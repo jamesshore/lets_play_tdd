@@ -1,3 +1,7 @@
+Create smoke test to make sure TESTING_ONLY variable isn't flipped in production?
+
+Get rid of ApplicationModel.lastSavedPathOrNullIfNeverSaved() pass-through by injecting UserConfiguration in test?
+
 Handle SaveFile stub-out-file-system cheat more generically (not just in ApplicationModelTest)
 
 Move save file data clump into a "configuration" object? 

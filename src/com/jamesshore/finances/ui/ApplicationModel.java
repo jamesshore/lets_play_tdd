@@ -17,8 +17,17 @@ public class ApplicationModel {
 	private GrowthRate growthRate = DEFAULT_GROWTH_RATE;
 	private TaxRate capitalGainsTaxRate = DEFAULT_CAPITAL_GAINS_TAX_RATE;
 
-	private UserConfiguration configuration = new UserConfiguration();
-	private StockMarketTableModel stockMarketTableModel = new StockMarketTableModel(stockMarketProjection());
+	private UserConfiguration configuration;
+	private StockMarketTableModel stockMarketTableModel;
+
+	public ApplicationModel() {
+		this(new UserConfiguration());
+	}
+
+	public ApplicationModel(UserConfiguration configuration) {
+		this.configuration = configuration;
+		this.stockMarketTableModel = new StockMarketTableModel(stockMarketProjection());
+	}
 
 	public StockMarketTableModel stockMarketTableModel() {
 		return stockMarketTableModel;
@@ -30,13 +39,11 @@ public class ApplicationModel {
 	}
 
 	public UserEnteredDollars startingCostBasis() {
-		return new UserEnteredDollars("foo");
-		// return configuration.startingCostBasis;
+		return configuration.startingCostBasis;
 	}
 
 	public UserEnteredDollars yearlySpending() {
-		return new UserEnteredDollars("foo");
-		// return configuration.yearlySpending;
+		return configuration.yearlySpending;
 	}
 
 	public void setStartingBalance(UserEnteredDollars startingBalance) {
@@ -62,9 +69,4 @@ public class ApplicationModel {
 	public void save(File path) throws IOException {
 		configuration.save(path);
 	}
-
-	public File lastSavedPathOrNullIfNeverSaved() {
-		return configuration.lastSavedPathOrNullIfNeverSaved();
-	}
-
 }

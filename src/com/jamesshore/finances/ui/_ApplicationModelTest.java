@@ -9,12 +9,14 @@ import com.jamesshore.finances.values.*;
 
 public class _ApplicationModelTest {
 
+	private UserConfiguration configuration;
 	private ApplicationModel model;
 
 	@Before
 	public void setup() {
 		UserConfiguration.STUB_OUT_FILE_SYSTEM_FOR_TESTING_ONLY = true;
-		model = new ApplicationModel();
+		configuration = new UserConfiguration();
+		model = new ApplicationModel(configuration);
 	}
 
 	@After
@@ -53,21 +55,23 @@ public class _ApplicationModelTest {
 	@Test
 	public void changingStartingCostBasisShouldChangeStockMarketTableModel() {
 		model.setStartingCostBasis(new UserEnteredDollars("39"));
-		assertEquals(new ValidDollars(39), model.stockMarketTableModel().startingCostBasis());
+		assertEquals("stock market table model", new ValidDollars(39), model.stockMarketTableModel().startingCostBasis());
+		assertEquals("configuration", new ValidDollars(39), model.startingCostBasis());
 	}
 
 	@Test
 	public void changingYearlySpendingShouldChangeStockMarketTableModel() {
 		model.setYearlySpending(new UserEnteredDollars("423"));
-		assertEquals(new ValidDollars(423), model.stockMarketTableModel().yearlySpending());
+		assertEquals("stock market table model", new ValidDollars(423), model.stockMarketTableModel().yearlySpending());
+		assertEquals("configuration", new ValidDollars(423), model.yearlySpending());
 	}
 
 	@Test
 	public void saveShouldSaveConfiguration() throws IOException {
-		assertNull("configuration should not be saved", model.lastSavedPathOrNullIfNeverSaved());
+		assertNull("configuration should not be saved", configuration.lastSavedPathOrNullIfNeverSaved());
 		File expectedFile = new File("FOO");
 		model.save(expectedFile);
-		assertEquals("configuration save file", expectedFile, model.lastSavedPathOrNullIfNeverSaved());
+		assertEquals("configuration save file", expectedFile, configuration.lastSavedPathOrNullIfNeverSaved());
 	}
 
 }
