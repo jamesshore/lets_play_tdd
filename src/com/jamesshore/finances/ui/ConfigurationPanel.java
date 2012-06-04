@@ -2,14 +2,17 @@ package com.jamesshore.finances.ui;
 
 import javax.swing.*;
 import net.miginfocom.swing.*;
+import com.jamesshore.finances.persistence.*;
 import com.jamesshore.finances.ui.DollarsTextField.ChangeListener;
 
 public class ConfigurationPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
-	private final ApplicationModel applicationModel;
+	private ApplicationModel applicationModel;
+	private UserConfiguration userConfiguration;
 
-	public ConfigurationPanel(ApplicationModel applicationModel) {
+	public ConfigurationPanel(ApplicationModel applicationModel, UserConfiguration configuration) {
 		this.applicationModel = applicationModel;
+		this.userConfiguration = configuration;
 		addComponents();
 	}
 
@@ -26,10 +29,11 @@ public class ConfigurationPanel extends JPanel {
 	}
 
 	public DollarsTextField startingBalanceField() {
-		final DollarsTextField field = new DollarsTextField(applicationModel.startingBalance());
+		final DollarsTextField field = new DollarsTextField(userConfiguration.startingBalance);
 		field.addTextChangeListener(new ChangeListener() {
 			public void textChanged() {
-				applicationModel.setStartingBalance(field.getDollars());
+				userConfiguration.startingBalance = field.getDollars();
+				applicationModel.configurationUpdated();
 			}
 		});
 		return field;

@@ -3,6 +3,7 @@ package com.jamesshore.finances.ui;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import com.jamesshore.finances.persistence.*;
 
 public class ApplicationFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -15,7 +16,7 @@ public class ApplicationFrame extends JFrame {
 	private SaveAsDialog saveAsDialog;
 
 	public static void newWindow() {
-		new ApplicationFrame(new ApplicationModel()).setVisible(true);
+		new ApplicationFrame(new ApplicationModel(new UserConfiguration())).setVisible(true);
 	}
 
 	public ApplicationFrame(ApplicationModel applicationModel) {
@@ -46,7 +47,7 @@ public class ApplicationFrame extends JFrame {
 	}
 
 	private ConfigurationPanel configurationPanel() {
-		return new ConfigurationPanel(model);
+		return new ConfigurationPanel(model, model.userConfiguration());
 	}
 
 	private JMenuBar menuBar() {

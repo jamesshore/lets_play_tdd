@@ -25,6 +25,11 @@ public class _ApplicationModelTest {
 	}
 
 	@Test
+	public void userConfiguration() {
+		assertSame(configuration, model.userConfiguration());
+	}
+
+	@Test
 	public void shouldStartWithDefaultStockMarket() {
 		StockMarketProjection projection = model.stockMarketTableModel().stockMarketProjection();
 

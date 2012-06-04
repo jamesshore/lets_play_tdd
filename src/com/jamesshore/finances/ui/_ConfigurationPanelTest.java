@@ -27,7 +27,7 @@ public class _ConfigurationPanelTest {
 	@Before
 	public void setUp() {
 		model = new ApplicationModel();
-		panel = new ConfigurationPanel(model);
+		panel = new ConfigurationPanel(model, model.userConfiguration());
 	}
 
 	@Test
@@ -61,16 +61,17 @@ public class _ConfigurationPanelTest {
 	@Test
 	public void startingBalanceFieldUpdatesApplicationModel() {
 		__ApplicationModelSpy mockModel = new __ApplicationModelSpy();
-		panel = new ConfigurationPanel(mockModel);
+		panel = new ConfigurationPanel(mockModel, mockModel.userConfiguration());
 
 		startingBalanceField().setText("668");
-		assertEquals("applicationModel should be updated", new ValidDollars(668), mockModel.setStartingBalanceCalledWith);
+		assertEquals("user configuration should be updated", new ValidDollars(668), mockModel.userConfiguration().startingBalance);
+		assertTrue("applicationModel should be updated", mockModel.configurationUpdatedCalled);
 	}
 
 	@Test
 	public void costBasisFieldUpdatesApplicationModel() {
 		__ApplicationModelSpy mockModel = new __ApplicationModelSpy();
-		panel = new ConfigurationPanel(mockModel);
+		panel = new ConfigurationPanel(mockModel, mockModel.userConfiguration());
 
 		costBasisField().setText("670");
 		assertEquals("applicationModel should be updated", new ValidDollars(670), mockModel.setStartingCostBasisCalledWith);
@@ -79,7 +80,7 @@ public class _ConfigurationPanelTest {
 	@Test
 	public void yearlySpendingFieldUpdatesApplicationModel() {
 		__ApplicationModelSpy mockModel = new __ApplicationModelSpy();
-		panel = new ConfigurationPanel(mockModel);
+		panel = new ConfigurationPanel(mockModel, mockModel.userConfiguration());
 
 		yearlySpendingField().setText("672");
 		assertEquals("applicationModel should be updated", new ValidDollars(672), mockModel.setYearlySpendingCalledWith);

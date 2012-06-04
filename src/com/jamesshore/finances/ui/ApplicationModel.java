@@ -20,6 +20,7 @@ public class ApplicationModel {
 	private UserConfiguration configuration;
 	private StockMarketTableModel stockMarketTableModel;
 
+	// TODO: DELETE ME?
 	public ApplicationModel() {
 		this(new UserConfiguration());
 	}
@@ -29,11 +30,15 @@ public class ApplicationModel {
 		this.stockMarketTableModel = new StockMarketTableModel(stockMarketProjection());
 	}
 
+	public UserConfiguration userConfiguration() {
+		return configuration;
+	}
+
 	public StockMarketTableModel stockMarketTableModel() {
 		return stockMarketTableModel;
 	}
 
-	// TODO: who uses this method?
+	// TODO: Remove these 6 getters and setters?
 	public UserEnteredDollars startingBalance() {
 		return configuration.startingBalance;
 	}
@@ -48,16 +53,20 @@ public class ApplicationModel {
 
 	public void setStartingBalance(UserEnteredDollars startingBalance) {
 		configuration.startingBalance = startingBalance;
-		stockMarketTableModel.setProjection(stockMarketProjection());
+		configurationUpdated();
 	}
 
 	public void setStartingCostBasis(UserEnteredDollars startingCostBasis) {
 		configuration.startingCostBasis = startingCostBasis;
-		stockMarketTableModel.setProjection(stockMarketProjection());
+		configurationUpdated();
 	}
 
 	public void setYearlySpending(UserEnteredDollars yearlySpending) {
 		configuration.yearlySpending = yearlySpending;
+		configurationUpdated();
+	}
+
+	public void configurationUpdated() {
 		stockMarketTableModel.setProjection(stockMarketProjection());
 	}
 
@@ -68,9 +77,5 @@ public class ApplicationModel {
 
 	public void save(File path) throws IOException {
 		configuration.save(path);
-	}
-
-	public void configurationUpdated() {
-		stockMarketTableModel.setProjection(stockMarketProjection());
 	}
 }
