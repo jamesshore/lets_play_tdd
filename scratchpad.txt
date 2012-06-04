@@ -1,30 +1,34 @@
-Create smoke test to make sure TESTING_ONLY variable isn't flipped in production?
+== Finish basic saving ==
 
-Get rid of ApplicationModel.lastSavedPathOrNullIfNeverSaved() pass-through by injecting UserConfiguration in test?
+Create smoke test to make sure TESTING_ONLY variable isn't flipped in production?
 
 Handle SaveFile stub-out-file-system cheat more generically (not just in ApplicationModelTest)
 
-Move save file data clump into a "configuration" object? 
-
-File format: consider java.util.Properties (suggested by Esko Luontola in ep 159)
-
-Need to decide what to do with original user-entered values in UI. 
- - Reformat them when moving away from field? What about invalid values?
-
 Consider eliminating __ApplicationModelSpy entirely
 
-Deal with opening same file twice (see episode 137 comments, Aleksi Niiranen)
+
+== Special cases / polish ==
+
+Take a second look at IOExceptions -- are there special cases to handle?
 
 Deal with FileDialog returning invalid directory/filename. (It can happen, according to the Java docs)
 
 Deal with FileDialog returning null directory and valid filename.
 
-Deal with loading excessively large file
-
-Handle IOExceptions -- are there other cases to handle?
-
 Application menu still works when modal dialog is up -- so you can "Save As" twice in a row, for example. Fix this.
 
+Need to decide what to do with original user-entered values in UI. 
+ - Reformat them when moving away from field? What about invalid values?
+
+
+== Loading == 
+
+Deal with opening same file twice (see episode 137 comments, Aleksi Niiranen)
+
+Deal with loading excessively large file
+
+
+File format: consider java.util.Properties (suggested by Esko Luontola in ep 159)
 ---
 
 Use a @Rule to enforce SwingUtilities.invokeAndWait on every Swing test?

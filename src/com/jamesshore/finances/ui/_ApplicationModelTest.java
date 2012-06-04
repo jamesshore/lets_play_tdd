@@ -67,6 +67,13 @@ public class _ApplicationModelTest {
 	}
 
 	@Test
+	public void configurationUpdated_ResultsInStockMarketTableModelChanging() {
+		configuration.yearlySpending = new UserEnteredDollars("423");
+		model.configurationUpdated();
+		assertEquals("stock market table model", new ValidDollars(423), model.stockMarketTableModel().yearlySpending());
+	}
+
+	@Test
 	public void saveShouldSaveConfiguration() throws IOException {
 		assertNull("configuration should not be saved", configuration.lastSavedPathOrNullIfNeverSaved());
 		File expectedFile = new File("FOO");
