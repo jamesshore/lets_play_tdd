@@ -15,18 +15,13 @@ public class _ApplicationModelTest {
 	@Before
 	public void setup() {
 		UserConfiguration.STUB_OUT_FILE_SYSTEM_FOR_TESTING_ONLY = true;
-		configuration = new UserConfiguration();
-		model = new ApplicationModel(configuration);
+		model = new ApplicationModel();
+		configuration = model.userConfiguration();
 	}
 
 	@After
 	public void teardown() {
 		UserConfiguration.STUB_OUT_FILE_SYSTEM_FOR_TESTING_ONLY = false;
-	}
-
-	@Test
-	public void userConfiguration() {
-		assertSame(configuration, model.userConfiguration());
 	}
 
 	@Test
@@ -48,13 +43,6 @@ public class _ApplicationModelTest {
 	@Test
 	public void shouldOnlyHaveOneInstanceOfStockMarketTableModel() {
 		assertTrue("should be same instance", model.stockMarketTableModel() == model.stockMarketTableModel());
-	}
-
-	@Test
-	public void changingYearlySpendingShouldChangeStockMarketTableModel() {
-		model.setYearlySpending(new UserEnteredDollars("423"));
-		assertEquals("stock market table model", new ValidDollars(423), model.stockMarketTableModel().yearlySpending());
-		assertEquals("configuration", new ValidDollars(423), model.yearlySpending());
 	}
 
 	@Test

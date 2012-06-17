@@ -20,13 +20,8 @@ public class ApplicationModel {
 	private UserConfiguration configuration;
 	private StockMarketTableModel stockMarketTableModel;
 
-	// TODO: DELETE ME?
 	public ApplicationModel() {
-		this(new UserConfiguration());
-	}
-
-	public ApplicationModel(UserConfiguration configuration) {
-		this.configuration = configuration;
+		this.configuration = new UserConfiguration();
 		this.stockMarketTableModel = new StockMarketTableModel(stockMarketProjection());
 	}
 
@@ -36,16 +31,6 @@ public class ApplicationModel {
 
 	public StockMarketTableModel stockMarketTableModel() {
 		return stockMarketTableModel;
-	}
-
-	// TODO: Remove these 6 getters and setters?
-	public UserEnteredDollars yearlySpending() {
-		return configuration.yearlySpending;
-	}
-
-	public void setYearlySpending(UserEnteredDollars yearlySpending) {
-		configuration.yearlySpending = yearlySpending;
-		configurationUpdated();
 	}
 
 	public void configurationUpdated() {

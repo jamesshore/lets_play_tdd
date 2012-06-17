@@ -9,7 +9,7 @@ import com.jamesshore.finances.values.*;
 public class _UserConfigurationTest {
 
 	private File path;
-	private UserConfiguration saveFile; // TODO: rename me
+	private UserConfiguration userConfiguration;
 	private UserEnteredDollars anyValue = new UserEnteredDollars("any");
 
 	@Rule
@@ -18,21 +18,21 @@ public class _UserConfigurationTest {
 	@Before
 	public void setup() {
 		path = new File(tempDir.getRoot(), "testfile");
-		saveFile = new UserConfiguration();
+		userConfiguration = new UserConfiguration();
 	}
 
 	@Test
 	public void shouldHaveDefaults() {
-		assertEquals("starting balance", UserConfiguration.DEFAULT_STARTING_BALANCE, saveFile.startingBalance);
-		assertEquals("starting cost basis", UserConfiguration.DEFAULT_STARTING_COST_BASIS, saveFile.startingCostBasis);
-		assertEquals("yearly spending", UserConfiguration.DEFAULT_YEARLY_SPENDING, saveFile.yearlySpending);
+		assertEquals("starting balance", UserConfiguration.DEFAULT_STARTING_BALANCE, userConfiguration.startingBalance);
+		assertEquals("starting cost basis", UserConfiguration.DEFAULT_STARTING_COST_BASIS, userConfiguration.startingCostBasis);
+		assertEquals("yearly spending", UserConfiguration.DEFAULT_YEARLY_SPENDING, userConfiguration.yearlySpending);
 	}
 
 	@Test
 	public void lastSavedPath() throws IOException {
-		assertNull("should not have value before save() called", saveFile.lastSavedPathOrNullIfNeverSaved());
+		assertNull("should not have value before save() called", userConfiguration.lastSavedPathOrNullIfNeverSaved());
 		doSave();
-		assertEquals("file path", path, saveFile.lastSavedPathOrNullIfNeverSaved());
+		assertEquals("file path", path, userConfiguration.lastSavedPathOrNullIfNeverSaved());
 	}
 
 	@Test
@@ -44,7 +44,7 @@ public class _UserConfigurationTest {
 			fail("expected IOException");
 		}
 		catch (IOException e) {
-			assertNull("should not have lastSavedTo path", saveFile.lastSavedPathOrNullIfNeverSaved());
+			assertNull("should not have lastSavedTo path", userConfiguration.lastSavedPathOrNullIfNeverSaved());
 		}
 		finally {
 			path.setWritable(true);
@@ -91,11 +91,11 @@ public class _UserConfigurationTest {
 	}
 
 	private void doSave(UserEnteredDollars startingBalance, UserEnteredDollars costBasis, UserEnteredDollars yearlySpending) throws IOException {
-		saveFile.startingBalance = startingBalance;
-		saveFile.startingCostBasis = costBasis;
-		saveFile.yearlySpending = yearlySpending;
+		userConfiguration.startingBalance = startingBalance;
+		userConfiguration.startingCostBasis = costBasis;
+		userConfiguration.yearlySpending = yearlySpending;
 
-		saveFile.save(path);
+		userConfiguration.save(path);
 	}
 
 	private void assertFileMatches(String expectedStartingBalance, String expectedCostBasis, String expectedYearlySpending) throws IOException {

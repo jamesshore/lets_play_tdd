@@ -10,9 +10,9 @@ public class ConfigurationPanel extends JPanel {
 	private ApplicationModel applicationModel;
 	private UserConfiguration userConfiguration;
 
-	public ConfigurationPanel(ApplicationModel applicationModel, UserConfiguration configuration) {
+	public ConfigurationPanel(ApplicationModel applicationModel) {
 		this.applicationModel = applicationModel;
-		this.userConfiguration = configuration;
+		this.userConfiguration = applicationModel.userConfiguration();
 		addComponents();
 	}
 
@@ -51,10 +51,11 @@ public class ConfigurationPanel extends JPanel {
 	}
 
 	private DollarsTextField yearlySpendingField() {
-		final DollarsTextField field = new DollarsTextField(applicationModel.yearlySpending());
+		final DollarsTextField field = new DollarsTextField(userConfiguration.yearlySpending);
 		field.addTextChangeListener(new ChangeListener() {
 			public void textChanged() {
-				applicationModel.setYearlySpending(field.getDollars());
+				userConfiguration.yearlySpending = field.getDollars();
+				applicationModel.configurationUpdated();
 			}
 		});
 		return field;
