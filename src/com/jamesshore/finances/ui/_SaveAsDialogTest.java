@@ -61,7 +61,7 @@ public class _SaveAsDialogTest {
 	}
 
 	private SaveAsDialog createExceptionThrowingSaveAsDialog(Frame frame) {
-		final ApplicationModel exceptionThrower = new __ApplicationModelSpy() {
+		final ApplicationModel exceptionThrower = new ApplicationModel() {
 			@Override
 			public void save(File saveFile) throws IOException {
 				throw new IOException("generic exception");

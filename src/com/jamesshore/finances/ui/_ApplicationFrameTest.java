@@ -11,7 +11,6 @@ import org.junit.*;
 public class _ApplicationFrameTest {
 
 	private ApplicationFrame frame;
-	private __ApplicationModelSpy mockModel;
 	private JMenuBar menuBar;
 	private JMenu fileMenu;
 	private JMenuItem newMenuItem;
@@ -20,8 +19,7 @@ public class _ApplicationFrameTest {
 
 	@Before
 	public void setup() throws Exception {
-		mockModel = new __ApplicationModelSpy();
-		frame = new ApplicationFrame(mockModel);
+		frame = new ApplicationFrame(new ApplicationModel());
 		menuBar = frame.getJMenuBar();
 		fileMenu = menuBar.getMenu(0);
 		newMenuItem = fileMenu.getItem(0);
