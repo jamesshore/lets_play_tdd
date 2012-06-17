@@ -1,3 +1,8 @@
+ConfigurationPanel constructor should take just one model. EITHER ApplicationModel OR UserConfiguration
+- use Observer pattern between ApplicationModel & UserConfiguration?
+  (or take simpler way of having ConfigurationPanel call method on ApplicationModel?) 
+
+
 == Finish basic saving ==
 
 Create smoke test to make sure TESTING_ONLY variable isn't flipped in production?

@@ -40,10 +40,11 @@ public class ConfigurationPanel extends JPanel {
 	}
 
 	private DollarsTextField costBasisField() {
-		final DollarsTextField field = new DollarsTextField(applicationModel.startingCostBasis());
+		final DollarsTextField field = new DollarsTextField(userConfiguration.startingCostBasis);
 		field.addTextChangeListener(new ChangeListener() {
 			public void textChanged() {
-				applicationModel.setStartingCostBasis(field.getDollars());
+				userConfiguration.startingCostBasis = field.getDollars();
+				applicationModel.configurationUpdated();
 			}
 		});
 		return field;

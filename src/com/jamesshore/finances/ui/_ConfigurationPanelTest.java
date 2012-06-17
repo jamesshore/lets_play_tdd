@@ -5,12 +5,14 @@ import java.awt.*;
 import javax.swing.*;
 import net.miginfocom.swing.*;
 import org.junit.*;
+import com.jamesshore.finances.persistence.*;
 import com.jamesshore.finances.values.*;
 
 public class _ConfigurationPanelTest {
 
 	private ConfigurationPanel panel;
 	private ApplicationModel model;
+	private UserConfiguration userConfiguration;
 
 	private DollarsTextField startingBalanceField() {
 		return (DollarsTextField)panel.getComponent(1);
@@ -27,7 +29,8 @@ public class _ConfigurationPanelTest {
 	@Before
 	public void setUp() {
 		model = new ApplicationModel();
-		panel = new ConfigurationPanel(model, model.userConfiguration());
+		userConfiguration = model.userConfiguration();
+		panel = new ConfigurationPanel(model, userConfiguration);
 	}
 
 	@Test
@@ -53,9 +56,9 @@ public class _ConfigurationPanelTest {
 
 	@Test
 	public void fieldsInitializeToModelValue() {
-		assertEquals("starting balance field text", model.startingBalance(), startingBalanceField().getDollars());
-		assertEquals("cost basis field text", model.startingCostBasis(), costBasisField().getDollars());
-		assertEquals("yearly spending field text", model.yearlySpending(), yearlySpendingField().getDollars());
+		assertEquals("starting balance field text", userConfiguration.startingBalance, startingBalanceField().getDollars());
+		assertEquals("cost basis field text", userConfiguration.startingCostBasis, costBasisField().getDollars());
+		assertEquals("yearly spending field text", userConfiguration.yearlySpending, yearlySpendingField().getDollars());
 	}
 
 	@Test
@@ -74,7 +77,8 @@ public class _ConfigurationPanelTest {
 		panel = new ConfigurationPanel(mockModel, mockModel.userConfiguration());
 
 		costBasisField().setText("670");
-		assertEquals("applicationModel should be updated", new ValidDollars(670), mockModel.setStartingCostBasisCalledWith);
+		assertEquals("user configuration should be updated", new ValidDollars(670), mockModel.userConfiguration().startingCostBasis);
+		assertTrue("applicationModel should be updated", mockModel.configurationUpdatedCalled);
 	}
 
 	@Test

@@ -39,26 +39,8 @@ public class ApplicationModel {
 	}
 
 	// TODO: Remove these 6 getters and setters?
-	public UserEnteredDollars startingBalance() {
-		return configuration.startingBalance;
-	}
-
-	public UserEnteredDollars startingCostBasis() {
-		return configuration.startingCostBasis;
-	}
-
 	public UserEnteredDollars yearlySpending() {
 		return configuration.yearlySpending;
-	}
-
-	public void setStartingBalance(UserEnteredDollars startingBalance) {
-		configuration.startingBalance = startingBalance;
-		configurationUpdated();
-	}
-
-	public void setStartingCostBasis(UserEnteredDollars startingCostBasis) {
-		configuration.startingCostBasis = startingCostBasis;
-		configurationUpdated();
 	}
 
 	public void setYearlySpending(UserEnteredDollars yearlySpending) {
