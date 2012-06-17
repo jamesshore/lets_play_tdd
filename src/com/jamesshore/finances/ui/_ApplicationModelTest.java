@@ -60,4 +60,11 @@ public class _ApplicationModelTest {
 		assertEquals("configuration save file", expectedFile, configuration.lastSavedPathOrNullIfNeverSaved());
 	}
 
+	@Test
+	public void lastSavedPathOrNullIfNeverSaved() throws IOException {
+		assertNull("should be null before first save", model.lastSavedPathOrNullIfNeverSaved());
+		model.save(new File("blargh"));
+		assertEquals("last save path", new File("blargh"), model.lastSavedPathOrNullIfNeverSaved());
+	}
+
 }

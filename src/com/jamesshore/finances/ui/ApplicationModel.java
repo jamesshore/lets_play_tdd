@@ -45,4 +45,8 @@ public class ApplicationModel {
 	public void save(File path) throws IOException {
 		configuration.save(path);
 	}
+
+	public File lastSavedPathOrNullIfNeverSaved() {
+		return configuration.lastSavedPathOrNullIfNeverSaved();
+	}
 }

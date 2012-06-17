@@ -5,14 +5,21 @@ import java.awt.*;
 import java.io.*;
 import javax.swing.*;
 import org.junit.*;
+import com.jamesshore.finances.persistence.*;
 
 public class _SaveAsDialogTest {
 
-	private __ApplicationModelSpy mockModel = new __ApplicationModelSpy();
-	private SaveAsDialog dialog = new SaveAsDialog(null, mockModel);
+	private ApplicationModel model = new ApplicationModel();
+	private SaveAsDialog dialog = new SaveAsDialog(null, model);
+
+	@Before
+	public void setup() {
+		UserConfiguration.STUB_OUT_FILE_SYSTEM_FOR_TESTING_ONLY = true;
+	}
 
 	@After
 	public void teardown() {
+		UserConfiguration.STUB_OUT_FILE_SYSTEM_FOR_TESTING_ONLY = false;
 		dialog.dispose();
 	}
 
@@ -25,13 +32,13 @@ public class _SaveAsDialogTest {
 	@Test
 	public void saveAsDialogShouldTellApplicationModelToSaveWhenSaveButtonPushed() {
 		doSave(dialog, "/example", "filename");
-		assertEquals("applicationModel should be told to save", new File("/example/filename"), mockModel.saveCalledWith);
+		assertEquals("applicationModel should be told to save", new File("/example/filename"), model.lastSavedPathOrNullIfNeverSaved());
 	}
 
 	@Test
 	public void saveAsDialogShouldDoNothingWhenCancelButtonPushed() {
 		doSave(dialog, null, null);
-		assertNull("applicationModel should not have been told to save", mockModel.saveCalledWith);
+		assertNull("applicationModel should not have been told to save", model.lastSavedPathOrNullIfNeverSaved());
 	}
 
 	@Test

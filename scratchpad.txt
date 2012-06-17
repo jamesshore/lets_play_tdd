@@ -1,13 +1,11 @@
-ConfigurationPanel constructor should take just one model. EITHER ApplicationModel OR UserConfiguration
-- use Observer pattern between ApplicationModel & UserConfiguration?
-  (or take simpler way of having ConfigurationPanel call method on ApplicationModel?) 
-
+Use Observer pattern between ApplicationModel & UserConfiguration?
+--> Change ConfigurationPanel to take UserConfiguration rather than ApplicationModel (it won't need the latter)
 
 == Finish basic saving ==
 
 Create smoke test to make sure TESTING_ONLY variable isn't flipped in production?
 
-Handle SaveFile stub-out-file-system cheat more generically (not just in ApplicationModelTest)
+Handle SaveFile stub-out-file-system cheat more generically (duplicated between ApplicationModelTest & SaveAsDialogTest)
 
 Consider eliminating __ApplicationModelSpy entirely
 
