@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 import java.io.*;
 import org.junit.*;
 import org.junit.rules.*;
+import com.jamesshore.finances.util.*;
 import com.jamesshore.finances.values.*;
 
 public class _UserConfigurationTest {
@@ -23,9 +24,52 @@ public class _UserConfigurationTest {
 
 	@Test
 	public void shouldHaveDefaults() {
-		assertEquals("starting balance", UserConfiguration.DEFAULT_STARTING_BALANCE, userConfiguration.startingBalance);
-		assertEquals("starting cost basis", UserConfiguration.DEFAULT_STARTING_COST_BASIS, userConfiguration.startingCostBasis);
-		assertEquals("yearly spending", UserConfiguration.DEFAULT_YEARLY_SPENDING, userConfiguration.yearlySpending);
+		assertEquals("starting balance", UserConfiguration.DEFAULT_STARTING_BALANCE, userConfiguration.getStartingBalance());
+		assertEquals("starting cost basis", UserConfiguration.DEFAULT_STARTING_COST_BASIS, userConfiguration.getStartingCostBasis());
+		assertEquals("yearly spending", UserConfiguration.DEFAULT_YEARLY_SPENDING, userConfiguration.getYearlySpending());
+	}
+
+	class TestObserver implements UserConfiguration.Observer {
+		public boolean updateTriggered = false;
+
+		@Override
+		public void configurationUpdated() {
+			updateTriggered = true;
+		}
+	}
+
+	@Test(expected = RequireException.class)
+	public void mayBeObservedButOnlyByOneObserverAtATime() {
+		TestObserver observer = new TestObserver();
+		userConfiguration.setObserver(observer);
+		userConfiguration.setObserver(observer);
+	}
+
+	@Test
+	public void observerNotifiedWhenStartingBalanceChanges() {
+		TestObserver observer = new TestObserver();
+
+		userConfiguration.setObserver(observer);
+		userConfiguration.setStartingBalance(new UserEnteredDollars("333"));
+		assertTrue("observer should be notified", observer.updateTriggered);
+	}
+
+	@Test
+	public void observerNotifiedWhenCostBasisChanges() {
+		TestObserver observer = new TestObserver();
+
+		userConfiguration.setObserver(observer);
+		userConfiguration.setStartingCostBasis(new UserEnteredDollars("333"));
+		assertTrue("observer should be notified", observer.updateTriggered);
+	}
+
+	@Test
+	public void observerNotifiedWhenYearlySpendingChanges() {
+		TestObserver observer = new TestObserver();
+
+		userConfiguration.setObserver(observer);
+		userConfiguration.setYearlySpending(new UserEnteredDollars("333"));
+		assertTrue("observer should be notified", observer.updateTriggered);
 	}
 
 	@Test
@@ -91,9 +135,9 @@ public class _UserConfigurationTest {
 	}
 
 	private void doSave(UserEnteredDollars startingBalance, UserEnteredDollars costBasis, UserEnteredDollars yearlySpending) throws IOException {
-		userConfiguration.startingBalance = startingBalance;
-		userConfiguration.startingCostBasis = costBasis;
-		userConfiguration.yearlySpending = yearlySpending;
+		userConfiguration.setStartingBalance(startingBalance);
+		userConfiguration.setStartingCostBasis(costBasis);
+		userConfiguration.setYearlySpending(yearlySpending);
 
 		userConfiguration.save(path);
 	}

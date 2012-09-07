@@ -29,10 +29,10 @@ public class ConfigurationPanel extends JPanel {
 	}
 
 	public DollarsTextField startingBalanceField() {
-		final DollarsTextField field = new DollarsTextField(userConfiguration.startingBalance);
+		final DollarsTextField field = new DollarsTextField(userConfiguration.getStartingBalance());
 		field.addTextChangeListener(new ChangeListener() {
 			public void textChanged() {
-				userConfiguration.startingBalance = field.getDollars();
+				userConfiguration.setStartingBalance(field.getDollars());
 				applicationModel.configurationUpdated();
 			}
 		});
@@ -40,10 +40,10 @@ public class ConfigurationPanel extends JPanel {
 	}
 
 	private DollarsTextField costBasisField() {
-		final DollarsTextField field = new DollarsTextField(userConfiguration.startingCostBasis);
+		final DollarsTextField field = new DollarsTextField(userConfiguration.getStartingCostBasis());
 		field.addTextChangeListener(new ChangeListener() {
 			public void textChanged() {
-				userConfiguration.startingCostBasis = field.getDollars();
+				userConfiguration.setStartingCostBasis(field.getDollars());
 				applicationModel.configurationUpdated();
 			}
 		});
@@ -51,10 +51,10 @@ public class ConfigurationPanel extends JPanel {
 	}
 
 	private DollarsTextField yearlySpendingField() {
-		final DollarsTextField field = new DollarsTextField(userConfiguration.yearlySpending);
+		final DollarsTextField field = new DollarsTextField(userConfiguration.getYearlySpending());
 		field.addTextChangeListener(new ChangeListener() {
 			public void textChanged() {
-				userConfiguration.yearlySpending = field.getDollars();
+				userConfiguration.setYearlySpending(field.getDollars());
 				applicationModel.configurationUpdated();
 			}
 		});

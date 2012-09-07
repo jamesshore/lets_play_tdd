@@ -47,8 +47,7 @@ public class _ApplicationModelTest {
 
 	@Test
 	public void configurationUpdated_ResultsInStockMarketTableModelChanging() {
-		configuration.yearlySpending = new UserEnteredDollars("423");
-		model.configurationUpdated();
+		configuration.setYearlySpending(new UserEnteredDollars("423"));
 		assertEquals("stock market table model", new ValidDollars(423), model.stockMarketTableModel().yearlySpending());
 	}
 
