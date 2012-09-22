@@ -1,7 +1,3 @@
-Use Observer pattern between ApplicationModel & UserConfiguration?
--- Implement our own observers?
---> Change ConfigurationPanel to take UserConfiguration rather than ApplicationModel (it won't need the latter)
-
 == Finish basic saving ==
 
 Create smoke test to make sure TESTING_ONLY variable isn't flipped in production?

@@ -11,7 +11,6 @@ import com.jamesshore.finances.values.*;
 public class _ConfigurationPanelTest {
 
 	private ConfigurationPanel panel;
-	private ApplicationModel model;
 	private UserConfiguration userConfiguration;
 
 	private DollarsTextField startingBalanceField() {
@@ -28,9 +27,9 @@ public class _ConfigurationPanelTest {
 
 	@Before
 	public void setUp() {
-		model = new ApplicationModel();
+		ApplicationModel model = new ApplicationModel();
 		userConfiguration = model.userConfiguration();
-		panel = new ConfigurationPanel(model);
+		panel = new ConfigurationPanel(userConfiguration);
 	}
 
 	@Test
@@ -63,32 +62,20 @@ public class _ConfigurationPanelTest {
 
 	@Test
 	public void startingBalanceFieldUpdatesModel() {
-		__ApplicationModelSpy mockModel = new __ApplicationModelSpy();
-		panel = new ConfigurationPanel(mockModel);
-
 		startingBalanceField().setText("668");
-		assertEquals("user configuration should be updated", new ValidDollars(668), mockModel.userConfiguration().getStartingBalance());
-		assertTrue("applicationModel should be updated", mockModel.configurationUpdatedCalled);
+		assertEquals("user configuration should be updated", new ValidDollars(668), userConfiguration.getStartingBalance());
 	}
 
 	@Test
 	public void costBasisFieldUpdatesModel() {
-		__ApplicationModelSpy mockModel = new __ApplicationModelSpy();
-		panel = new ConfigurationPanel(mockModel);
-
 		costBasisField().setText("670");
-		assertEquals("user configuration should be updated", new ValidDollars(670), mockModel.userConfiguration().getStartingCostBasis());
-		assertTrue("applicationModel should be updated", mockModel.configurationUpdatedCalled);
+		assertEquals("user configuration should be updated", new ValidDollars(670), userConfiguration.getStartingCostBasis());
 	}
 
 	@Test
 	public void yearlySpendingFieldUpdatesModel() {
-		__ApplicationModelSpy mockModel = new __ApplicationModelSpy();
-		panel = new ConfigurationPanel(mockModel);
-
 		yearlySpendingField().setText("672");
-		assertEquals("user configuration should be updated", new ValidDollars(672), mockModel.userConfiguration().getYearlySpending());
-		assertTrue("applicationModel should be updated", mockModel.configurationUpdatedCalled);
+		assertEquals("user configuration should be updated", new ValidDollars(672), userConfiguration.getYearlySpending());
 	}
 
 }

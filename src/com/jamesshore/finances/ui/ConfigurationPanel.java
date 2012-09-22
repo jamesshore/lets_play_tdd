@@ -7,12 +7,10 @@ import com.jamesshore.finances.ui.DollarsTextField.ChangeListener;
 
 public class ConfigurationPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
-	private ApplicationModel applicationModel;
 	private UserConfiguration userConfiguration;
 
-	public ConfigurationPanel(ApplicationModel applicationModel) {
-		this.applicationModel = applicationModel;
-		this.userConfiguration = applicationModel.userConfiguration();
+	public ConfigurationPanel(UserConfiguration userConfiguration) {
+		this.userConfiguration = userConfiguration;
 		addComponents();
 	}
 
@@ -33,7 +31,6 @@ public class ConfigurationPanel extends JPanel {
 		field.addTextChangeListener(new ChangeListener() {
 			public void textChanged() {
 				userConfiguration.setStartingBalance(field.getDollars());
-				applicationModel.configurationUpdated();
 			}
 		});
 		return field;
@@ -44,7 +41,6 @@ public class ConfigurationPanel extends JPanel {
 		field.addTextChangeListener(new ChangeListener() {
 			public void textChanged() {
 				userConfiguration.setStartingCostBasis(field.getDollars());
-				applicationModel.configurationUpdated();
 			}
 		});
 		return field;
@@ -55,7 +51,6 @@ public class ConfigurationPanel extends JPanel {
 		field.addTextChangeListener(new ChangeListener() {
 			public void textChanged() {
 				userConfiguration.setYearlySpending(field.getDollars());
-				applicationModel.configurationUpdated();
 			}
 		});
 		return field;
