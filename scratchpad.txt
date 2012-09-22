@@ -4,8 +4,6 @@ Create smoke test to make sure TESTING_ONLY variable isn't flipped in production
 
 Handle SaveFile stub-out-file-system cheat more generically (duplicated between ApplicationModelTest & SaveAsDialogTest)
 
-Consider eliminating __ApplicationModelSpy entirely
-
 
 == Special cases / polish ==
 

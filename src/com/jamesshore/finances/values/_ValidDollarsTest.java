@@ -110,6 +110,17 @@ public class _ValidDollarsTest {
 	}
 
 	@Test
+	public void doesNotRenderNegativeZero() {
+		__RenderTargetStub target = new __RenderTargetStub();
+		ValidDollars negativeZero = new ValidDollars(-0.25);
+		negativeZero.render(new Resources(), target);
+		assertEquals("too small to be red", Color.BLACK, target.foregroundColor);
+		assertEquals("too small to have parentheses", "$0", negativeZero.toString());
+	}
+
+	// TODO: handle case where -0.50, -0.51, -0.49
+
+	@Test
 	public void rendersZeroAndPositiveInBlack() {
 		__RenderTargetStub target = new __RenderTargetStub();
 		zeroDollars.render(new Resources(), target);

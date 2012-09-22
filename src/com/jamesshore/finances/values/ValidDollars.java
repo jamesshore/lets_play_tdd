@@ -65,12 +65,12 @@ public class ValidDollars extends Dollars {
 		target.setText(this.toString());
 		target.setIcon(null, null);
 		target.setForegroundColor(Color.BLACK);
-		if (amount < 0) target.setForegroundColor(Color.RED);
+		if (amount <= -1) target.setForegroundColor(Color.RED);
 	}
 
 	@Override
 	public String toString() {
-		if (isNegative()) {
+		if (amount <= -1) { // TODO: resolve duplication with render()
 			return "(" + toAbsoluteValueString() + ")";
 		}
 		else {
