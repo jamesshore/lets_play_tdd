@@ -9,6 +9,8 @@ Consider eliminating __ApplicationModelSpy entirely
 
 == Special cases / polish ==
 
+Exploratory testing discovery: negative zeros in UI (enter $10 starting balance, $0 cost basis, $1 yearly spending)
+
 Take a second look at IOExceptions -- are there special cases to handle?
 
 Deal with FileDialog returning invalid directory/filename. (It can happen, according to the Java docs)
